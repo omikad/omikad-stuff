@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace ProblemSets
 {
@@ -34,16 +35,18 @@ namespace ProblemSets
 
 			const ulong maxn = 100000000000;
 
-//			const ulong maxprime = 100000000;	// S = ???
-//			const ulong maxprime = 10000000;	// S = ???
-//			const ulong maxprime = 1000000;		// S = 31388381276205144, time =    81 390
-			const ulong maxprime = 100000;		// S =  3821999778506561, time =     1 100
-//			const ulong maxprime = 10000;		// S =   489099997157400, time =        21
-//			const ulong maxprime = 1000;		// S =    63199999956190
-//			const ulong maxprime = 300;			// S =    23399999996126
-//			const ulong maxprime = 100;   		// S =     8299999999481  
+//			const ulong maxprime = 100000000;	// S = 2304215802083466198, time =  2 062 029
+			const ulong maxprime = 10000000;	// S =  265739204055448802, time =     36 430
+//			const ulong maxprime = 1000000;		// S =   31388381276205144, time =        919
+//			const ulong maxprime = 100000;		// S =    3821999778506561, time =         49
+//			const ulong maxprime = 10000;		// S =     489099997157400, time =         10
+//			const ulong maxprime = 1000;		// S =      63199999956190
+//			const ulong maxprime = 300;			// S =      23399999996126
+//			const ulong maxprime = 100;   		// S =       8299999999481  
 
 			var sieve = CreateSieve(maxprime);
+			var primes = ConvertSieveToPrimes(sieve);
+			var invertedPrimeFactorsArray = new ulong[(int) Math.Sqrt(maxprime) + 1];
 
 //			for (ulong num = 0; num < (ulong) primeFactorsTable.Length; num++)
 //				Console.WriteLine("{0}: {1}", num, string.Join(", ", primeFactorsTable[num]));
@@ -52,44 +55,40 @@ namespace ProblemSets
 
 			var S = 0ul;
 
-			S += (1ul + (maxn - 1) / 2) * 2; // For prime = 2 & i = 1
-
-			for (ulong prime = 3; prime < (ulong)sieve.Length; prime++)
+			foreach (var prime in primes)
 			{
-				if (!sieve[prime])
+				// cnt будет равно количеству подходящих остатков
+				var prime1 = prime - 1;
+				var cnt = GCD15(prime1);
+
+				if (cnt == 1)
 				{
-					// cnt будет равно количеству подходящих остатков
-					var prime1 = prime - 1;
-					var cnt = GCD15(prime1);
+					var inverse = ModularInverse(15, prime1);
+					var i = ModularPow(prime1, inverse, prime);
 
-					if (cnt == 1)
-					{
-						var inverse = ModularInverse(15, prime1);
-						var i = ModularPow(prime1, inverse, prime);
+					S += (1ul + (maxn - i) / prime) * prime;
 
-						S += (1ul + (maxn - i) / prime) * prime;
+					continue;
+				}
 
-						continue;
-					}
+				if (((prime1 / cnt) & 1) == 1)
+					continue;
 
-					if (((prime1 / cnt) & 1) == 1)
-						continue;
+				ulong invertedPrimeFactorsLength;
+				FindInvertedPrimeFactors(prime1, primes, invertedPrimeFactorsArray, out invertedPrimeFactorsLength);
 
-					var invertedFactors = InvertedPrimeFactors(prime1, sieve);
+				var primitiveRoot = FindPrimitiveRootForPrime(prime, invertedPrimeFactorsArray, invertedPrimeFactorsLength);
 
-					var primitiveRoot = FindPrimitiveRootForPrime(prime, invertedFactors);
+				var powerdelta = (prime1 / cnt) / 2;
+				var power = powerdelta;
 
-					var powerdelta = (prime1 / cnt) / 2;
-					var power = powerdelta;
+				for (ulong k = 0; k < cnt; k++)
+				{
+					var solution = ModularPow(primitiveRoot, power, prime);
 
-					for (ulong k = 0; k < cnt; k++)
-					{
-						var solution = ModularPow(primitiveRoot, power, prime);
+					S += (1ul + (maxn - solution) / prime) * prime;
 
-						S += (1ul + (maxn - solution) / prime) * prime;
-
-						power += powerdelta * 2;
-					}
+					power += powerdelta * 2;
 				}
 			}
 
@@ -125,7 +124,7 @@ namespace ProblemSets
 
 			return x;
 		}
-		
+
 		private static ulong GCD15(ulong x)
 		{
 			if (x % 15 == 0) return 15;
@@ -158,14 +157,14 @@ namespace ProblemSets
 			}
 		}
 
-		private static ulong FindPrimitiveRootForPrime(ulong prime, List<ulong> invertedFactors)
+		private static ulong FindPrimitiveRootForPrime(ulong prime, ulong[] invertedFactors, ulong invertedFactorsLength)
 		{
 			for (ulong gen = 2; gen < prime; gen++)
 			{
 				var found = true;
-				foreach (var power in invertedFactors)
+				for (ulong i = 0; i < invertedFactorsLength; i++)
 				{
-					var test = ModularPow(gen, power, prime);
+					var test = ModularPow(gen, invertedFactors[i], prime);
 					if (test == 1)
 					{
 						found = false;
@@ -196,16 +195,50 @@ namespace ProblemSets
 			return sieve;
 		}
 
-		private static List<ulong> InvertedPrimeFactors(ulong x, bool[] sieve)
+		private static ulong[] ConvertSieveToPrimes(bool[] sieve)
 		{
-			var result = new List<ulong>();
-
-			for (ulong i = 2; i < x / 2 + 1; i++)
-				if (!sieve[i])
-					if (x % i == 0)
-						result.Add(x / i);
-
+			var cnt = sieve.Count(p => !p);
+			var result = new ulong[cnt];
+			ulong i = 0;
+			for (ulong j = 0; j < (ulong) sieve.Length; j++)
+				if (!sieve[j])
+				{
+					result[i] = j;
+					i++;
+				}
 			return result;
+		}
+
+		private static void FindInvertedPrimeFactors(ulong x, IEnumerable<ulong> primes, ulong[] array, out ulong length)
+		{
+			ulong len = 0;
+			ulong mult = 1;
+			foreach (var prime in primes)
+			{
+				if (prime >= x / 2 + 1) break;
+				if (x % prime == 0)
+				{
+					array[len] = (x * mult) / prime;
+					len++;
+					
+					x = x / prime;
+					mult = mult * prime;
+
+					if (x % prime == 0)
+					{
+						x = x / prime;
+						mult = mult * prime;
+
+						// Почему это не работает ?
+//						if (x % prime == 0)
+//						{
+//							x = x / prime;
+//							mult = mult * prime;
+//						}
+					}
+				}
+			}
+			length = len;
 		}
 	}
 }
