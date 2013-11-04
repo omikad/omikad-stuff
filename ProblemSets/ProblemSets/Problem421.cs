@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 namespace ProblemSets
 {
@@ -29,8 +28,8 @@ namespace ProblemSets
 //			const ulong maxprime = 300;			// S =      23399999996126
 //			const ulong maxprime = 100;   		// S =       8299999999481  
 
-			var sieve = CreateSieve(maxprime);
-			var primes = ConvertSieveToPrimes(sieve);
+			var sieve = MyMath.CreatePrimesSieve(maxprime);
+			var primes = MyMath.ConvertSieveToPrimes(sieve);
 			var invertedPrimeFactorsArray = new ulong[(int) Math.Sqrt(maxprime) + 1];
 
 //			for (ulong num = 0; num < (ulong) primeFactorsTable.Length; num++)
@@ -161,37 +160,6 @@ namespace ProblemSets
 			}
 
 			throw new InvalidOperationException("No generator found for prime = " + prime);
-		}
-
-		private static bool[] CreateSieve(ulong maxprime)
-		{
-			var sieve = new bool[maxprime];
-
-			sieve[0] = true;
-			sieve[1] = true;
-
-			for (var i = 2; i < sieve.Length; i++)
-			{
-				if (sieve[i]) continue;
-
-				for (var j = 2 * i; j < sieve.Length; j += i)
-					sieve[j] = true;
-			}
-			return sieve;
-		}
-
-		private static ulong[] ConvertSieveToPrimes(bool[] sieve)
-		{
-			var cnt = sieve.Count(p => !p);
-			var result = new ulong[cnt];
-			ulong i = 0;
-			for (ulong j = 0; j < (ulong) sieve.Length; j++)
-				if (!sieve[j])
-				{
-					result[i] = j;
-					i++;
-				}
-			return result;
 		}
 
 		private static void FindInvertedPrimeFactors(ulong x, IEnumerable<ulong> primes, ulong[] array, out ulong length)

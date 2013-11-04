@@ -35,6 +35,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,7 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AllyVally2.cs" />
+    <Compile Include="MyMath.cs" />
+    <Compile Include="Problem1.cs" />
+    <Compile Include="Problem10.cs" />
+    <Compile Include="Problem11.cs" />
+    <Compile Include="Problem12.cs" />
+    <Compile Include="Problem13.cs" />
+    <Compile Include="Problem23.cs" />
+    <Compile Include="Problem2.cs" />
+    <Compile Include="Problem4.cs" />
     <Compile Include="Problem421.cs" />
+    <Compile Include="Problem5.cs" />
+    <Compile Include="Problem6.cs" />
+    <Compile Include="Problem7.cs" />
+    <Compile Include="Problem8.cs" />
+    <Compile Include="Problem9.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
