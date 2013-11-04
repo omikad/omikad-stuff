@@ -38,22 +38,18 @@ namespace ProblemSets
 				for (var j = i; j < max; j += i)
 					sumDivisors[j] = sumDivisors[j] + i;
 
-//			for (ulong i = 0; i < 100; i++)
-//				Console.WriteLine("{0,5} ... {1,5}", i, sumDivisors[i]);
-
 			ulong result = 0;
 			for (ulong a = 2; a < max; a++)
 			{
 				var b = sumDivisors[a];
 				if (b < a && sumDivisors[b] == a)
-				{
 					result += a + b;
-					Console.WriteLine("{0,5} ~ {1,5}", a, b);
-				}
 			}
+
 			Console.WriteLine(result);
 
 			// 31626
+//			Console.WriteLine("{0,5} ~ {1,5}", a, b);
 		}
 	}
 }
