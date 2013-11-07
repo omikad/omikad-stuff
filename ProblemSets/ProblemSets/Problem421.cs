@@ -48,7 +48,7 @@ namespace ProblemSets
 				if (cnt == 1)
 				{
 					var inverse = ModularInverse(15, prime1);
-					var i = ModularPow(prime1, inverse, prime);
+					var i = MyMath.ModularPow(prime1, inverse, prime);
 
 					S += (1ul + (maxn - i) / prime) * prime;
 
@@ -68,7 +68,7 @@ namespace ProblemSets
 
 				for (ulong k = 0; k < cnt; k++)
 				{
-					var solution = ModularPow(primitiveRoot, power, prime);
+					var solution = MyMath.ModularPow(primitiveRoot, power, prime);
 
 					S += (1ul + (maxn - solution) / prime) * prime;
 
@@ -81,32 +81,7 @@ namespace ProblemSets
 
 		private static ulong ModularInverse(ulong a, ulong b)
 		{
-			return (ExtendedEuclid(a, b) % b);
-		}
-
-		private static ulong ExtendedEuclid(ulong a, ulong b)
-		{
-			ulong x = 1;
-			ulong lastx = 0;
-			ulong y = 0;
-			ulong lasty = 1;
-
-			while (b != 0)
-			{
-				var quotient = a / b;
-				var temp1 = x - quotient * y;
-				var temp2 = lastx - quotient * lasty;
-				var temp3 = a - quotient * b;
-
-				x = y;
-				lastx = lasty;
-				a = b;
-				y = temp1;
-				lasty = temp2;
-				b = temp3;
-			}
-
-			return x;
+			return (MyMath.ExtendedEuclidGcd(a, b) % b);
 		}
 
 		private static ulong GCD15(ulong x)
@@ -128,19 +103,6 @@ namespace ProblemSets
 			return x15;
 		}
 
-		private static ulong ModularPow(ulong a, ulong pow, ulong mod)
-		{
-			ulong y = 1;
-
-			while (true)
-			{
-				if ((pow & 1) != 0) y = (a * y) % mod;
-				pow = pow >> 1;
-				if (pow == 0) return y;
-				a = (a * a) % mod;
-			}
-		}
-
 		private static ulong FindPrimitiveRootForPrime(ulong prime, ulong[] invertedFactors, ulong invertedFactorsLength)
 		{
 			for (ulong gen = 2; gen < prime; gen++)
@@ -148,7 +110,7 @@ namespace ProblemSets
 				var found = true;
 				for (ulong i = 0; i < invertedFactorsLength; i++)
 				{
-					var test = ModularPow(gen, invertedFactors[i], prime);
+					var test = MyMath.ModularPow(gen, invertedFactors[i], prime);
 					if (test == 1)
 					{
 						found = false;

@@ -10,7 +10,7 @@ namespace ProblemSets
 			var primes = 0;
 			for (ulong i = 1;; i++)
 			{
-				if (IsPrime(i))
+				if (MyMath.IsPrime(i))
 				{
 					primes++;
 					if (primes == num)
@@ -22,14 +22,6 @@ namespace ProblemSets
 			}
 		}
 
-		private static bool IsPrime(ulong x)
-		{
-			for (ulong i = 2; i < Math.Sqrt(x) + 1; i++)
-			{
-				if (x % i == 0)
-					return false;
-			}
-			return true;
-		}
+
 	}
 }
