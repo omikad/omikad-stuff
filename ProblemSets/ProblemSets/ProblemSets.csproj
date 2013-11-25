@@ -33,6 +33,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Combinatorics">
+      <HintPath>packages\Combinatorics.1.0.3.2\lib\net40\Combinatorics.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -52,6 +58,10 @@
     <Compile Include="Problem13.cs" />
     <Compile Include="Problem14.cs" />
     <Compile Include="Problem15.cs" />
+    <Compile Include="Problem16.cs" />
+    <Compile Include="Problem17.cs" />
+    <Compile Include="Problem18.cs" />
+    <Compile Include="Problem20.cs" />
     <Compile Include="Problem21.cs" />
     <Compile Include="Problem23.cs" />
     <Compile Include="Problem2.cs" />
@@ -60,15 +70,44 @@
     <Compile Include="Problem421.cs" />
     <Compile Include="Problem43.cs" />
     <Compile Include="Problem5.cs" />
+    <Compile Include="Problem53.cs" />
     <Compile Include="Problem6.cs" />
+    <Compile Include="Problem63.cs" />
+    <Compile Include="Problem67.cs" />
     <Compile Include="Problem7.cs" />
+    <Compile Include="Problem74.cs" />
     <Compile Include="Problem8.cs" />
+    <Compile Include="Problem81.cs" />
+    <Compile Include="Problem82.cs" />
+    <Compile Include="Problem83.cs" />
     <Compile Include="Problem9.cs" />
+    <Compile Include="Problem92.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="triangle67.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="matrix81.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="matrix83.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="matrix82.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

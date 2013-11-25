@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace ProblemSets
 {
@@ -114,6 +115,64 @@ namespace ProblemSets
 				if (pow == 0) return y;
 				a = (a * a);
 			}
+		}
+
+		public static ulong ModularInverse(ulong a, ulong b)
+		{
+			return (ulong) ModInverse(new BigInteger(a), new BigInteger(b));
+		}
+
+		private static BigInteger ModInverse(BigInteger a, BigInteger b)
+		{
+			var dividend = a % b;
+			var divisor = b;
+
+			var last_x = BigInteger.One;
+			var curr_x = BigInteger.Zero;
+
+			while (divisor.Sign > 0)
+			{
+				var quotient = dividend / divisor;
+				var remainder = dividend % divisor;
+				if (remainder.Sign <= 0)
+					break;
+
+				var next_x = last_x - curr_x * quotient;
+				last_x = curr_x;
+				curr_x = next_x;
+
+				dividend = divisor;
+				divisor = remainder;
+			}
+
+//			if (divisor != BigInteger.One)
+//				throw new Exception("Numbers a and b are not relatively primes");
+
+			return (curr_x.Sign < 0 ? curr_x + b : curr_x);
+		}
+
+		public static int FillDivisors(ulong n, ulong[] divisors)
+		{
+			divisors[0] = 1;
+			divisors[1] = n;
+			var cnt = 2;
+			ulong i = 2;
+			while (i < Math.Sqrt(n))
+			{
+				if (n % i == 0)
+				{
+					divisors[cnt] = n / i;
+					divisors[cnt + 1] = i;
+					cnt += 2;
+				}
+				i++;
+			}
+			if (i * i == n)
+			{
+				divisors[cnt] = i;
+				cnt++;
+			}
+			return cnt;
 		}
 	}
 }
