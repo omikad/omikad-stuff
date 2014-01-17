@@ -13,7 +13,7 @@ namespace ProblemSets
 			try
 			{
 				var timer = Stopwatch.StartNew();
-				Problem254.Solve();
+				Problem108.Solve();
 				Console.WriteLine("Elapsed: " + timer.ElapsedMilliseconds);
 			}
 			catch (Exception ex)

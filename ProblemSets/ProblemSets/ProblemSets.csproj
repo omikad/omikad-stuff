@@ -36,9 +36,6 @@
     <Reference Include="Combinatorics">
       <HintPath>packages\Combinatorics.1.0.3.2\lib\net40\Combinatorics.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
@@ -53,6 +50,7 @@
     <Compile Include="MyMath.cs" />
     <Compile Include="Problem1.cs" />
     <Compile Include="Problem10.cs" />
+    <Compile Include="Problem108.cs" />
     <Compile Include="Problem11.cs" />
     <Compile Include="Problem12.cs" />
     <Compile Include="Problem13.cs" />
