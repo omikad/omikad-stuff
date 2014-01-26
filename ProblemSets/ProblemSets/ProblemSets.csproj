@@ -36,7 +36,11 @@
     <Reference Include="Combinatorics">
       <HintPath>packages\Combinatorics.1.0.3.2\lib\net40\Combinatorics.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq" />
@@ -46,44 +50,53 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllyVally2.cs" />
+    <Compile Include="ComputerScience\AllNearestSmallerValues.cs" />
+    <Compile Include="ComputerScience\CartesianTree.cs" />
+    <Compile Include="ComputerScience\Node.cs" />
+    <Compile Include="EnumerableHelper.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="Problems\PoolVolume.cs" />
+    <Compile Include="Problems\ProjEuler\Problem175.cs" />
+    <Compile Include="Problems\ProjEuler\Problem439.cs" />
+    <Compile Include="Problems\ProjEuler\Problem447.cs" />
+    <Compile Include="Problems\AllyVally2.cs" />
     <Compile Include="MyMath.cs" />
-    <Compile Include="Problem1.cs" />
-    <Compile Include="Problem10.cs" />
-    <Compile Include="Problem108.cs" />
-    <Compile Include="Problem11.cs" />
-    <Compile Include="Problem12.cs" />
-    <Compile Include="Problem13.cs" />
-    <Compile Include="Problem14.cs" />
-    <Compile Include="Problem15.cs" />
-    <Compile Include="Problem16.cs" />
-    <Compile Include="Problem17.cs" />
-    <Compile Include="Problem18.cs" />
-    <Compile Include="Problem20.cs" />
-    <Compile Include="Problem21.cs" />
-    <Compile Include="Problem23.cs" />
-    <Compile Include="Problem2.cs" />
-    <Compile Include="Problem254.cs" />
-    <Compile Include="Problem33.cs" />
-    <Compile Include="Problem4.cs" />
-    <Compile Include="Problem421.cs" />
-    <Compile Include="Problem43.cs" />
-    <Compile Include="Problem5.cs" />
-    <Compile Include="Problem53.cs" />
-    <Compile Include="Problem6.cs" />
-    <Compile Include="Problem63.cs" />
-    <Compile Include="Problem67.cs" />
-    <Compile Include="Problem7.cs" />
-    <Compile Include="Problem74.cs" />
-    <Compile Include="Problem8.cs" />
-    <Compile Include="Problem81.cs" />
-    <Compile Include="Problem82.cs" />
-    <Compile Include="Problem83.cs" />
-    <Compile Include="Problem9.cs" />
-    <Compile Include="Problem92.cs" />
+    <Compile Include="Problems\ProjEuler\Problem1.cs" />
+    <Compile Include="Problems\ProjEuler\Problem10.cs" />
+    <Compile Include="Problems\ProjEuler\Problem108.cs" />
+    <Compile Include="Problems\ProjEuler\Problem11.cs" />
+    <Compile Include="Problems\ProjEuler\Problem12.cs" />
+    <Compile Include="Problems\ProjEuler\Problem13.cs" />
+    <Compile Include="Problems\ProjEuler\Problem14.cs" />
+    <Compile Include="Problems\ProjEuler\Problem15.cs" />
+    <Compile Include="Problems\ProjEuler\Problem16.cs" />
+    <Compile Include="Problems\ProjEuler\Problem17.cs" />
+    <Compile Include="Problems\ProjEuler\Problem18.cs" />
+    <Compile Include="Problems\ProjEuler\Problem20.cs" />
+    <Compile Include="Problems\ProjEuler\Problem21.cs" />
+    <Compile Include="Problems\ProjEuler\Problem23.cs" />
+    <Compile Include="Problems\ProjEuler\Problem2.cs" />
+    <Compile Include="Problems\ProjEuler\Problem254.cs" />
+    <Compile Include="Problems\ProjEuler\Problem33.cs" />
+    <Compile Include="Problems\ProjEuler\Problem4.cs" />
+    <Compile Include="Problems\ProjEuler\Problem421.cs" />
+    <Compile Include="Problems\ProjEuler\Problem43.cs" />
+    <Compile Include="Problems\ProjEuler\Problem5.cs" />
+    <Compile Include="Problems\ProjEuler\Problem53.cs" />
+    <Compile Include="Problems\ProjEuler\Problem6.cs" />
+    <Compile Include="Problems\ProjEuler\Problem63.cs" />
+    <Compile Include="Problems\ProjEuler\Problem67.cs" />
+    <Compile Include="Problems\ProjEuler\Problem7.cs" />
+    <Compile Include="Problems\ProjEuler\Problem74.cs" />
+    <Compile Include="Problems\ProjEuler\Problem8.cs" />
+    <Compile Include="Problems\ProjEuler\Problem81.cs" />
+    <Compile Include="Problems\ProjEuler\Problem82.cs" />
+    <Compile Include="Problems\ProjEuler\Problem83.cs" />
+    <Compile Include="Problems\ProjEuler\Problem9.cs" />
+    <Compile Include="Problems\ProjEuler\Problem92.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Vata.cs" />
+    <Compile Include="ComputerScience\TreeTraversal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

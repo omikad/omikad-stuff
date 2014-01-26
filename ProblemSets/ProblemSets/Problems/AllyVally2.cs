@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProblemSets
+namespace ProblemSets.Problems
 {
 	/*
 	 У некоторого султана было два мудреца: Али-ибн-Вали и Вали-ибн-Али. Желая убедиться в их мудрости, султан призвал мудрецов к себе и сказал:
@@ -93,19 +93,6 @@ namespace ProblemSets
 			{
 				return string.Format("X = {0}, Y = {1}", X, Y);
 			}
-		}
-	}
-
-	public static class Helper
-	{
-		public static bool Uncertain<T>(this IEnumerable<T> seq)
-		{
-			return seq.Skip(1).Any();
-		}
-
-		public static bool Confident<T>(this IEnumerable<T> seq)
-		{
-			return seq.Count() == 1;
 		}
 	}
 }

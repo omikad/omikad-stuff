@@ -1,49 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ProblemSets
+namespace ProblemSets.ComputerScience
 {
-	public class Node
-	{
-		public Node(string value)
-		{
-			Value = value;
-			Children = new Node[0];
-		}
-
-		public string Value;
-		public Node[] Children;
-	}
- 
-	public class Vata
+	public class TreeTraversal
 	{
 		public static void Solve()
 		{
-			var root = new Node("root")
+			var root = new NodeString("root")
 				{
 					Children = new[]
 						{
-							new Node("5")
+							new NodeString("5")
 								{
 									Children = new[]
 										{
-											new Node("3")
+											new NodeString("3")
 												{
 													Children = new[]
 														{
-															new Node("1"),
-															new Node("2"),
+															new NodeString("1"),
+															new NodeString("2"),
 														}
 												},
-											new Node("4"),
+											new NodeString("4"),
 										}
 								},
-							new Node("8")
+							new NodeString("8")
 								{
 									Children = new[]
 										{
-											new Node("6"),
-											new Node("7"),
+											new NodeString("6"),
+											new NodeString("7"),
 										}
 								},
 						}
@@ -56,9 +44,9 @@ namespace ProblemSets
 			Console.WriteLine(string.Join(", ", BFS(root)));
 		}
 
-		private static IEnumerable<string> DFS(Node root)
+		private static IEnumerable<string> DFS(NodeString root)
 		{
-			var stack = new Stack<Node>();
+			var stack = new Stack<NodeString>();
 
 			stack.Push(root);
 
@@ -75,9 +63,9 @@ namespace ProblemSets
 			}
 		}
 
-		private static IEnumerable<string> BFS(Node root)
+		private static IEnumerable<string> BFS(NodeString root)
 		{
-			var queue = new Queue<Node>();
+			var queue = new Queue<NodeString>();
 
 			queue.Enqueue(root);
 
