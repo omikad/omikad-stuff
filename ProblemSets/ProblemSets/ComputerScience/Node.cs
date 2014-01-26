@@ -15,6 +15,17 @@ namespace ProblemSets.ComputerScience
 		public NodeString[] Children;
 	}
 
+	public class Node<T>
+	{
+		public Node(int value)
+		{
+			Value = value;
+		}
+
+		public int Value;
+		public Node<T>[] Children;
+	}
+
 	public class BinaryNode
 	{
 		public BinaryNode(int value)
