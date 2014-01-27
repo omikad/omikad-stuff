@@ -55,12 +55,13 @@
     <Compile Include="ComputerScience\Node.cs" />
     <Compile Include="EnumerableHelper.cs" />
     <Compile Include="Helper.cs" />
+    <Compile Include="Problems\FindLongestAnagram.cs" />
     <Compile Include="Problems\FindRootFromPairs.cs" />
     <Compile Include="Problems\PoolVolume.cs" />
     <Compile Include="Problems\ProjEuler\Problem175.cs" />
     <Compile Include="Problems\ProjEuler\Problem439.cs" />
     <Compile Include="Problems\ProjEuler\Problem447.cs" />
-    <Compile Include="Problems\AllyVally2.cs" />
+    <Compile Include="Problems\AllyVally.cs" />
     <Compile Include="MyMath.cs" />
     <Compile Include="Problems\ProjEuler\Problem1.cs" />
     <Compile Include="Problems\ProjEuler\Problem10.cs" />

@@ -25,14 +25,14 @@ namespace ProblemSets.Problems
 			Console.WriteLine(JsonConvert.SerializeObject(Solve(task), Formatting.Indented));
 		}
 
-		public int JustFindRoot(int[][] ints)
+		private static int JustFindRoot(int[][] ints)
 		{
 			var rights = new HashSet<int>(ints.Select(i => i[1]));
 			
 			return ints.First(i => !rights.Contains(i[0]))[0];
 		}
 
-		private Node<int> Solve(int[][] ints)
+		private static Node<int> Solve(int[][] ints)
 		{
 			var dict = new Dictionary<int, Node<int>>(); 
 

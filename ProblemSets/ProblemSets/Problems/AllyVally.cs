@@ -17,7 +17,7 @@ namespace ProblemSets.Problems
 И мудрецы сообщили пораженному царю задуманные им числа.
 	 */
 
-	public class AllyVally2
+	public class AllyVally
 	{
 		public static void Solve()
 		{

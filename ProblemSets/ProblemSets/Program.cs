@@ -14,7 +14,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<FindRootFromPairs>();
+				var runme = container.GetExportedValue<FindLongestAnagram>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
