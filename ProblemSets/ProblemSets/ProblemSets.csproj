@@ -96,6 +96,7 @@
     <Compile Include="Problems\ProjEuler\Problem83.cs" />
     <Compile Include="Problems\ProjEuler\Problem9.cs" />
     <Compile Include="Problems\ProjEuler\Problem92.cs" />
+    <Compile Include="Problems\SpiralNumbers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ComputerScience\TreeTraversal.cs" />

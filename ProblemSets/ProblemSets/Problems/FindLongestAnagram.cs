@@ -8,6 +8,8 @@ namespace ProblemSets.Problems
 	{
 		public void Go()
 		{
+			// TODO: Fix
+
 			Solve("rooooooooooooooooooooor");
 //			Solve("ABCD abbccbbaa iamai oselokoleso redrum & murder EFG xyzyx rooooor xyzyx");
 		}
@@ -60,8 +62,8 @@ namespace ProblemSets.Problems
 				Right = right;
 			}
 
-			public int Left;
-			public int Right;
+			public readonly int Left;
+			public readonly int Right;
 
 			public int Length { get { return Right - Left + 1; }}
 		}

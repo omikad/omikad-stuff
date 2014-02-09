@@ -2,7 +2,6 @@
 using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.Reflection;
-using ProblemSets.ComputerScience;
 using ProblemSets.Problems;
 
 namespace ProblemSets
