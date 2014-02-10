@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using ProblemSets.ComputerScience.DataTypes;
 
 namespace ProblemSets.ComputerScience
 {
@@ -21,10 +23,10 @@ namespace ProblemSets.ComputerScience
 														{
 															new NodeString("1"),
 															new NodeString("2"),
-														}
+														}.ToList()
 												},
 											new NodeString("4"),
-										}
+										}.ToList()
 								},
 							new NodeString("8")
 								{
@@ -32,9 +34,9 @@ namespace ProblemSets.ComputerScience
 										{
 											new NodeString("6"),
 											new NodeString("7"),
-										}
+										}.ToList()
 								},
-						}
+						}.ToList()
 				};
 
 			Console.WriteLine("DFS");

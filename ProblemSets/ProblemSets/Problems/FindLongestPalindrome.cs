@@ -4,45 +4,44 @@ using System.ComponentModel.Composition;
 namespace ProblemSets.Problems
 {
 	[Export]
-	public class FindLongestAnagram
+	public class FindLongestPalindrome
 	{
 		public void Go()
 		{
-			// TODO: Fix
-
-			Solve("rooooooooooooooooooooor");
-//			Solve("ABCD abbccbbaa iamai oselokoleso redrum & murder EFG xyzyx rooooor xyzyx");
+			SolveNaive("rooooooooooooooooooooor");
+			Console.WriteLine();
+			SolveNaive("ABCD abbccbbaa iamai oselokoleso redrum & murder EFG xyzyx rooooor xyzyx");
 		}
 
-		private static void Solve(string str)
+		private static void SolveNaive(string str)
 		{
 			Console.WriteLine(str);
 
 			for (var i = 1; i < str.Length; i++)
 			{
-				Anagram found = null;
+				Palindrome found = null;
 
 				if (str[i - 1] == str[i])
-					found = FindAnagram(str, i - 1, i);
+					found = FindPalindrome(str, i - 1, i);
 
 				if (i + 1 < str.Length && str[i - 1] == str[i + 1])
 				{
-					var another = FindAnagram(str, i - 1, i + 1);
+					var another = FindPalindrome(str, i - 1, i + 1);
 					if (found == null)
 						found = another;
 					else if (found.Length < another.Length)
 						found = another;
 				}
 
-				if (found != null && found.Length > 2)
-					i = found.Right - 1;
+//				if (found != null && found.Length > 2)
+//					i = found.Right - 1;
 
 				if (found != null)
 					Console.WriteLine(new { found.Left, found.Right, anagram = str.Substring(found.Left, found.Length) });
 			}
 		}
 
-		private static Anagram FindAnagram(string str, int l, int r)
+		private static Palindrome FindPalindrome(string str, int l, int r)
 		{
 			while (l > 0 && r + 1 < str.Length)
 			{
@@ -51,12 +50,12 @@ namespace ProblemSets.Problems
 				l--;
 				r++;
 			}
-			return new Anagram(l, r);
+			return new Palindrome(l, r);
 		}
 
-		private class Anagram
+		private class Palindrome
 		{
-			public Anagram(int left, int right)
+			public Palindrome(int left, int right)
 			{
 				Left = left;
 				Right = right;

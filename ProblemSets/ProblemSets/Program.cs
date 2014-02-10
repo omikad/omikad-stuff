@@ -13,7 +13,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<FindLongestAnagram>();
+				var runme = container.GetExportedValue<FindLongestPalindrome>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

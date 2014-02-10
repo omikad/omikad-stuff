@@ -13,7 +13,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -51,11 +51,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComputerScience\AllNearestSmallerValues.cs" />
+    <Compile Include="ComputerScience\BuildRadixTree.cs" />
     <Compile Include="ComputerScience\CartesianTree.cs" />
-    <Compile Include="ComputerScience\Node.cs" />
+    <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
+    <Compile Include="ComputerScience\DataTypes\Node.cs" />
+    <Compile Include="ComputerScience\DataTypes\NodeString.cs" />
     <Compile Include="EnumerableHelper.cs" />
-    <Compile Include="Helper.cs" />
-    <Compile Include="Problems\FindLongestAnagram.cs" />
+    <Compile Include="StringHelper.cs" />
+    <Compile Include="Problems\FindLongestPalindrome.cs" />
     <Compile Include="Problems\FindRootFromPairs.cs" />
     <Compile Include="Problems\PoolVolume.cs" />
     <Compile Include="Problems\ProjEuler\Problem175.cs" />

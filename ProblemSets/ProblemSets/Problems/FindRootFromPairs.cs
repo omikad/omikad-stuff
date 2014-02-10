@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using Newtonsoft.Json;
-using ProblemSets.ComputerScience;
+using ProblemSets.ComputerScience.DataTypes;
 
 namespace ProblemSets.Problems
 {
@@ -46,17 +46,17 @@ namespace ProblemSets.Problems
 
 				if (parentExists && childExists)
 				{
-					parent.Children = parent.Children.Concat(new[] { child }).ToArray();
+					parent.Children = parent.Children.Concat(new[] { child }).ToList();
 				}
 				else if (parentExists)
 				{
-					parent.Children = parent.Children.Concat(new[] { new Node<int>(pair[1]) }).ToArray();
+					parent.Children = parent.Children.Concat(new[] { new Node<int>(pair[1]) }).ToList();
 				}
 				else if (childExists)
 				{
 					dict[pair[0]] = new Node<int>(pair[0])
 						{
-							Children = new[] { child }
+							Children = new[] { child }.ToList()
 						};
 				}
 				else
@@ -64,7 +64,7 @@ namespace ProblemSets.Problems
 					var childNode = new Node<int>(pair[1]);
 					dict[pair[0]] = new Node<int>(pair[0])
 						{
-							Children = new[] { childNode }
+							Children = new[] { childNode }.ToList()
 						};
 					dict[pair[1]] = childNode;
 				}
