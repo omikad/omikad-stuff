@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 
 namespace ProblemSets.Problems
 {
@@ -8,12 +9,105 @@ namespace ProblemSets.Problems
 	{
 		public void Go()
 		{
-			SolveNaive("rooooooooooooooooooooor");
+//			Console.WriteLine(ManachersAlgorithm("rooooooooooooooooooooor"));
+//			Console.WriteLine();
+//			Console.WriteLine(ManachersAlgorithm("ABCD abbccbbaa iamai oselokoleso redrum & murder EFG xyzyx rooooor xyzyx"));
+
+			Console.WriteLine(Solution2("rooooooooooooooooooooor"));
 			Console.WriteLine();
-			SolveNaive("ABCD abbccbbaa iamai oselokoleso redrum & murder EFG xyzyx rooooor xyzyx");
+			Console.WriteLine(Solution2("ABCD abbccbbaa iamai oselokoleso redrum & murder EFG xyzyx rooooor xyzyx"));
 		}
 
-		private static void SolveNaive(string str)
+		// http://en.wikipedia.org/wiki/Longest_palindromic_substring
+		// With a my little refactoring for better understanding
+		private static string ManachersAlgorithm(string s)
+		{
+			Console.WriteLine(s);
+
+			if (string.IsNullOrEmpty(s)) return "";
+
+			var s2 = AddBoundaries(s);
+
+			var p = new int[s2.Length];
+
+			int c = 0, r = 0; // Here the first element in s2 has been processed.
+			int m = 0, n = 0; // The walking indices to compare if two elements are the same
+
+			for (var i = 1; i < s2.Length; i++)
+			{
+				if (i > r)
+				{
+					p[i] = 0;
+					m = i - 1;
+					n = i + 1;
+				}
+				else
+				{
+					var i2 = c * 2 - i;
+					if (p[i2] < (r - i))
+					{
+						p[i] = p[i2];
+						m = -1; // This signals bypassing the while loop below. 
+					}
+					else
+					{
+						p[i] = r - i;
+						n = r + 1;
+						m = i * 2 - n;
+					}
+				}
+				while (m >= 0 && n < s2.Length && s2[m] == s2[n])
+				{
+					p[i]++;
+					m--;
+					n++;
+				}
+				if ((i + p[i]) > r)
+				{
+					c = i;
+					r = i + p[i];
+				}
+			}
+
+			Console.WriteLine(Environment.NewLine.Join(s2.Select((ch, ci) => new { ch, p = p[ci] })));
+
+			var bestPalindrome =
+				p.Select((length, center) => new { length, center})
+					.OrderByDescending(a => a.length)
+					.First();
+
+			var bestWithBoundaries = s2.Substring(bestPalindrome.center - bestPalindrome.length, 2 * bestPalindrome.length + 1);
+
+			return RemoveBoundaries(bestWithBoundaries);
+		}
+
+		private static string AddBoundaries(string s)
+		{
+			if (string.IsNullOrEmpty(s)) return "||";
+
+			var s2 = new char[s.Length * 2 + 1];
+			for (var i = 0; i < s2.Length - 1; i += 2)
+			{
+				s2[i] = '|';
+				s2[i + 1] = s[i / 2];
+			}
+			s2[s2.Length - 1] = '|';
+			return new string(s2);
+		}
+
+		private static string RemoveBoundaries(string cs)
+		{
+			if (cs == null || cs.Length < 3)
+				return "";
+
+			var cs2 = new char[(cs.Length - 1) / 2];
+			for (var i = 0; i < cs2.Length; i++)
+				cs2[i] = cs[i * 2 + 1];
+
+			return new string(cs2);
+		}  
+
+		private static void MySolution(string str)
 		{
 			Console.WriteLine(str);
 
@@ -55,16 +149,62 @@ namespace ProblemSets.Problems
 
 		private class Palindrome
 		{
-			public Palindrome(int left, int right)
+			public int Center { get; private set; }
+			public int Length { get; private set; }
+
+			public int Right { get { return Center + Length; } }
+			public int Left { get { return Center - Length; } }
+
+			public Palindrome(int center, int len)
 			{
-				Left = left;
-				Right = right;
+				Center = center;
+				Length = len;
 			}
 
-			public readonly int Left;
-			public readonly int Right;
+			public int GetMirrorCenter(int index)
+			{
+				return Math.Max(0, 2 * Center - index);
+			}
 
-			public int Length { get { return Right - Left + 1; }}
+			public void Expand()
+			{
+				Length++;
+			}
+		}
+
+		public static string Solution2(string str)
+		{
+			Console.WriteLine(str);
+
+			if (string.IsNullOrEmpty(str))
+				return str;
+
+			var s2 = AddBoundaries(str);
+
+			var p = new int[s2.Length];
+
+			var current = new Palindrome(0, 0);
+
+			for (var i = 0; i < s2.Length; ++i)
+			{
+				p[i] = current.Right > i
+					? Math.Min(current.Right - i, p[current.GetMirrorCenter(i)])
+					: 0;
+
+				current = new Palindrome(i, p[i]);
+
+				while (current.Left - 1 >= 0 
+					&& current.Right + 1 < s2.Length
+					&& s2[current.Left - 1] == s2[current.Right + 1])
+				{
+					current.Expand();
+					p[i]++;
+				}
+			}
+
+			var largest = p.Select((len, center) => new Palindrome(center, len)).OrderByDescending(a => a.Length).First();
+
+			return RemoveBoundaries(s2.Substring(largest.Left, 2 * largest.Length + 1));
 		}
 	}
 }
