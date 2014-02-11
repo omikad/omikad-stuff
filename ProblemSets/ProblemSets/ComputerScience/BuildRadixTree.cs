@@ -9,6 +9,8 @@ namespace ProblemSets.ComputerScience
 	[Export]
 	public class BuildRadixTree
 	{
+		// End of word marked by .
+
 		public void Go()
 		{
 			var strings = new[]
@@ -25,40 +27,71 @@ namespace ProblemSets.ComputerScience
 
 			Console.WriteLine(BuildRadixFromTrie(strings));
 			Console.WriteLine();
-//			Console.WriteLine(BuildRadixByInserting(strings));
+			Console.WriteLine(BuildRadixByInserting(strings));
 
-			// TODO: Implement operatons: Insert, Delete, Search
+			// TODO: Implement Delete, Search
 		}
 
 		private static NodeString BuildRadixByInserting(IEnumerable<string> strings)
 		{
-			return strings.Aggregate(new NodeString(""), Insert);
+			var root = new NodeString("");
+
+			foreach (var s in strings)
+				Insert(root, s);
+
+			return root;
 		}
 
-		private static NodeString Insert(NodeString root, string s)
+		private static void Insert(NodeString root, string s)
 		{
+			// O(m*n)
+
 			var inode = root;
-			var istr = s;
+			var istr = s + ".";
 
 			while (true)
 			{
+				var isGoDeeper = false;
+
 				foreach (var child in inode.Children)
 				{
 					var common = istr.CommonPrefix(child.Value);
+
 					if (common.Length == child.Value.Length)
 					{
 						inode = child;
 						istr = istr.Substring(common.Length);
-						break;
+						isGoDeeper = true;
+						break;							// Go deeper one level
 					}
+
 					if (common.Length > 0)
 					{
-						var rem = child.Value.Substring(common.Length);
+						var remExisting = new NodeString(child.Value.Substring(common.Length))
+						{
+							Children = child.Children
+						};
 
-						var newChild = new NodeString(rem);
+						var remInserting = new NodeString(istr.Substring(common.Length));
 
-						throw new NotImplementedException();
+						var commonNode = new NodeString(common);
+
+						inode.Children.Remove(child);
+
+						inode.Children.Add(commonNode);
+						commonNode.Children.Add(remExisting);
+						commonNode.Children.Add(remInserting);
+
+						return;							// Finish inserting
 					}
+				}
+
+				if (!isGoDeeper)
+				{
+					// No child with appropriate prefix found
+
+					inode.Children.Add(new NodeString(istr));
+					return;
 				}
 			}
 		}
@@ -74,6 +107,8 @@ namespace ProblemSets.ComputerScience
 
 		private static NodeString ConvertTrieToRadix(NodeString root)
 		{
+			// O(m*n)
+
 			var queue = new Queue<NodeString>();
 			queue.Enqueue(root);
 
@@ -95,9 +130,10 @@ namespace ProblemSets.ComputerScience
 			return root;
 		}
 
-		// End of word is marked by .
 		private static NodeString BuildTrie(IEnumerable<string> strings)
 		{
+			// O(m^2 * n)
+
 			var root = new NodeString("");
 			var eow = new NodeString(".");
 

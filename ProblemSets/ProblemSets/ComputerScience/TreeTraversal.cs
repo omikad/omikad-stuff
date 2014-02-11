@@ -1,47 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel.Composition;
 using ProblemSets.ComputerScience.DataTypes;
 
 namespace ProblemSets.ComputerScience
 {
+	[Export]
 	public class TreeTraversal
 	{
-		public static void Solve()
+		public void Go()
 		{
-			var root = new NodeString("root")
-				{
-					Children = new[]
-						{
-							new NodeString("5")
-								{
-									Children = new[]
-										{
-											new NodeString("3")
-												{
-													Children = new[]
-														{
-															new NodeString("1"),
-															new NodeString("2"),
-														}.ToList()
-												},
-											new NodeString("4"),
-										}.ToList()
-								},
-							new NodeString("8")
-								{
-									Children = new[]
-										{
-											new NodeString("6"),
-											new NodeString("7"),
-										}.ToList()
-								},
-						}.ToList()
-				};
+			var root =
+				new NodeString("root",
+					new NodeString("5",
+						new NodeString("3",
+							"1",
+							"2"),
+						"4"),
+					new NodeString("8",
+						"6",
+						"7"));
 
 			Console.WriteLine("DFS");
 			Console.WriteLine(string.Join(", ", DFS(root)));
 
+			Console.WriteLine();
+			
 			Console.WriteLine("BFS");
 			Console.WriteLine(string.Join(", ", BFS(root)));
 		}

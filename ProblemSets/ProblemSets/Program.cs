@@ -2,7 +2,7 @@
 using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.Reflection;
-using ProblemSets.Problems;
+using ProblemSets.ComputerScience;
 
 namespace ProblemSets
 {
@@ -13,7 +13,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<FindLongestPalindrome>();
+				var runme = container.GetExportedValue<BuildRadixTree>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

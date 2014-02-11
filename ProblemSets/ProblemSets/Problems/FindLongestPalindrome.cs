@@ -107,8 +107,10 @@ namespace ProblemSets.Problems
 			return new string(cs2);
 		}  
 
-		private static void MySolution(string str)
+		private static void Solution1(string str)
 		{
+			// O(n^2)
+
 			Console.WriteLine(str);
 
 			for (var i = 1; i < str.Length; i++)
@@ -152,6 +154,8 @@ namespace ProblemSets.Problems
 			public int Center { get; private set; }
 			public int Length { get; private set; }
 
+			public int TotalLength { get { return 2 * Length + 1; } }
+
 			public int Right { get { return Center + Length; } }
 			public int Left { get { return Center - Length; } }
 
@@ -181,30 +185,31 @@ namespace ProblemSets.Problems
 
 			var s2 = AddBoundaries(str);
 
-			var p = new int[s2.Length];
+			var palindromes = new Palindrome[s2.Length];
 
 			var current = new Palindrome(0, 0);
 
-			for (var i = 0; i < s2.Length; ++i)
+			for (var i = 0; i < s2.Length; i++)
 			{
-				p[i] = current.Right > i
-					? Math.Min(current.Right - i, p[current.GetMirrorCenter(i)])
+				var min = current.Right > i
+					? Math.Min(current.Right - i, palindromes[current.GetMirrorCenter(i)].Length)
 					: 0;
 
-				current = new Palindrome(i, p[i]);
+				palindromes[i] = new Palindrome(i, min);
+
+				current = palindromes[i];
 
 				while (current.Left - 1 >= 0 
 					&& current.Right + 1 < s2.Length
 					&& s2[current.Left - 1] == s2[current.Right + 1])
 				{
 					current.Expand();
-					p[i]++;
 				}
 			}
 
-			var largest = p.Select((len, center) => new Palindrome(center, len)).OrderByDescending(a => a.Length).First();
+			var largest = palindromes.OrderByDescending(p => p.Length).First();
 
-			return RemoveBoundaries(s2.Substring(largest.Left, 2 * largest.Length + 1));
+			return RemoveBoundaries(s2.Substring(largest.Left, largest.TotalLength));
 		}
 	}
 }

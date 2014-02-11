@@ -1,10 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ProblemSets.ComputerScience.DataTypes
 {
 	public class Node<TNode, TValue> where TNode : Node<TNode, TValue>
 	{
+		public Node(TValue value, params TNode[] children)
+		{
+			Value = value;
+			Children = children.ToList();
+		}
+
 		public Node(TValue value)
 		{
 			Value = value;

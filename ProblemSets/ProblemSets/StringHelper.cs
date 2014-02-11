@@ -9,17 +9,17 @@ namespace ProblemSets
 			return string.Join(separator, values);
 		}
 
-		public static string CommonPrefix(this string s, string comparand)
+		public static string CommonPrefix(this string s1, string s2)
 		{
-			if (s == null || comparand == null)
+			if (s1 == null || s2 == null)
 				return "";
 
 			int equalLen;
-			for (equalLen = 0; equalLen < s.Length && equalLen < comparand.Length; equalLen++)
-				if (s[equalLen] != comparand[equalLen])
+			for (equalLen = 0; equalLen < s1.Length && equalLen < s2.Length; equalLen++)
+				if (s1[equalLen] != s2[equalLen])
 					break;
 
-			return s.Substring(0, equalLen);
+			return s1.Substring(0, equalLen);
 		}
 	}
 }
