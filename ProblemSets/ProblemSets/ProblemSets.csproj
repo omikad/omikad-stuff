@@ -56,6 +56,11 @@
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
     <Compile Include="ComputerScience\DataTypes\Node.cs" />
     <Compile Include="ComputerScience\DataTypes\NodeString.cs" />
+    <Compile Include="ComputerScience\DataTypes\Radix.cs" />
+    <Compile Include="ComputerScience\DataTypes\Trie.cs" />
+    <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
+    <Compile Include="ComputerScience\QueueByTwoStacks.cs" />
+    <Compile Include="ComputerScience\StackByQueues.cs" />
     <Compile Include="Services\EnumerableHelper.cs" />
     <Compile Include="Problems\BlockGameOnLumia.cs" />
     <Compile Include="Services\MultiDimArrayHelper.cs" />
