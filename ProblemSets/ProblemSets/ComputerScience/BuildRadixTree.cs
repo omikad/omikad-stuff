@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Linq;
 using ProblemSets.ComputerScience.DataTypes;
+using ProblemSets.Services;
 
 namespace ProblemSets.ComputerScience
 {

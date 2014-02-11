@@ -3,6 +3,7 @@ using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.Reflection;
 using ProblemSets.ComputerScience;
+using ProblemSets.Problems;
 
 namespace ProblemSets
 {
@@ -13,7 +14,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<BuildRadixTree>();
+				var runme = container.GetExportedValue<BlockGameOnLumia>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

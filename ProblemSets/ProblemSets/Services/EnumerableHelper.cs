@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ProblemSets
+namespace ProblemSets.Services
 {
 	public static class EnumerableHelper
 	{

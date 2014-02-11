@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using ProblemSets.Services;
 
 namespace ProblemSets.Problems
 {

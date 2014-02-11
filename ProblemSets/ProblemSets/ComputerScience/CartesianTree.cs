@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using ProblemSets.ComputerScience.DataTypes;
+using ProblemSets.Services;
 
 namespace ProblemSets.ComputerScience
 {
