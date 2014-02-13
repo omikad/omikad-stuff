@@ -27,7 +27,7 @@ namespace ProblemSets.ComputerScience
 			Console.WriteLine("indices: " + ", ".Join(SequentalNoStackSolution(arr).Select(i => i == -1 ? -1 : arr[i])));
 		}
 
-		private IEnumerable<int> SequentalStackSolution(int[] arr)
+		private static IEnumerable<int> SequentalStackSolution(int[] arr)
 		{
 			// total iterations <= 2 * n   ~ O(n)
 
@@ -51,7 +51,7 @@ namespace ProblemSets.ComputerScience
 			}
 		}
 
-		private IEnumerable<int> SequentalNoStackSolution(int[] arr)
+		private static IEnumerable<int> SequentalNoStackSolution(int[] arr)
 		{
 			// Индексы результатов
 			var result = new int[arr.Length];

@@ -39,7 +39,7 @@ namespace ProblemSets.Problems
 		{
 			var board = levelStrings.ToTwoDimensional(s => s.ToCharArray());
 			Console.WriteLine("Task: ");
-			Print(board);
+			board.Print();
 
 			foreach (var turn1 in GetNextTurns(board))
 			{
@@ -54,16 +54,16 @@ namespace ProblemSets.Problems
 						Console.WriteLine("************ Solution ************");
 
 						Console.WriteLine("Turn: ");
-						Print(turn1);
+						turn1.Print();
 
 						foreach (var physics in AdvancePhysics(turn1.ShallowCopy()))
-							Print(physics);
+							physics.Print();
 
 						Console.WriteLine("Turn: ");
-						Print(turn2);
+						turn2.Print();
 
 						foreach (var physics in AdvancePhysics(turn2.ShallowCopy()))
-							Print(physics);
+							physics.Print();
 					}
 				}
 			}
@@ -167,13 +167,6 @@ namespace ProblemSets.Problems
 		private static int CalcBlocksCount(char[,] board)
 		{
 			return board.EnumerateRows().SelectMany(r => r).Count(c => c != '.');
-		}
-
-		private static void Print(char[,] board)
-		{
-			foreach (var row in board.EnumerateRows())
-				Console.WriteLine(new string(row.ToArray()));
-			Console.WriteLine();
 		}
 	}
 }

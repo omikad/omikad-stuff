@@ -58,5 +58,12 @@ namespace ProblemSets.Services
 
 			return (T) asArray.Clone();
 		}
+
+		public static void Print(this char[,] charArray)
+		{
+			foreach (var row in charArray.EnumerateRows())
+				Console.WriteLine(new string(row.ToArray()));
+			Console.WriteLine();
+		}
 	}
 }

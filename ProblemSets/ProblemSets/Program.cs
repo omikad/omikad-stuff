@@ -14,7 +14,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<SortTwoQueues>();
+				var runme = container.GetExportedValue<FindLargestRectangleIn2D>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
