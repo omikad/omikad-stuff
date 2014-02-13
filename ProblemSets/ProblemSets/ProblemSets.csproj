@@ -60,7 +60,9 @@
     <Compile Include="ComputerScience\DataTypes\Trie.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\QueueByTwoStacks.cs" />
+    <Compile Include="ComputerScience\QuickSort.cs" />
     <Compile Include="ComputerScience\StackByQueues.cs" />
+    <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="Services\EnumerableHelper.cs" />
     <Compile Include="Problems\BlockGameOnLumia.cs" />
     <Compile Include="Services\MultiDimArrayHelper.cs" />

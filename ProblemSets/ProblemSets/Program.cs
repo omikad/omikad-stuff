@@ -14,7 +14,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<BuildRadixTree>();
+				var runme = container.GetExportedValue<SortTwoQueues>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
