@@ -12,14 +12,12 @@ namespace ProblemSets.Problems
 		{
 			var rnd = new Random();
 
-//			SortByTriples(new[] { 3, 0, 1, 2, 4 });
-
 			for (var size = 3; size < 20; size++)
 				for (var i = 0; i < 20; i++)
 				{
 					var arr = CreateRandomArr(size, rnd);
 					Console.WriteLine(", ".Join(arr));
-					SortByTriples(arr);
+					SortAsBubble(arr);
 					Console.WriteLine(", ".Join(arr));
 					Check(arr);
 					Console.WriteLine();
@@ -44,6 +42,23 @@ namespace ProblemSets.Problems
 			return arr;
 		}
 
+		private void SortAsBubble(int[] arr)
+		{
+			// O(n)
+
+			for (var i = 1; i < arr.Length; i++)
+			{
+				var cur = arr[i];
+				var prev = arr[i - 1];
+
+				if (i % 2 == 1 && cur < prev)
+					Swap(arr, i, i - 1);
+				if (i % 2 == 0 && cur > prev)
+					Swap(arr, i, i - 1);
+			}
+			Console.WriteLine(", ".Join(arr));
+		}
+
 		private static void SortByTriples(int[] arr)
 		{
 			// O(n)
@@ -52,24 +67,27 @@ namespace ProblemSets.Problems
 
 			var isUpNotDown = true;
 
-			var inserted = arr[2];
-			var a = arr[0];
-			var b = arr[1];
+			var inserted = arr[0];
+			var a = arr[1];
+			var b = arr[2];
 			Sort3(ref a, ref inserted, ref b);
 
 			arr[0] = inserted;
 
 			for (var i = 3; i < arr.Length; i++)
 			{
+				// We should keep a < b to reduce number of SwapSort calls
+				
 				var c = arr[i];
-				Sort3(ref a, ref b, ref c);
 
-				// Keep element just inserted in 'inserted'
-				// Keep elements not inserted in a, b
+//				SwapSort(ref a, ref b);  // No need, because a < b already
+				SwapSort(ref a, ref c);
+				SwapSort(ref b, ref c);
+
 				if (isUpNotDown)
 				{
 					if (a < inserted && b < inserted && c < inserted)
-						throw new InvalidOperationException(new { i, a, b = inserted, c = b, d = c, isUpNotDown = true }.ToString());
+						throw new InvalidOperationException(new { i, a, b, c, inserted, isUpNotDown = true }.ToString());
 
 					if (b < inserted)
 					{
@@ -86,13 +104,14 @@ namespace ProblemSets.Problems
 				else
 				{
 					if (a > inserted && b > inserted && c > inserted)
-						throw new InvalidOperationException(new { i, a, b = inserted, c = b, d = c, isUpNotDown = true }.ToString());
+						throw new InvalidOperationException(new { i, a, b, c, inserted, isUpNotDown = false }.ToString());
 
 					if (b > inserted)
 					{
 						arr[i - 2] = a;
 						inserted = a;
-						a = c;
+						a = b;
+						b = c;
 					}
 					else
 					{
@@ -104,8 +123,6 @@ namespace ProblemSets.Problems
 
 				isUpNotDown = !isUpNotDown;
 			}
-
-			SwapSort(ref a, ref b);
 
 			arr[arr.Length - 2] = isUpNotDown ? b : a;
 			arr[arr.Length - 1] = isUpNotDown ? a : b;
@@ -132,6 +149,13 @@ namespace ProblemSets.Problems
 			var tmp = a;
 			a = b;
 			b = tmp;
+		}
+
+		private void Swap(int[] arr, int i, int j)
+		{
+			var tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
 		}
 	}
 }
