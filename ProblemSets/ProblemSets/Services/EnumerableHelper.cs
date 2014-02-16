@@ -31,5 +31,18 @@ namespace ProblemSets.Services
 					queue.Enqueue(child);
 			}
 		}
+
+		public static IEnumerable<T> AsRandom<T>(this IList<T> list, Random generator = null)
+		{
+			var indices = Enumerable.Range(0, list.Count).ToArray();
+			generator = generator ?? new Random();
+
+			for (var i = 0; i < list.Count; i++)
+			{
+				var position = generator.Next(i, list.Count);
+				yield return list[indices[position]];
+				indices[position] = indices[i];
+			}
+		}
 	}
 }

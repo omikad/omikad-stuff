@@ -64,6 +64,7 @@
     <Compile Include="ComputerScience\QuickSort.cs" />
     <Compile Include="ComputerScience\StackByQueues.cs" />
     <Compile Include="Problems\FindLargestRectangleIn2D.cs" />
+    <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="Services\EnumerableHelper.cs" />
     <Compile Include="Problems\BlockGameOnLumia.cs" />

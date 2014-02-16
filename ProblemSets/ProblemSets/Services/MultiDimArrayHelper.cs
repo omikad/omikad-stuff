@@ -65,5 +65,12 @@ namespace ProblemSets.Services
 				Console.WriteLine(new string(row.ToArray()));
 			Console.WriteLine();
 		}
+
+		public static void Swap<T>(this T[] arr, int i, int j)
+		{
+			var tmp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = tmp;
+		}
 	}
 }
