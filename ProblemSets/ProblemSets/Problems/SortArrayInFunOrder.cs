@@ -10,79 +10,112 @@ namespace ProblemSets.Problems
 	{
 		public void Go()
 		{
-			const int size = 10;
+			var rnd = new Random();
 
-			var arr = new[] { 6, 8, 9, 5, 2, 1, 4, 7, 0, 3 };
+//			SortByTriples(new[] { 3, 0, 1, 2, 4 });
 
-//			var arr = CreateRandomArr(size);
-
-			Console.WriteLine(", ".Join(arr));
-
-			Sort(arr);
-
-			Console.WriteLine(", ".Join(arr));
+			for (var size = 3; size < 20; size++)
+				for (var i = 0; i < 20; i++)
+				{
+					var arr = CreateRandomArr(size, rnd);
+					Console.WriteLine(", ".Join(arr));
+					SortByTriples(arr);
+					Console.WriteLine(", ".Join(arr));
+					Check(arr);
+					Console.WriteLine();
+				}
 		}
 
-		private static int[] CreateRandomArr(int size)
+		private static void Check(int[] arr)
+		{
+			for (var i = 1; i < arr.Length; i++)
+			{
+				if ((i % 2 == 1 && arr[i] < arr[i - 1])
+				    || (i % 2 == 0 && arr[i] > arr[i - 1]))
+					throw new InvalidOperationException(i.ToString());
+			}
+		}
+
+		private static int[] CreateRandomArr(int size, Random rnd)
 		{
 			var arr = Enumerable.Range(0, size).ToArray();
-			var rnd = new Random();
 			for (var i = 0; i < arr.Length; i++)
 				arr.Swap(i, rnd.Next(i, arr.Length));
 			return arr;
 		}
 
-		private static void Sort(int[] arr)
+		private static void SortByTriples(int[] arr)
 		{
+			// O(n)
+
 			if (arr.Length <= 2) return;
 
 			var isUpNotDown = true;
 
+			var inserted = arr[2];
 			var a = arr[0];
 			var b = arr[1];
-			var c = arr[2];
-			Sort3(ref a, ref b, ref c);
+			Sort3(ref a, ref inserted, ref b);
 
-			arr[0] = b;
+			arr[0] = inserted;
 
 			for (var i = 3; i < arr.Length; i++)
 			{
-				var d = arr[i];
-				Sort3(ref a, ref c, ref d);
+				var c = arr[i];
+				Sort3(ref a, ref b, ref c);
 
-				// Keep elements not in array in a, c
+				// Keep element just inserted in 'inserted'
+				// Keep elements not inserted in a, b
 				if (isUpNotDown)
 				{
-					if (a < b && c < b && d < b)
-						throw new InvalidOperationException(new { i, a, b, c, d, isUpNotDown = true }.ToString());
+					if (a < inserted && b < inserted && c < inserted)
+						throw new InvalidOperationException(new { i, a, b = inserted, c = b, d = c, isUpNotDown = true }.ToString());
 
-					if (c < b)
-						arr[i - 2] = d;
-					else
+					if (b < inserted)
 					{
 						arr[i - 2] = c;
-						c = d;
+						inserted = c;
+					}
+					else
+					{
+						arr[i - 2] = b;
+						inserted = b;
+						b = c;
 					}
 				}
 				else
 				{
-					if (a > b && c > b && d > b)
-						throw new InvalidOperationException(new { i, a, b, c, d, isUpNotDown = true }.ToString());
+					if (a > inserted && b > inserted && c > inserted)
+						throw new InvalidOperationException(new { i, a, b = inserted, c = b, d = c, isUpNotDown = true }.ToString());
 
-					if (c > b)
+					if (b > inserted)
 					{
 						arr[i - 2] = a;
-						a = d;
+						inserted = a;
+						a = c;
 					}
 					else
 					{
-						arr[i - 2] = c;
-						c = d;
+						arr[i - 2] = b;
+						inserted = b;
+						b = c;
 					}
 				}
 
 				isUpNotDown = !isUpNotDown;
 			}
+
+			SwapSort(ref a, ref b);
+
+			arr[arr.Length - 2] = isUpNotDown ? b : a;
+			arr[arr.Length - 1] = isUpNotDown ? a : b;
+		}
+
+		private static void Sort4(ref int x0, ref int x1, ref int x2, ref int x3)
+		{
+			SwapSort(ref x0, ref x1); SwapSort(ref x2, ref x3);
+			SwapSort(ref x0, ref x2); SwapSort(ref x1, ref x3);
+			SwapSort(ref x1, ref x2);
 		}
 
 		private static void Sort3(ref int a, ref int b, ref int c)
