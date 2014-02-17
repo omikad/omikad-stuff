@@ -18,6 +18,34 @@ namespace ProblemSets.Problems
 			Console.WriteLine(", ".Join(Solve(arr)));
 		}
 
+		public int[] Solution_Kadane(int[] arr)
+		{
+			var max_so_far = arr[0];
+			var max_ending_here = arr[0];
+
+			var begin = 0;
+			var begin_tmp = 0;
+			var end = 0;
+
+			for (var i = 1; i < arr.Length; i++)
+			{
+				if (max_ending_here < 0)
+				{
+					max_ending_here = arr[i];
+					begin_tmp = i;
+				}
+				else max_ending_here += arr[i];
+
+				if (max_ending_here >= max_so_far)
+				{
+					max_so_far = max_ending_here;
+					begin = begin_tmp;
+					end = i;
+				}
+			}
+			return arr.Skip(begin).Take(end - begin + 1).ToArray();
+		}
+
 		public int[] Solve(int[] arr)
 		{
 			// O(n) time, O(1) memory
