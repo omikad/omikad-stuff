@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProblemSets.Services
 {
-	public static class MultiDimArrayHelper
+	public static class ArrayHelper
 	{
 		public static TOut[,] ToTwoDimensional<TIn, TOut>(this TIn[] source, Func<TIn, IEnumerable<TOut>> getInnerData)
 		{
@@ -71,6 +71,14 @@ namespace ProblemSets.Services
 			var tmp = arr[i];
 			arr[i] = arr[j];
 			arr[j] = tmp;
+		}
+
+		public static int[] CreateRandomArr(int size, Random rnd)
+		{
+			var arr = Enumerable.Range(0, size).ToArray();
+			for (var i = 0; i < arr.Length; i++)
+				arr.Swap(i, rnd.Next(i, arr.Length));
+			return arr;
 		}
 	}
 }

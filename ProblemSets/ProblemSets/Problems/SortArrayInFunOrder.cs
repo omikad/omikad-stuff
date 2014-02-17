@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using System.Linq;
 using ProblemSets.Services;
 
 namespace ProblemSets.Problems
@@ -15,7 +14,7 @@ namespace ProblemSets.Problems
 			for (var size = 3; size < 20; size++)
 				for (var i = 0; i < 20; i++)
 				{
-					var arr = CreateRandomArr(size, rnd);
+					var arr = ArrayHelper.CreateRandomArr(size, rnd);
 					Console.WriteLine(", ".Join(arr));
 					SortAsBubble(arr);
 					Console.WriteLine(", ".Join(arr));
@@ -34,14 +33,7 @@ namespace ProblemSets.Problems
 			}
 		}
 
-		private static int[] CreateRandomArr(int size, Random rnd)
-		{
-			var arr = Enumerable.Range(0, size).ToArray();
-			for (var i = 0; i < arr.Length; i++)
-				arr.Swap(i, rnd.Next(i, arr.Length));
-			return arr;
-		}
-
+		// FFFFfffuuuuuu
 		private void SortAsBubble(int[] arr)
 		{
 			// O(n)
@@ -59,6 +51,7 @@ namespace ProblemSets.Problems
 			Console.WriteLine(", ".Join(arr));
 		}
 
+		// My great solution
 		private static void SortByTriples(int[] arr)
 		{
 			// O(n)

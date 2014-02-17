@@ -64,11 +64,12 @@
     <Compile Include="ComputerScience\QuickSort.cs" />
     <Compile Include="ComputerScience\StackByQueues.cs" />
     <Compile Include="Problems\FindLargestRectangleIn2D.cs" />
+    <Compile Include="Problems\FindMaximumSumSubArray.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="Services\EnumerableHelper.cs" />
     <Compile Include="Problems\BlockGameOnLumia.cs" />
-    <Compile Include="Services\MultiDimArrayHelper.cs" />
+    <Compile Include="Services\ArrayHelper.cs" />
     <Compile Include="Services\StringHelper.cs" />
     <Compile Include="Problems\FindLongestPalindrome.cs" />
     <Compile Include="Problems\FindRootFromPairs.cs" />
