@@ -10,6 +10,8 @@ namespace ProblemSets.ComputerScience.DataTypes
 		public Trie(IEnumerable<string> strings)
 		{
 			// O(m^2 * n)
+			// n is a number of strings
+			// m is a max length
 
 			var root = new NodeString("");
 			var eow = new NodeString(".");

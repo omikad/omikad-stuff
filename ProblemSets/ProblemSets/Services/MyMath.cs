@@ -119,10 +119,10 @@ namespace ProblemSets.Services
 
 		public static ulong ModularInverse(ulong a, ulong b)
 		{
-			return (ulong) ModInverse(new BigInteger(a), new BigInteger(b));
+			return (ulong)ModularInverse(new BigInteger(a), new BigInteger(b));
 		}
 
-		private static BigInteger ModInverse(BigInteger a, BigInteger b)
+		public static BigInteger ModularInverse(BigInteger a, BigInteger b)
 		{
 			var dividend = a % b;
 			var divisor = b;

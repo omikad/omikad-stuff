@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AssertHelper.cs" />
     <Compile Include="TestFindMaximumSumSumArray.cs" />
+    <Compile Include="TestRabinKarpRollingHash.cs" />
     <Compile Include="TestStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
