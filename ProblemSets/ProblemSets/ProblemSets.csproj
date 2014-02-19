@@ -68,7 +68,7 @@
     <Compile Include="Problems\FindMaximumSumSubArray.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />
-    <Compile Include="Problems\SubstringContains.cs" />
+    <Compile Include="ComputerScience\SubstringContains.cs" />
     <Compile Include="Services\EnumerableHelper.cs" />
     <Compile Include="Problems\BlockGameOnLumia.cs" />
     <Compile Include="Services\ArrayHelper.cs" />

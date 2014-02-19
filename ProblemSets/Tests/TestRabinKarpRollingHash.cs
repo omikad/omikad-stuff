@@ -23,7 +23,7 @@ namespace Tests
 		[TestMethod]
 		public void Test_RabinKarpRollingHash_StringContains()
 		{
-			var searcher = new SubstringContains();
+			var searcher = new SubstringSearch();
 			Assert.AreEqual(2, searcher.RabinKarpRollingHash("asdfxcv", "dfxc"));
 			Assert.AreEqual(0, searcher.RabinKarpRollingHash("asdfxcv", "asdfx"));
 			Assert.AreEqual(5, searcher.RabinKarpRollingHash("01234asdfxcv", "a"));

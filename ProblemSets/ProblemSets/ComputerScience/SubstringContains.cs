@@ -1,15 +1,14 @@
 ﻿using System;
 using System.ComponentModel.Composition;
-using ProblemSets.ComputerScience;
 
-namespace ProblemSets.Problems
+namespace ProblemSets.ComputerScience
 {
 	[Export]
-	public class SubstringContains
+	public class SubstringSearch
 	{
 		public void Go()
 		{
-			Solve("asdfzxcv", "dfzx");
+			Solve("ABC ABCDAB ABCDABCDABDE", "ABCDABD");
 		}
 
 		private void Solve(string big, string small)
