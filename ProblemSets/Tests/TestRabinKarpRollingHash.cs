@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProblemSets.ComputerScience;
-using ProblemSets.Problems;
 
 namespace Tests
 {
