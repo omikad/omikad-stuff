@@ -53,6 +53,7 @@
     <Compile Include="ComputerScience\AllNearestSmallerValues.cs" />
     <Compile Include="ComputerScience\BuildRadixTree.cs" />
     <Compile Include="ComputerScience\CartesianTree.cs" />
+    <Compile Include="ComputerScience\Combinations.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
     <Compile Include="ComputerScience\DataTypes\Node.cs" />
     <Compile Include="ComputerScience\DataTypes\NodeString.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="ComputerScience\QuickSort.cs" />
     <Compile Include="ComputerScience\RabinKarpRollingHash.cs" />
     <Compile Include="ComputerScience\StackByQueues.cs" />
+    <Compile Include="ComputerScience\TopologicalSort.cs" />
     <Compile Include="Problems\FindLargestRectangleIn2D.cs" />
     <Compile Include="Problems\FindMaximumSumSubArray.cs" />
     <Compile Include="Problems\FindWayThroughMaze.cs" />

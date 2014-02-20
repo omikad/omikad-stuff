@@ -32,9 +32,11 @@ namespace ProblemSets.ComputerScience.DataTypes
 			yield return string.Format("{0}[{1}]", prefix, Value);
 
 			if (Children != null)
+			{
 				foreach (var node in Children)
 					foreach (var s in node.GetStrings(prefix + "  "))
 						yield return s;
+			}
 		}
 	}
 
@@ -42,6 +44,22 @@ namespace ProblemSets.ComputerScience.DataTypes
 	{
 		public Node(TValue value) : base(value)
 		{
+		}
+	}
+
+	public class DirectedGraphNode<TValue> : Node<DirectedGraphNode<TValue>, TValue>
+	{
+		public DirectedGraphNode(TValue value) : base(value)
+		{
+		}
+
+		public override string ToString()
+		{
+			return string.Format(
+				"[{0}]{1}{2}", 
+				Value, 
+				Environment.NewLine,
+				Environment.NewLine.Join(Children.Select(c => string.Format("   [{0}] -> [{1}]", Value, c.Value))));
 		}
 	}
 }
