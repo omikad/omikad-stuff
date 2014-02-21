@@ -60,6 +60,7 @@
     <Compile Include="ComputerScience\DataTypes\PointInt.cs" />
     <Compile Include="ComputerScience\DataTypes\Radix.cs" />
     <Compile Include="ComputerScience\DataTypes\Trie.cs" />
+    <Compile Include="ComputerScience\FindMedianOfArray.cs" />
     <Compile Include="ComputerScience\FloodFill.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\QueueByTwoStacks.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="ComputerScience\TopologicalSort.cs" />
     <Compile Include="Problems\FindLargestRectangleIn2D.cs" />
     <Compile Include="Problems\FindMaximumSumSubArray.cs" />
+    <Compile Include="Problems\FindStringRotationPoint.cs" />
     <Compile Include="Problems\FindWayThroughMaze.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />

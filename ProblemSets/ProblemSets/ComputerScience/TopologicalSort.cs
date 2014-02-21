@@ -66,26 +66,34 @@ namespace ProblemSets.ComputerScience
 			yield return node;
 		}
 
-		private static IEnumerable<DirectedGraphNode<char>> DFS_NotRec(
-			HashSet<DirectedGraphNode<char>> used,
-			DirectedGraphNode<char> node)
-		{
-			var stack = new Stack<DirectedGraphNode<char>>();
-			stack.Push(node);
-			used.Add(node);
+		// I'm not sure this work correctly
+		// TODO: Test & Correct
+//		private static IEnumerable<DirectedGraphNode<char>> DFS_NotRec(
+//			HashSet<DirectedGraphNode<char>> used,
+//			DirectedGraphNode<char> node)
+//		{
+//			var stack = new Stack<DirectedGraphNode<char>>();
+//			stack.Push(node);
 
-			while (stack.Count > 0)
-			{
-				var v = stack.Pop();
+//			while (stack.Count > 0)
+//			{
+//				var v = stack.Peek();
 
-				foreach (var child in v.Children)
-					if (!used.Contains(child))
-					{
-						stack.Push(child);
-						used.Add(child);
-					}
-			}
-		}
+//				if (used.Contains(v))
+//					break;
+				
+//				used.Add(node);
+
+//				foreach (var child in v.Children)
+//					if (!used.Contains(child))
+//					{
+//						stack.Push(child);
+//						used.Add(child);
+//					}
+//			}
+
+//			return stack;
+//		}
 
 		private static IEnumerable<char> Tarjan(IEnumerable<DirectedGraphNode<char>> vertices)
 		{
@@ -95,7 +103,7 @@ namespace ProblemSets.ComputerScience
 
 			foreach (var outerV in vertices)
 				if (!used.Contains(outerV))
-					foreach (var v in DFS_NotRec(used, outerV))
+					foreach (var v in DFS_Rec(used, outerV))
 						result.Push(v.Value);
 
 			return result;

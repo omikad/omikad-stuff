@@ -21,6 +21,9 @@ namespace ProblemSets.ComputerScience
 						"6",
 						"7"));
 
+			Console.WriteLine(root);
+			Console.WriteLine();
+
 			Console.WriteLine("DFS");
 			Console.WriteLine(string.Join(", ", DFS(root)));
 
@@ -43,9 +46,7 @@ namespace ProblemSets.ComputerScience
 				yield return v.Value;
 
 				foreach (var child in v.Children)
-				{
 					stack.Push(child);
-				}
 			}
 		}
 
@@ -62,9 +63,7 @@ namespace ProblemSets.ComputerScience
 				yield return v.Value;
 
 				foreach (var child in v.Children)
-				{
 					queue.Enqueue(child);
-				}
 			}
 		}
 	}

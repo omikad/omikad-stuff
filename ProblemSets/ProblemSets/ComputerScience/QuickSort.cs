@@ -14,14 +14,14 @@ namespace ProblemSets.ComputerScience
 			Console.WriteLine(", ".Join(arr));
 		}
 
-		private static void DoQuickSort(int[] arr)
+		private void DoQuickSort(int[] arr)
 		{
 			if (arr.Length <= 1) return;
 			Console.WriteLine(", ".Join(arr));
 			DoQuickSort(arr, 0, arr.Length - 1);
 		}
 
-		private static void DoQuickSort(int[] arr, int start, int end)
+		private void DoQuickSort(int[] arr, int start, int end)
 		{
 			if (end - start <= 0) return;
 
@@ -37,26 +37,19 @@ namespace ProblemSets.ComputerScience
 			DoQuickSort(arr, pivotIndex + 1, end);
 		}
 
-		private static int Partition(int[] arr, int left, int right, int pivotIndex)
+		public int Partition(int[] arr, int left, int right, int pivotIndex)
 		{
 			var pivot = arr[pivotIndex];
-			Swap(arr, pivotIndex, right);
+			arr.Swap(pivotIndex, right);
 			var storeIndex = left;
 			for (var i = left; i < right; i++)
 				if (arr[i] <= pivot)
 				{
-					Swap(arr, i, storeIndex);
+					arr.Swap(i, storeIndex);
 					storeIndex++;
 				}
-			Swap(arr, storeIndex, right);
+			arr.Swap(storeIndex, right);
 			return storeIndex;
-		}
-
-		private static void Swap(int[] arr, int i, int j)
-		{
-			var tmp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = tmp;
 		}
 	}
 }
