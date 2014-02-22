@@ -72,6 +72,7 @@
     <Compile Include="Problems\FindMaximumSumSubArray.cs" />
     <Compile Include="Problems\FindStringRotationPoint.cs" />
     <Compile Include="Problems\FindWayThroughMaze.cs" />
+    <Compile Include="Problems\GetNumberWithPrimes357.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="ComputerScience\SubstringContains.cs" />

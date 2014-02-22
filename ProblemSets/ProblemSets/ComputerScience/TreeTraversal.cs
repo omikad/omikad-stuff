@@ -11,26 +11,88 @@ namespace ProblemSets.ComputerScience
 		public void Go()
 		{
 			var root =
-				new NodeString("root",
-					new NodeString("5",
+				new NodeString("7",
+					new NodeString("1",
+						"0",
 						new NodeString("3",
-							"1",
-							"2"),
-						"4"),
-					new NodeString("8",
-						"6",
-						"7"));
+							"2",
+							new NodeString("5",
+								"4",
+								"6"))),
+					new NodeString("9",
+						"8",
+						"10"));
 
 			Console.WriteLine(root);
 			Console.WriteLine();
 
 			Console.WriteLine("DFS");
 			Console.WriteLine(string.Join(", ", DFS(root)));
-
 			Console.WriteLine();
 			
 			Console.WriteLine("BFS");
 			Console.WriteLine(string.Join(", ", BFS(root)));
+			Console.WriteLine();
+			
+			Console.WriteLine("Binary tree, preorder");
+			Console.WriteLine(string.Join(", ", BinaryTree_Preorder(root)));
+			Console.WriteLine("7, 1, 0, 3, 2, 5, 4, 6, 9, 8, 10    <- Expected");
+			Console.WriteLine();
+			
+			Console.WriteLine("Binary tree, inorder");
+			Console.WriteLine(string.Join(", ", BinaryTree_Inorder(root)));
+			Console.WriteLine("0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10    <- Expected");
+			Console.WriteLine();
+			
+			Console.WriteLine("Binary tree, postorder");
+			Console.WriteLine(string.Join(", ", BinaryTree_Postorder(root)));
+			Console.WriteLine("0, 2, 4, 6, 5, 3, 1, 8, 10, 9, 7    <- Expected");
+			Console.WriteLine();
+		}
+
+		private static IEnumerable<string> BinaryTree_Preorder(NodeString root)
+		{
+			var hasChild = root.Children.Count == 2;
+
+			yield return root.Value;
+
+			if (hasChild)
+				foreach (var node in BinaryTree_Preorder(root.Children[0]))
+					yield return node;
+
+			if (hasChild)
+				foreach (var node in BinaryTree_Preorder(root.Children[1]))
+					yield return node;
+		}
+
+		private static IEnumerable<string> BinaryTree_Inorder(NodeString root)
+		{
+			var hasChild = root.Children.Count == 2;
+
+			if (hasChild)
+				foreach (var node in BinaryTree_Inorder(root.Children[0]))
+					yield return node;
+
+			yield return root.Value;
+
+			if (hasChild)
+				foreach (var node in BinaryTree_Inorder(root.Children[1]))
+					yield return node;
+		}
+
+		private static IEnumerable<string> BinaryTree_Postorder(NodeString root)
+		{
+			var hasChild = root.Children.Count == 2;
+
+			if (hasChild)
+				foreach (var node in BinaryTree_Postorder(root.Children[0]))
+					yield return node;
+
+			if (hasChild)
+				foreach (var node in BinaryTree_Postorder(root.Children[1]))
+					yield return node;
+
+			yield return root.Value;
 		}
 
 		private static IEnumerable<string> DFS(NodeString root)
