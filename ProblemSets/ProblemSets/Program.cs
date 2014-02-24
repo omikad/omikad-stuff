@@ -14,7 +14,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<GetNumberWithPrimes357>();
+				var runme = container.GetExportedValue<LongestIncreasingSubsequence>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
