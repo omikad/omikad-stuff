@@ -69,6 +69,9 @@ namespace ProblemSets.Problems
 		{
 			// O(q1Len + q2Len)
 
+			// * - sorted sequence
+			// . - arbitrary sequence
+
 			// q1 = [*******...], q1Len = 7
 			// q2 = [***....]	, q2Len = 3
 

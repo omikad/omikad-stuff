@@ -25,7 +25,7 @@ namespace ProblemSets.ComputerScience.DataTypes
 		{
 			// O(m*n)
 
-			// TODO: it is not worked with non-empty root
+			// TODO: it is not working with non-empty root
 
 			var inode = Root;
 			var istr = s + ".";

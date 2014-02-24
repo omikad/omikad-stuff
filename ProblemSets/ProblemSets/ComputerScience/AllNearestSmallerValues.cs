@@ -18,7 +18,7 @@ namespace ProblemSets.ComputerScience
 			Solve(new[] { 9, 3, 7, 1, 8, 12, 10, 20, 15, 18, 5 });
 		}
 
-		private void Solve(int[] arr)
+		private static void Solve(int[] arr)
 		{
 			Console.WriteLine();
 			Console.WriteLine("arr:     " + ", ".Join(arr));
@@ -27,7 +27,7 @@ namespace ProblemSets.ComputerScience
 			Console.WriteLine("indices: " + ", ".Join(SequentalNoStackSolution(arr).Select(i => i == -1 ? -1 : arr[i])));
 		}
 
-		private static IEnumerable<int> SequentalStackSolution(int[] arr)
+		private static IEnumerable<int> SequentalStackSolution(IEnumerable<int> arr)
 		{
 			// total iterations <= 2 * n   ~ O(n)
 

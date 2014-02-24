@@ -34,7 +34,7 @@ namespace ProblemSets.Problems
 		}
 
 		// FFFFfffuuuuuu
-		private void SortAsBubble(int[] arr)
+		private static void SortAsBubble(int[] arr)
 		{
 			// O(n)
 
@@ -44,9 +44,9 @@ namespace ProblemSets.Problems
 				var prev = arr[i - 1];
 
 				if (i % 2 == 1 && cur < prev)
-					Swap(arr, i, i - 1);
+					arr.Swap(i, i - 1);
 				if (i % 2 == 0 && cur > prev)
-					Swap(arr, i, i - 1);
+					arr.Swap(i, i - 1);
 			}
 			Console.WriteLine(", ".Join(arr));
 		}
@@ -142,13 +142,6 @@ namespace ProblemSets.Problems
 			var tmp = a;
 			a = b;
 			b = tmp;
-		}
-
-		private void Swap(int[] arr, int i, int j)
-		{
-			var tmp = arr[i];
-			arr[i] = arr[j];
-			arr[j] = tmp;
 		}
 	}
 }

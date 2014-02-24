@@ -13,7 +13,7 @@ namespace ProblemSets.Problems
 				Console.WriteLine(new { k, magic = Solve(k) });
 		}
 
-		private int Solve(int k)
+		private static int Solve(int k)
 		{
 			if (k < 0) return 0;
 
