@@ -44,5 +44,49 @@ namespace ProblemSets.Services
 				indices[position] = indices[i];
 			}
 		}
+
+		public struct ItemWithIndex<T>
+		{
+			public T Item;
+			public int Index;
+		}
+
+		public static ItemWithIndex<T>? BinarySearch<T>(this IList<T> collection, Func<ItemWithIndex<T>, int> getDirection)
+		{
+			var left = 0;
+			var right = collection.Count - 1;
+			var mid = 0;
+
+			while (left < right)
+			{
+				mid = (left + right) / 2;
+				var item = collection[mid];
+
+				var point = new ItemWithIndex<T>
+				{
+					Item = item,
+					Index = mid,
+				};
+
+				var direction = getDirection(point);
+
+				if (direction > 0)
+					left = mid + 1;
+				else if (direction == 0)
+					return point;
+				else
+					right = mid;
+			}
+
+			if (mid == left) return null;
+
+			var lastPoint = new ItemWithIndex<T>
+			{
+				Item = collection[left],
+				Index = left,
+			};
+
+			return getDirection(lastPoint) == 0 ? lastPoint : (ItemWithIndex<T>?) null;
+		}
 	}
 }

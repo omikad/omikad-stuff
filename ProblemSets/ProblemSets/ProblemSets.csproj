@@ -71,6 +71,7 @@
     <Compile Include="ComputerScience\TopologicalSort.cs" />
     <Compile Include="Problems\AddTwoNumbers.cs" />
     <Compile Include="Problems\CountNumberOf2s.cs" />
+    <Compile Include="Problems\CreateMaxRectangleCrossword.cs" />
     <Compile Include="Problems\FindLargestRectangleIn2D.cs" />
     <Compile Include="ComputerScience\FindMaximumSumSubArray.cs" />
     <Compile Include="Problems\FindStringRotationPoint.cs" />

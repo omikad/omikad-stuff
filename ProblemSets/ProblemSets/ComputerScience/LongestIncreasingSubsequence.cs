@@ -15,7 +15,7 @@ namespace ProblemSets.ComputerScience
 			Solve(new[] { 2, 6, 3, 4, 1, 2, 9, 5, 8 });
 		}
 
-		private void Solve(int[] arr)
+		private static void Solve(int[] arr)
 		{
 			// O(n log n)
 
@@ -85,6 +85,8 @@ namespace ProblemSets.ComputerScience
 
 				if (elem < item)
 					left = mid + 1;
+				else if (elem == item)
+					return mid;
 				else
 					right = mid;
 			}
