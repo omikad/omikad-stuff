@@ -63,7 +63,7 @@ namespace ProblemSets.Problems
 			var inserted = arr[0];
 			var a = arr[1];
 			var b = arr[2];
-			Sort3(ref a, ref inserted, ref b);
+			EnumerableHelper.Sort3(ref a, ref inserted, ref b);
 
 			arr[0] = inserted;
 
@@ -73,9 +73,9 @@ namespace ProblemSets.Problems
 				
 				var c = arr[i];
 
-//				SwapSort(ref a, ref b);  // No need, because a < b already
-				SwapSort(ref a, ref c);
-				SwapSort(ref b, ref c);
+//				EnumerableHelper.SwapSort(ref a, ref b);  // No need, because a < b already
+				EnumerableHelper.SwapSort(ref a, ref c);
+				EnumerableHelper.SwapSort(ref b, ref c);
 
 				if (isUpNotDown)
 				{
@@ -119,29 +119,6 @@ namespace ProblemSets.Problems
 
 			arr[arr.Length - 2] = isUpNotDown ? b : a;
 			arr[arr.Length - 1] = isUpNotDown ? a : b;
-		}
-
-		private static void Sort4(ref int x0, ref int x1, ref int x2, ref int x3)
-		{
-			SwapSort(ref x0, ref x1); SwapSort(ref x2, ref x3);
-			SwapSort(ref x0, ref x2); SwapSort(ref x1, ref x3);
-			SwapSort(ref x1, ref x2);
-		}
-
-		private static void Sort3(ref int a, ref int b, ref int c)
-		{
-			SwapSort(ref a, ref b);
-			SwapSort(ref a, ref c);
-			SwapSort(ref b, ref c);
-		}
-
-		private static void SwapSort(ref int a, ref int b)
-		{
-			if (a < b) return;
-
-			var tmp = a;
-			a = b;
-			b = tmp;
 		}
 	}
 }

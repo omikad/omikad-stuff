@@ -88,5 +88,28 @@ namespace ProblemSets.Services
 
 			return getDirection(lastPoint) == 0 ? lastPoint : (ItemWithIndex<T>?) null;
 		}
+
+		public static void Sort4(ref int x0, ref int x1, ref int x2, ref int x3)
+		{
+			SwapSort(ref x0, ref x1); SwapSort(ref x2, ref x3);
+			SwapSort(ref x0, ref x2); SwapSort(ref x1, ref x3);
+			SwapSort(ref x1, ref x2);
+		}
+
+		public static void Sort3(ref int a, ref int b, ref int c)
+		{
+			SwapSort(ref a, ref b);
+			SwapSort(ref a, ref c);
+			SwapSort(ref b, ref c);
+		}
+
+		public static void SwapSort(ref int a, ref int b)
+		{
+			if (a < b) return;
+
+			var tmp = a;
+			a = b;
+			b = tmp;
+		}
 	}
 }

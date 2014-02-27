@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using ProblemSets.ComputerScience;
 using ProblemSets.Problems;
+using ProblemSets.Problems.ProjEuler;
 
 namespace ProblemSets
 {
@@ -14,7 +15,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<MooreVotingMajorityAlgorithm>();
+				var runme = container.GetExportedValue<Problem35>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
