@@ -14,7 +14,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<CartesianTree>();
+				var runme = container.GetExportedValue<MooreVotingMajorityAlgorithm>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
