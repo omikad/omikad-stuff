@@ -80,6 +80,7 @@
     <Compile Include="Problems\FindWayThroughMaze.cs" />
     <Compile Include="Problems\FindWordIn2dArray.cs" />
     <Compile Include="Problems\GetNumberWithPrimes357.cs" />
+    <Compile Include="Problems\ProjEuler\Problem146.cs" />
     <Compile Include="Problems\ProjEuler\Problem35.cs" />
     <Compile Include="Problems\ProjEuler\Problem65.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />

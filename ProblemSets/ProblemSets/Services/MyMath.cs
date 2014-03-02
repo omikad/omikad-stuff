@@ -51,6 +51,19 @@ namespace ProblemSets.Services
 			return true;
 		}
 
+		public static bool IsPrime(BigInteger x, BigInteger checkLimit)
+		{
+			if (x % 2 == 0) return false;
+			
+			for (var i = new BigInteger(3); i <= checkLimit; i += 2)
+			{
+				if (x % i == 0)
+					return false;
+			}
+			
+			return true;
+		}
+
 		public static ulong Mul(this IEnumerable<int> ints)
 		{
 			var result = 1ul;
