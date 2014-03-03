@@ -20,6 +20,13 @@ namespace ProblemSets.ComputerScience
 
 		public int[] Solution_Kadane(int[] arr)
 		{
+// if we consider the array [a,b,c,d,e,f] and if we are knowing:
+// -the max subset of [a,b,c,d,e]
+// -the max subset containing 'e' of [a,b,c,d,e]
+   
+// So the maximum subset of [a,b,c,d,e,f] is:
+// -the max subset of [a,b,c,d,e] or f or the max subset containing 'e' of [a,b,c,d,e]+f
+
 			var max_so_far = arr[0];
 			var max_ending_here = arr[0];
 

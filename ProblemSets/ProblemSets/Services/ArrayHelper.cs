@@ -26,6 +26,15 @@ namespace ProblemSets.Services
 			return result;
 		}
 
+		public static T[,] SubArray<T>(this T[,] arr, int startRow, int countRows, int startCol, int countCols)
+		{
+			var result = new T[countRows, countCols];
+			for (var i = 0; i < countRows; i++)
+				for (var j = 0; j < countCols; j++)
+					result[i, j] = arr[i + startRow, j + countRows];
+			return result;
+		}
+
 		public static void FillRow<T>(this T[,] arr, int rowIndex, IEnumerable<T> items)
 		{
 			var i = 0;
@@ -63,6 +72,13 @@ namespace ProblemSets.Services
 		{
 			foreach (var row in charArray.EnumerateRows())
 				Console.WriteLine(new string(row.ToArray()));
+			Console.WriteLine();
+		}
+
+		public static void Print<T>(this T[,] array)
+		{
+			foreach (var row in array.EnumerateRows())
+				Console.WriteLine(", ".Join(row));
 			Console.WriteLine();
 		}
 
