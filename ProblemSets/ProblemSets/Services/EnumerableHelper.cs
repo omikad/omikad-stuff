@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Combinatorics.Collections;
 
 namespace ProblemSets.Services
 {
@@ -110,6 +111,13 @@ namespace ProblemSets.Services
 			var tmp = a;
 			a = b;
 			b = tmp;
+		}
+
+		public static IEnumerable<IList<T>> Subsets<T>(this IList<T> list, int startLen)
+		{
+			for (var i = startLen; i < list.Count; i++)
+				foreach (var variation in new Combinations<T>(list, i, GenerateOption.WithoutRepetition))
+					yield return variation;
 		}
 	}
 }
