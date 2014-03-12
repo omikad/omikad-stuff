@@ -115,9 +115,20 @@ namespace ProblemSets.Services
 
 		public static IEnumerable<IList<T>> Subsets<T>(this IList<T> list, int startLen)
 		{
+			if (startLen == 0)
+			{
+				yield return new T[0];
+				startLen = 1;
+			}
+
 			for (var i = startLen; i < list.Count; i++)
 				foreach (var variation in new Combinations<T>(list, i, GenerateOption.WithoutRepetition))
 					yield return variation;
+		}
+
+		public static IEnumerable<IList<T>> Combinations<T>(this IList<T> list, int combLen)
+		{
+			return new Combinations<T>(list, combLen, GenerateOption.WithoutRepetition);
 		}
 	}
 }
