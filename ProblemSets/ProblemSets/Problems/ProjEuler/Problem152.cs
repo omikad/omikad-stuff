@@ -37,10 +37,24 @@ namespace ProblemSets.Problems.ProjEuler
 			var numbers = Enumerable
 				.Range(2, max - 1)
 				.Where(i => forbiddenPrimes.All(p => i % p != 0))
+
+				// for max = 80, there is only one combination for 13: 13, 39, 52 => remove all other 13x
+				.Where(i => i % 13 != 0 || i == 13 || i == 39 || i == 52)
+
+				// there are no 25, and 49 in the 5,7 combinations
+				.Where(i => i != 25 && i != 49)
+
+				// there is no 27 in the 3 combinations
+				.Where(i => i != 27)
+				
 				.Select(i => (ulong)i)
 				.ToArray();
 
 			var map = numbers.Select((n, i) => new {n, i}).ToDictionary(a => a.n, a => 1ul << a.i);
+
+			Console.WriteLine(numbers.Length);
+
+			ShowPrimeCombinations(primes, numbers);
 
 			// Console.WriteLine(CompareToTarget(Sum(numbers.Where(n => n >= 3)))); // -1 => 1/2 must be in the sum
 
@@ -168,6 +182,23 @@ namespace ProblemSets.Problems.ProjEuler
 			Console.WriteLine("All combinations: " + primesCombinations.Count);
 
 			Console.WriteLine("Total distinct solutions: " + solutions.Count);
+		}
+
+		private static void ShowPrimeCombinations(ulong[] primes, ulong[] numbers)
+		{
+			foreach (var prime in primes)
+				if (prime >= 5)
+				{
+					var divisiblesByPrime = numbers.Where(n => n % prime == 0).ToArray();
+
+					var combinations = divisiblesByPrime.Subsets(2)
+					                                    .Where(s => Sum(s).Denumerator % prime != 0)
+					                                    .ToArray();
+
+					if (combinations.Length > 0)
+						foreach (var combination in combinations)
+							Console.WriteLine(new { prime, comb = ", ".Join(combination) });
+				}
 		}
 
 		private static ulong GetPowThree(BigInteger n)

@@ -121,7 +121,7 @@ namespace ProblemSets.Services
 				startLen = 1;
 			}
 
-			for (var i = startLen; i < list.Count; i++)
+			for (var i = startLen; i <= list.Count; i++)
 				foreach (var variation in new Combinations<T>(list, i, GenerateOption.WithoutRepetition))
 					yield return variation;
 		}
