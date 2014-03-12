@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
 using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
-using System.Reflection;
 using ProblemSets.Services;
 
 namespace ProblemSets.Problems.ProjEuler
@@ -13,11 +11,17 @@ namespace ProblemSets.Problems.ProjEuler
 	[Export]
 	public class Problem152
 	{
-		private const int max = 75;
+
+// All combinations: 19466745
+// Total distinct solutions: 301   <- Same as for max = 75. Possible improvement
+// Elapsed: 94468
+// Memory: 3 Gb
+
+		private const int max = 80;
 
 		private class Candidate
 		{
-			public BitArray Bits;
+			public ulong Bits;
 			public FractionBigInt Summa;
 		}
 
@@ -25,11 +29,9 @@ namespace ProblemSets.Problems.ProjEuler
 		{
 			Console.WriteLine("{0}: ", max);
 
-			var fiBitArrayMArray = typeof(BitArray).GetField("m_array", BindingFlags.NonPublic | BindingFlags.Instance);
-
 			var primes = MyMath.ConvertSieveToPrimes(MyMath.CreatePrimesSieve(max));
 
-			// Because there is no combinations for them:
+			// Because there are no combinations for them:
 			var forbiddenPrimes = new[] { 11,17,19,23,29,31,37,41,43,47,53,59,61,67,71,73,79 };
 
 			var numbers = Enumerable
@@ -38,7 +40,7 @@ namespace ProblemSets.Problems.ProjEuler
 				.Select(i => (ulong)i)
 				.ToArray();
 
-			var map = numbers.Select((n, i) => new {n, i}).ToDictionary(a => a.n, a => a.i);
+			var map = numbers.Select((n, i) => new {n, i}).ToDictionary(a => a.n, a => 1ul << a.i);
 
 			// Console.WriteLine(CompareToTarget(Sum(numbers.Where(n => n >= 3)))); // -1 => 1/2 must be in the sum
 
@@ -74,7 +76,7 @@ namespace ProblemSets.Problems.ProjEuler
 
 					foreach (var prevComb in primesCombinations)
 					{
-						var newCombBits = new BitArray(combBits).Or(prevComb.Bits);
+						var newCombBits = combBits | prevComb.Bits;
 						copy.Add(new Candidate { Bits = newCombBits, Summa = Sum(numbers, newCombBits) });
 					}
 				}
@@ -97,7 +99,7 @@ namespace ProblemSets.Problems.ProjEuler
 					if (CompareToTarget(sum) > 0)
 						continue;
 
-					var remainingBits = new BitArray(allBits).Xor(comb.Bits).And(allBut23mask);
+					var remainingBits = (allBits - comb.Bits) & allBut23mask;
 
 					if (CompareToTarget(Sum(numbers, remainingBits) + sum) >= 0)
 						copy.Add(comb);
@@ -127,18 +129,18 @@ namespace ProblemSets.Problems.ProjEuler
 					{
 						var combBits = ConvertToBitArray(map, comb);
 
-						var addedThrees = new BitArray(threesMask).And(combBits);
+						var addedThrees = threesMask & combBits;
 
 						foreach (var prevComb in primesCombinations)
 						{
-							if (!BitArrayContains(fiBitArrayMArray, prevComb.Bits, addedThrees))
+							if (!BitArrayContains(prevComb.Bits, addedThrees))
 								continue;
 
-							if (!BitArrayContains(fiBitArrayMArray, prevComb.Bits, combBits))
+							if (!BitArrayContains(prevComb.Bits, combBits))
 							{
-								var newCombBits = new BitArray(combBits).Or(prevComb.Bits);
+								var newCombBits = combBits | prevComb.Bits;
 
-								var addition = new BitArray(newCombBits).Xor(prevComb.Bits);
+								var addition = newCombBits ^ prevComb.Bits;
 
 								var sum = prevComb.Summa + Sum(numbers, addition);
 
@@ -147,7 +149,8 @@ namespace ProblemSets.Problems.ProjEuler
 								if (compare > 0)
 									continue;
 
-								copy.Add(new Candidate { Bits = newCombBits, Summa = sum });
+								if (prime < 13)
+									copy.Add(new Candidate { Bits = newCombBits, Summa = sum });
 
 								if (compare == 0)
 								{
@@ -206,11 +209,21 @@ namespace ProblemSets.Problems.ProjEuler
 			path.Pop();
 		}
 
-		private static string BitArrayToString(ulong[] numbers, BitArray arr)
+		private static string BitArrayToString(ulong[] numbers, ulong mask)
 		{
-			return
-				", ".Join(
-					arr.Cast<bool>().Select((f, i) => new { f, i }).Where(a => a.f).Select(a => numbers[a.i]).OrderBy(n => n));
+			return ", ".Join(GetIndices(mask).Select(i => numbers[i]).OrderBy(n => n));
+		}
+
+		private static IEnumerable<int> GetIndices(ulong mask)
+		{
+			var i = 0;
+			while (mask > 0)
+			{
+				if (mask % 2 != 0)
+					yield return i;
+				i++;
+				mask >>= 1;
+			}
 		}
 
 		private static int CompareToTarget(FractionBigInt fraction)
@@ -218,23 +231,15 @@ namespace ProblemSets.Problems.ProjEuler
 			return (fraction.Numerator << 1).CompareTo(fraction.Denumerator);
 		}
 
-		private static bool BitArrayContains(FieldInfo fiBitArrayMArray, BitArray big, BitArray small)
+		private static bool BitArrayContains(ulong big, ulong small)
 		{
-			var a = (int[])fiBitArrayMArray.GetValue(big);
-			var b = (int[])fiBitArrayMArray.GetValue(small);
-
-			for (var i = 0; i < a.Length; i++)
-			{
-				if (b[i] != (a[i] & b[i]))
-					return false;
-			}
-			return true;
+			return small == (big & small);
 		}
 
-		private static BitArray ConvertToBitArray(Dictionary<ulong, int> map, IEnumerable<ulong> combination)
+		private static ulong ConvertToBitArray(Dictionary<ulong, ulong> map, IEnumerable<ulong> combination)
 		{
-			var mask = new BitArray(map.Count);
-			foreach (var n in combination) mask.Set(map[n], true);
+			var mask = 0ul;
+			foreach (var n in combination) mask |= map[n];
 			return mask;
 		}
 
@@ -246,15 +251,16 @@ namespace ProblemSets.Problems.ProjEuler
 			return sum.Simplify();
 		}
 
-		private static FractionBigInt Sum(ulong[] numbers, BitArray mask)
+		private static FractionBigInt Sum(ulong[] numbers, ulong mask)
 		{
 			var sum = new FractionBigInt(0, 1);
 			var i = 0;
-			foreach (bool flag in mask)
+			while (mask > 0)
 			{
-				if (flag)
+				if (mask % 2 != 0)
 					sum = AddInverseSquare(sum, numbers[i]);
 				i++;
+				mask >>= 1;
 			}
 			return sum.Simplify();
 		}
