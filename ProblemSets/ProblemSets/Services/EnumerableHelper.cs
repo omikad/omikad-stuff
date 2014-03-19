@@ -52,6 +52,31 @@ namespace ProblemSets.Services
 			public int Index;
 		}
 
+		public static int? BinarySearch(int count, Func<int, int> getDirection)
+		{
+			var left = 0;
+			var right = count - 1;
+			var mid = 0;
+
+			while (left < right)
+			{
+				mid = (left + right) / 2;
+				
+				var direction = getDirection(mid);
+
+				if (direction > 0)
+					left = mid + 1;
+				else if (direction == 0)
+					return mid;
+				else
+					right = mid;
+			}
+
+			if (mid == left) return null;
+
+			return getDirection(left) == 0 ? left : (int?)null;
+		}
+
 		public static ItemWithIndex<T>? BinarySearch<T>(this IList<T> collection, Func<ItemWithIndex<T>, int> getDirection)
 		{
 			var left = 0;
