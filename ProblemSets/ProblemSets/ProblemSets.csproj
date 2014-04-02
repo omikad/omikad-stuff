@@ -87,6 +87,7 @@
     <Compile Include="Problems\ProjEuler\Problem25.cs" />
     <Compile Include="Problems\ProjEuler\Problem333.cs" />
     <Compile Include="Problems\ProjEuler\Problem35.cs" />
+    <Compile Include="Problems\ProjEuler\Problem355.cs" />
     <Compile Include="Problems\ProjEuler\Problem65.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />

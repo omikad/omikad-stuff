@@ -72,6 +72,22 @@ namespace ProblemSets.Services
 			return result;
 		}
 
+		public static ulong Mul(this IEnumerable<ulong> ulongs)
+		{
+			var result = 1ul;
+			foreach (var i in ulongs)
+				result *= i;
+			return result;
+		}
+
+		public static ulong Sum(this IEnumerable<ulong> ulongs)
+		{
+			var result = 0ul;
+			foreach (var i in ulongs)
+				result += i;
+			return result;
+		}
+
 		public static ulong ExtendedEuclidGcd(ulong a, ulong b)
 		{
 			ulong s = 0;
