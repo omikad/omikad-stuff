@@ -50,6 +50,25 @@ namespace ProblemSets.Services
 		{
 			public T Item;
 			public int Index;
+
+			public override string ToString()
+			{
+				return new {item = Item, index = Index}.ToString();
+			}
+		}
+
+		public static IEnumerable<ItemWithIndex<T>> WithIndices<T>(this IEnumerable<T> source)
+		{
+			var i = 0;
+			foreach (var item in source)
+			{
+				yield return new ItemWithIndex<T>
+				{
+					Item = item,
+					Index = i
+				};
+				i++;
+			}
 		}
 
 		public static int? BinarySearch(int count, Func<int, int> getDirection)

@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -53,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AssertHelper.cs" />
     <Compile Include="TestFindMaximumSumSumArray.cs" />
+    <Compile Include="TestMillerRabinPrimality.cs" />
     <Compile Include="TestRabinKarpRollingHash.cs" />
     <Compile Include="TestStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

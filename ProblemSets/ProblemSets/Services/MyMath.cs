@@ -43,6 +43,9 @@ namespace ProblemSets.Services
 
 		public static bool IsPrime(ulong x)
 		{
+			if (x <= 1) return false;
+			if (x == 2) return true;
+
 			for (ulong i = 2; i < Math.Sqrt(x) + 1; i++)
 			{
 				if (x % i == 0)
@@ -51,9 +54,16 @@ namespace ProblemSets.Services
 			return true;
 		}
 
+		public static bool IsPrime(BigInteger x)
+		{
+			return IsPrime(x, x / 2);
+		}
+
 		public static bool IsPrime(BigInteger x, BigInteger checkLimit)
 		{
-			if (x % 2 == 0) return false;
+			if (x <= 1) return false;
+			if (x == 2) return true;
+			if (x.IsEven) return false;
 			
 			for (var i = new BigInteger(3); i <= checkLimit; i += 2)
 			{
