@@ -84,6 +84,7 @@
     <Compile Include="Problems\ProjEuler\Problem149.cs" />
     <Compile Include="Problems\ProjEuler\Problem146.cs" />
     <Compile Include="Problems\ProjEuler\Problem152.cs" />
+    <Compile Include="Problems\ProjEuler\Problem19.cs" />
     <Compile Include="Problems\ProjEuler\Problem200.cs" />
     <Compile Include="Problems\ProjEuler\Problem25.cs" />
     <Compile Include="Problems\ProjEuler\Problem32.cs" />
