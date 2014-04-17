@@ -156,6 +156,19 @@ namespace ProblemSets.Services
 			}
 		}
 
+		public static double PowDouble(double a, ulong pow)
+		{
+			double y = 1;
+
+			while (true)
+			{
+				if ((pow & 1) != 0) y = (a * y);
+				pow = pow >> 1;
+				if (pow == 0) return y;
+				a = (a * a);
+			}
+		}
+
 		public static ulong ModularInverse(ulong a, ulong b)
 		{
 			return (ulong)ModularInverse(new BigInteger(a), new BigInteger(b));

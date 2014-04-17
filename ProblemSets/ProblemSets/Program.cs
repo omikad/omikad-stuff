@@ -16,7 +16,7 @@ namespace ProblemSets
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 //				var runme = container.GetExportedValue<Problem200>();
-				var runme = new Problem19();
+				var runme = new Problem267();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

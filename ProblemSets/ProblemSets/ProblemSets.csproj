@@ -87,10 +87,12 @@
     <Compile Include="Problems\ProjEuler\Problem19.cs" />
     <Compile Include="Problems\ProjEuler\Problem200.cs" />
     <Compile Include="Problems\ProjEuler\Problem25.cs" />
+    <Compile Include="Problems\ProjEuler\Problem267.cs" />
     <Compile Include="Problems\ProjEuler\Problem32.cs" />
     <Compile Include="Problems\ProjEuler\Problem333.cs" />
     <Compile Include="Problems\ProjEuler\Problem35.cs" />
     <Compile Include="Problems\ProjEuler\Problem355.cs" />
+    <Compile Include="Problems\ProjEuler\Problem38.cs" />
     <Compile Include="Problems\ProjEuler\Problem467.cs" />
     <Compile Include="Problems\ProjEuler\Problem65.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
