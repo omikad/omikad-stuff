@@ -171,7 +171,7 @@ namespace ProblemSets.Services
 
 		public static ulong ModularInverse(ulong a, ulong b)
 		{
-			return (ulong)ModularInverse(new BigInteger(a), new BigInteger(b));
+			return (ExtendedEuclidGcd(a, b) % b);
 		}
 
 		public static BigInteger ModularInverse(BigInteger a, BigInteger b)
@@ -225,6 +225,52 @@ namespace ProblemSets.Services
 				cnt++;
 			}
 			return cnt;
+		}
+
+		public static ulong FindPrimitiveRootForPrime(ulong prime, ulong[] invertedFactors, ulong invertedFactorsLength)
+		{
+			for (ulong gen = 2; gen < prime; gen++)
+			{
+				var found = true;
+				for (ulong i = 0; i < invertedFactorsLength; i++)
+				{
+					var test = ModularPow(gen, invertedFactors[i], prime);
+					if (test == 1)
+					{
+						found = false;
+						break;
+					}
+				}
+				if (found)
+					return gen;
+			}
+
+			throw new InvalidOperationException("No generator found for prime = " + prime);
+		}
+
+		public static void FindInvertedPrimeFactors(ulong x, IEnumerable<ulong> primes, ulong[] array, out ulong length)
+		{
+			ulong len = 0;
+			ulong mult = 1;
+			foreach (var prime in primes)
+			{
+				if (prime >= x / 2 + 1) break;
+				if (x % prime == 0)
+				{
+					array[len] = (x * mult) / prime;
+					len++;
+
+					x = x / prime;
+					mult = mult * prime;
+
+					if (x % prime == 0)
+					{
+						x = x / prime;
+						mult = mult * prime;
+					}
+				}
+			}
+			length = len;
 		}
 	}
 }

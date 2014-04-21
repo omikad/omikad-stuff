@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using ProblemSets.Services;
 
-namespace ProblemSets
+namespace ProblemSets.Problems.ProjEuler
 {
 	public class Problem421
 	{
@@ -48,7 +47,7 @@ namespace ProblemSets
 
 				if (cnt == 1)
 				{
-					var inverse = ModularInverse(15, prime1);
+					var inverse = MyMath.ModularInverse(15, prime1);
 					var i = MyMath.ModularPow(prime1, inverse, prime);
 
 					S += (1ul + (maxn - i) / prime) * prime;
@@ -60,9 +59,9 @@ namespace ProblemSets
 					continue;
 
 				ulong invertedPrimeFactorsLength;
-				FindInvertedPrimeFactors(prime1, primes, invertedPrimeFactorsArray, out invertedPrimeFactorsLength);
+				MyMath.FindInvertedPrimeFactors(prime1, primes, invertedPrimeFactorsArray, out invertedPrimeFactorsLength);
 
-				var primitiveRoot = FindPrimitiveRootForPrime(prime, invertedPrimeFactorsArray, invertedPrimeFactorsLength);
+				var primitiveRoot = MyMath.FindPrimitiveRootForPrime(prime, invertedPrimeFactorsArray, invertedPrimeFactorsLength);
 
 				var powerdelta = (prime1 / cnt) / 2;
 				var power = powerdelta;
@@ -80,81 +79,12 @@ namespace ProblemSets
 			Console.WriteLine(S);
 		}
 
-		private static ulong ModularInverse(ulong a, ulong b)
-		{
-			return (MyMath.ExtendedEuclidGcd(a, b) % b);
-		}
-
 		private static ulong GCD15(ulong x)
 		{
 			if (x % 15 == 0) return 15;
 			if (x % 5 == 0) return 5;
 			if (x % 3 == 0) return 3;
 			return 1;
-		}
-
-		private static ulong ModularPow15(ulong x, ulong prime)
-		{
-			var x2 = (x * x) % prime;
-			var x4 = (x2 * x2) % prime;
-			var x8 = (x4 * x4) % prime;
-			var x12 = (x8 * x4) % prime;
-			var x14 = (x12 * x2) % prime;
-			var x15 = (x14 * x) % prime;
-			return x15;
-		}
-
-		private static ulong FindPrimitiveRootForPrime(ulong prime, ulong[] invertedFactors, ulong invertedFactorsLength)
-		{
-			for (ulong gen = 2; gen < prime; gen++)
-			{
-				var found = true;
-				for (ulong i = 0; i < invertedFactorsLength; i++)
-				{
-					var test = MyMath.ModularPow(gen, invertedFactors[i], prime);
-					if (test == 1)
-					{
-						found = false;
-						break;
-					}
-				}
-				if (found)
-					return gen;
-			}
-
-			throw new InvalidOperationException("No generator found for prime = " + prime);
-		}
-
-		private static void FindInvertedPrimeFactors(ulong x, IEnumerable<ulong> primes, ulong[] array, out ulong length)
-		{
-			ulong len = 0;
-			ulong mult = 1;
-			foreach (var prime in primes)
-			{
-				if (prime >= x / 2 + 1) break;
-				if (x % prime == 0)
-				{
-					array[len] = (x * mult) / prime;
-					len++;
-					
-					x = x / prime;
-					mult = mult * prime;
-
-					if (x % prime == 0)
-					{
-						x = x / prime;
-						mult = mult * prime;
-
-						// Почему это не работает ?
-//						if (x % prime == 0)
-//						{
-//							x = x / prime;
-//							mult = mult * prime;
-//						}
-					}
-				}
-			}
-			length = len;
 		}
 	}
 }
