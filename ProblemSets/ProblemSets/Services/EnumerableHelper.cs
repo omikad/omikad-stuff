@@ -46,6 +46,19 @@ namespace ProblemSets.Services
 			}
 		}
 
+		public static void Shuffle<T>(this IList<T> list, Random generator = null)
+		{
+			generator = generator ?? new Random();
+			for (var i = 0; i < list.Count; i++)
+			{
+				var position = generator.Next(i, list.Count);
+
+				var tmp = list[i];
+				list[i] = list[position];
+				list[position] = tmp;
+			}
+		}
+
 		public struct ItemWithIndex<T>
 		{
 			public T Item;

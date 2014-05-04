@@ -15,8 +15,8 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-//				var runme = container.GetExportedValue<Problem200>();
-				var runme = new Problem437();
+				var runme = container.GetExportedValue<FindArrayInversionsCount>();
+//				var runme = new Problem437();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

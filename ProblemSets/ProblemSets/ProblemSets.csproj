@@ -60,6 +60,7 @@
     <Compile Include="ComputerScience\DataTypes\PointInt.cs" />
     <Compile Include="ComputerScience\DataTypes\Radix.cs" />
     <Compile Include="ComputerScience\DataTypes\Trie.cs" />
+    <Compile Include="ComputerScience\FindArrayInversionsCount.cs" />
     <Compile Include="ComputerScience\FindMedianOfArray.cs" />
     <Compile Include="ComputerScience\FloodFill.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Problems\CreateMaxRectangleCrossword.cs" />
     <Compile Include="Problems\FindLargestRectangleIn2D.cs" />
     <Compile Include="ComputerScience\FindMaximumSumSubArray.cs" />
+    <Compile Include="Problems\FindSecondLargestInArray.cs" />
     <Compile Include="Problems\FindStringRotationPoint.cs" />
     <Compile Include="Problems\FindSubArrayToSort.cs" />
     <Compile Include="Problems\FindWayThroughMaze.cs" />
