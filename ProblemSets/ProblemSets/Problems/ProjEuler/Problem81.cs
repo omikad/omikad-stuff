@@ -20,7 +20,7 @@ namespace ProblemSets
 			var matr = lines.Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
 			SolveInternal(matr);
 
-			SolveInternal(File.ReadAllLines("matrix81.txt").Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray());
+			SolveInternal(File.ReadAllLines("Content\\matrix81.txt").Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray());
 		}
 
 		public static void SolveInternal(int[][] matr)

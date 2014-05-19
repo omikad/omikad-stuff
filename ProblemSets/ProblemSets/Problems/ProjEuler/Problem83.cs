@@ -30,7 +30,7 @@ namespace ProblemSets
 		public static void Solve()
 		{
 //			matr = lines.Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
-			matr = File.ReadAllLines("matrix83.txt").Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
+			matr = File.ReadAllLines("Content\\matrix83.txt").Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
 
 			SolveInternal();
 		}

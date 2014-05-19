@@ -98,6 +98,7 @@
     <Compile Include="Problems\ProjEuler\Problem437.cs" />
     <Compile Include="Problems\ProjEuler\Problem467.cs" />
     <Compile Include="Problems\ProjEuler\Problem65.cs" />
+    <Compile Include="Problems\QuickSortCountComparsions.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="ComputerScience\SubstringContains.cs" />
@@ -163,17 +164,17 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="matrix81.txt">
+    <None Include="Content\matrix81.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="matrix83.txt">
+    <None Include="Content\matrix83.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="matrix82.txt">
+    <None Include="Content\matrix82.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -28,7 +28,7 @@ namespace ProblemSets
 		{
 //			var matr = lines.Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
 
-			var matr = File.ReadAllLines("matrix82.txt").Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
+			var matr = File.ReadAllLines("Content\\matrix82.txt").Select(l => l.Split(',').Select(int.Parse).ToArray()).ToArray();
 
 			var rows = matr.Length;
 			var cols = matr[0].Length;
