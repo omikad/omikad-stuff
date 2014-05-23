@@ -25,11 +25,14 @@ namespace ProblemSets.ComputerScience
 
 		private int ByQuickSort(int[] arr)
 		{
-			DoQuickSort(arr, 0, arr.Length - 1);
-			return arr[arr.Length / 2];
+			var desire = arr.Length / 2;
+			
+			DoQuickSort(arr, 0, arr.Length - 1, desire);
+
+			return arr[desire];
 		}
 
-		private void DoQuickSort(int[] arr, int start, int end)
+		private void DoQuickSort(int[] arr, int start, int end, int desire)
 		{
 			if (end - start <= 0) return;
 
@@ -37,13 +40,13 @@ namespace ProblemSets.ComputerScience
 
 			pivotIndex = quickSort.Partition(arr, start, end, pivotIndex);
 
-			if (pivotIndex < arr.Length / 2)
+			if (pivotIndex < desire)
 			{
-				DoQuickSort(arr, pivotIndex + 1, end);
+				DoQuickSort(arr, pivotIndex + 1, end, arr.Length / 2);
 			}
-			else if (pivotIndex > arr.Length / 2)
+			else if (pivotIndex > desire)
 			{
-				DoQuickSort(arr, start, pivotIndex - 1);
+				DoQuickSort(arr, start, pivotIndex - 1, arr.Length / 2);
 			}
 		}
 	}
