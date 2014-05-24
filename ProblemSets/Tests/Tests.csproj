@@ -56,6 +56,7 @@
     <Compile Include="TestFindArrayInversionsCount.cs" />
     <Compile Include="TestFindMaximumSumSumArray.cs" />
     <Compile Include="TestMillerRabinPrimality.cs" />
+    <Compile Include="TestNearestNeighborSearch.cs" />
     <Compile Include="TestRabinKarpRollingHash.cs" />
     <Compile Include="TestStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

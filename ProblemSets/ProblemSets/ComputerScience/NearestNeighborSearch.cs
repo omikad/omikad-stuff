@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using ProblemSets.Services;
 
 namespace ProblemSets.ComputerScience
@@ -51,21 +50,23 @@ namespace ProblemSets.ComputerScience
 			var bottom = BinarySearch_Bottom(orderedSet[0], p[0] - epsilon);
 			var top = BinarySearch_Top(orderedSet[0], p[0] + epsilon, bottom);
 
-			var list = new List<int>();
+			var list = new Queue<int>();
 
 			for (var i = bottom; i <= top; i++)
-				list.Add(bmap[i]);
+				list.Enqueue(bmap[i]);
 
 			for (var i = 1; i < p.Length; i++)
 			{
 				bottom = BinarySearch_Bottom(orderedSet[i], p[i] - epsilon);
 				top = BinarySearch_Top(orderedSet[i], p[i] + epsilon, bottom);
 
-				var old = list.ToArray();
-				list.Clear();
-				foreach (var j in old)
-					if (fmap[i][j] >= bottom && fmap[i][j] <= top)
-						list.Add(j);
+				var c = list.Count;
+				for (var j = 0; j < c; j++)
+				{
+					var el = fmap[i][list.Dequeue()];
+					if (el >= bottom && el <= top)
+						list.Enqueue(el);
+				}
 			}
 
 			var max = double.MaxValue;
@@ -89,8 +90,9 @@ namespace ProblemSets.ComputerScience
 
 		private void Preprocess()
 		{
-			var tempMap = Sort(pointSet[0]);
+			var tempMap = new int[n];
 
+			Sort(pointSet[0], tempMap);
 			for (var i = 0; i < n; i++)
 			{
 				orderedSet[0][i] = pointSet[0][tempMap[i]];
@@ -100,27 +102,13 @@ namespace ProblemSets.ComputerScience
 
 			for (var i = 1; i < d; i++)
 			{
-				tempMap = Sort(pointSet[i]);
+				Sort(pointSet[i], tempMap);
 				for (var j = 0; j < n; j++)
 				{
 					orderedSet[i][j] = pointSet[i][tempMap[j]];
 					fmap[i][tempMap[j]] = j;
 				}
 			}
-		}
-
-		// result: int[n]
-		private static int[] Sort(double[] pointSet)
-		{
-			// TODO: optimize preprocess, by sorting in-place
-
-			// pointSet: double[n]
-
-			return pointSet
-				.Select((p, i) => new { p, i })
-				.OrderBy(a => a.p)
-				.Select(a => a.i)
-				.ToArray();
 		}
 
 		private static int BinarySearch_Bottom(double[] orderedSet, double v)
@@ -155,5 +143,76 @@ namespace ProblemSets.ComputerScience
 
 			return top;
 		}
+
+		#region Sort
+
+		private static void Sort(double[] pointSet, int[] indices)
+		{
+			// pointSet: double[n]
+			// indices: int[n]
+
+			for (var i = 0; i < indices.Length; i++)
+				indices[i] = i;
+
+			QuickSort(pointSet, indices, 0, indices.Length - 1);
+		}
+
+		private static void QuickSort(double[] pointSet, int[] indices, int start, int end)
+		{
+			if (start >= end) return;
+
+			var pivotIndex = CalcMedian(pointSet, indices, start, end);
+
+			pivotIndex = Partition(pointSet, indices, start, end, pivotIndex);
+
+			QuickSort(pointSet, indices, start, pivotIndex - 1);
+			QuickSort(pointSet, indices, pivotIndex + 1, end);
+		}
+
+		private static int CalcMedian(double[] pointSet, int[] indices, int start, int end)
+		{
+			var median = (start + end) / 2;
+
+			var s = pointSet[indices[start]];
+			var m = pointSet[indices[median]];
+			var e = pointSet[indices[end]];
+
+			var mLessS = m < s;
+
+			return
+				(!mLessS && s < e)
+					? (m < e ? median : end)
+					: (mLessS && m < e)
+						  ? (s < e ? start : end)
+						  : (mLessS ? median : start);
+		}
+
+		private static int Partition(double[] pointSet, int[] indices, int start, int end, int pivotIndex)
+		{
+			var pivot = pointSet[indices[pivotIndex]];
+
+			indices.Swap(start, pivotIndex);
+
+			int i;
+			int j;
+
+			for (i = j = start + 1; j <= end; j++)
+			{
+				var element = pointSet[indices[j]];
+
+				if (element < pivot)
+				{
+					indices.Swap(i, j);
+					i++;
+				}
+			}
+
+			indices.Swap(start, i - 1);
+
+			return i - 1;
+		}
+
+		#endregion
+
 	}
 }

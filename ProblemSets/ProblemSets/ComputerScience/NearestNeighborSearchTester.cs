@@ -10,16 +10,37 @@ namespace ProblemSets.ComputerScience
 	{
 		public void Go()
 		{
-			const int d = 10;
-			const int n = 10000;
+			const int d = 100;
+			const int n = 200000;
 			const int tests = 1000;
 
 			var rnd = new Random();
 
-			var pointsSet = Enumerable.Repeat(1, d)
-			                          .Select(_ => Enumerable.Repeat(1, n).Select(__ => rnd.NextDouble()).ToArray())
-			                          .ToArray();
+			var pointsSet = CreateRandomPointsSet_Uniform(d, n, rnd);
 
+			var queryPoints = CreateRandomQueryPoints_NotFarFromSet(tests, d, rnd, n, pointsSet);
+
+			Console.WriteLine("Memory: " + GC.GetTotalMemory(false) / 1024 / 1024);
+
+			var timer = Stopwatch.StartNew();
+
+			var searcher = new NearestNeighborSearch(pointsSet);
+
+			Console.WriteLine("Algo init : " + (1d / queryPoints.Length * timer.ElapsedMilliseconds));
+
+			timer.Restart();
+
+			foreach (var query in queryPoints)
+				searcher.Closest(query, 0.1);
+
+			Console.WriteLine("By algo   : " + (1d / queryPoints.Length * timer.ElapsedMilliseconds));
+
+			Console.WriteLine("Memory: " + GC.GetTotalMemory(false) / 1024 / 1024);
+		}
+
+		public double[][] CreateRandomQueryPoints_NotFarFromSet(int tests, int d, Random rnd, int n,
+		                                                                double[][] pointsSet)
+		{
 			var queryPoints =
 				Enumerable.Repeat(1, tests).Select(qi =>
 					{
@@ -32,36 +53,19 @@ namespace ProblemSets.ComputerScience
 
 						return query;
 					})
-					.ToArray();
-
-			var timer = Stopwatch.StartNew();
-
-			var brutes = queryPoints
-				.Select(query => FindNearestBrute(query, pointsSet))
-				.ToArray();
-
-			Console.WriteLine("Exhaustive: " + (1d / queryPoints.Length * timer.ElapsedMilliseconds));
-
-			timer.Restart();
-
-			var searcher = new NearestNeighborSearch(pointsSet);
-
-			Console.WriteLine("Algo init : " + (1d / queryPoints.Length * timer.ElapsedMilliseconds));
-
-			timer.Restart();
-
-			var algos = queryPoints
-				.Select(query => searcher.Closest(query, 0.1))
-				.ToArray();
-
-			Console.WriteLine("By algo   : " + (1d / queryPoints.Length * timer.ElapsedMilliseconds));
-
-			for (var i = 0; i < queryPoints.Length; i++)
-				if (brutes[i] != algos[i])
-					throw new InvalidOperationException(new { expected = brutes[i], actual = algos[i], i, tests }.ToString());
+				          .ToArray();
+			return queryPoints;
 		}
 
-		private static int FindNearestBrute(double[] p, double[][] pointsSet)
+		public double[][] CreateRandomPointsSet_Uniform(int d, int n, Random rnd)
+		{
+			var pointsSet = Enumerable.Repeat(1, d)
+			                          .Select(_ => Enumerable.Repeat(1, n).Select(__ => rnd.NextDouble()).ToArray())
+			                          .ToArray();
+			return pointsSet;
+		}
+
+		public int FindNearestBrute(double[] p, double[][] pointsSet)
 		{
 			var d = pointsSet.Length;
 			var n = pointsSet[0].Length;
