@@ -6,6 +6,14 @@ namespace ProblemSets.Services
 {
 	public static class ArrayHelper
 	{
+		public static T[][] CreateJaggedArray<T>(int len0, int len1)
+		{
+			var result = new T[len0][];
+			for (var i = 0; i < result.Length; i++)
+				result[i] = new T[len1];
+			return result;
+		}
+
 		public static TOut[,] ToTwoDimensional<TIn, TOut>(this TIn[] source, Func<TIn, IEnumerable<TOut>> getInnerData)
 		{
 			if (source.Length == 0) return new TOut[0, 0];

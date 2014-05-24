@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.Composition;
+using System.Linq;
 using ProblemSets.Services;
 
 namespace ProblemSets.ComputerScience
@@ -16,14 +17,14 @@ namespace ProblemSets.ComputerScience
 			for (var i = 0; i < 10; i++)
 			{
 				var size = rnd.Next(3, 12);
-				var arr = ArrayHelper.CreateRandomArr(size, rnd);
+				var arr = ArrayHelper.CreateRandomArr(size, rnd).Select(e => (ulong)e).ToArray();
 				Console.WriteLine(", ".Join(arr));
 				Console.WriteLine(ByQuickSort(arr));
 				Console.WriteLine();
 			}
 		}
 
-		private int ByQuickSort(int[] arr)
+		private ulong ByQuickSort(ulong[] arr)
 		{
 			var desire = arr.Length / 2;
 			
@@ -32,7 +33,7 @@ namespace ProblemSets.ComputerScience
 			return arr[desire];
 		}
 
-		private void DoQuickSort(int[] arr, int start, int end, int desire)
+		private void DoQuickSort(ulong[] arr, int start, int end, int desire)
 		{
 			if (end - start <= 0) return;
 

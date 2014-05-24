@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.Composition;
 using System.Linq;
+using ProblemSets.ComputerScience;
 using ProblemSets.Services;
 
 namespace ProblemSets.Problems
@@ -8,6 +9,8 @@ namespace ProblemSets.Problems
 	[Export]
 	public class QuickSortCountComparsions
 	{
+		[Import] private QuickSort quickSort;
+
 		public enum PivotStrategy
 		{
 			First,
@@ -29,68 +32,29 @@ namespace ProblemSets.Problems
 			}
 		}
 
-		private static void QuickSort(ulong[] array, PivotStrategy strategy, ref int comparsionsCount)
+		private void QuickSort(ulong[] array, PivotStrategy strategy, ref int comparsionsCount)
 		{
 			var copy = array.ToArray();
 
 			QuickSort(copy, 0, copy.Length - 1, strategy, ref comparsionsCount);
 		}
 
-		private static void QuickSort(ulong[] array, int start, int end, PivotStrategy strategy, ref int comparsionsCount)
+		private void QuickSort(ulong[] array, int start, int end, PivotStrategy strategy, ref int comparsionsCount)
 		{
 			if (start >= end) return;
 
 			var pivotIndex =
 				strategy == PivotStrategy.First ? start
 				: strategy == PivotStrategy.Last ? end
-				: CalcMedian(array, start, end);
+				: quickSort.CalcMedian(array, start, end);
 
-			pivotIndex = Partition(array, start, end, pivotIndex);
+			pivotIndex = quickSort.Partition(array, start, end, pivotIndex);
 
 			comparsionsCount += end - start;
 
 			QuickSort(array, start, pivotIndex - 1, strategy, ref comparsionsCount);
 
 			QuickSort(array, pivotIndex + 1, end, strategy, ref comparsionsCount);
-		}
-
-		private static int CalcMedian(ulong[] array, int start, int end)
-		{
-			var median = (start + end) / 2;
-
-			var s = array[start];
-			var m = array[median];
-			var e = array[end];
-
-			return 
-				  (s < m && s < e) ? (m < e ? median : end)
-				: (m < s && m < e) ? (s < e ? start : end)
-				: (m < s ? median : start);
-		}
-
-		private static int Partition(ulong[] array, int start, int end, int pivotIndex)
-		{
-			var pivot = array[pivotIndex];
-
-			array.Swap(start, pivotIndex);
-
-			int i;
-			int j;
-
-			for (i = j = start + 1; j <= end; j++)
-			{	
-				var element = array[j];
-
-				if (element < pivot)
-				{
-					array.Swap(i, j);
-					i++;
-				}
-			}
-
-			array.Swap(start, i - 1);
-
-			return i - 1;
 		}
 	}
 }
