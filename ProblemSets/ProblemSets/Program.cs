@@ -15,8 +15,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<NearestNeighborSearchTester>();
-//				var runme = new Problem437();
+				var runme = container.GetExportedValue<KargerMinCut>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

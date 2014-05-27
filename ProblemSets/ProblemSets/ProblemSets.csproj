@@ -63,6 +63,7 @@
     <Compile Include="ComputerScience\FindArrayInversionsCount.cs" />
     <Compile Include="ComputerScience\FindMedianOfArray.cs" />
     <Compile Include="ComputerScience\FloodFill.cs" />
+    <Compile Include="ComputerScience\KargerMinCut.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\LongestIncreasingSubsequence.cs" />
     <Compile Include="ComputerScience\MooreVotingMajorityAlgorithm.cs" />
