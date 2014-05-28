@@ -36,7 +36,7 @@ namespace ProblemSets.ComputerScience
 		}
 
 		private Stack<int> s;
-		private Dictionary<int, List<int>> adjacencyMatrix;
+		private Dictionary<int, List<int>> adjacencyList;
 		private int[][] edges;
 		private bool[] visited;
 
@@ -49,21 +49,21 @@ namespace ProblemSets.ComputerScience
 
 			FillAdjacencyMatrix();
 
-			var n = adjacencyMatrix.Max(kvp => kvp.Key);
+			var n = adjacencyList.Max(kvp => kvp.Key);
 			visited = new bool[n + 1];
 
 			Console.WriteLine("Done preparing, memory (Kb) = " + GC.GetTotalMemory(false) / 1024);
 
-			while (s.Count < adjacencyMatrix.Count)
+			while (s.Count < adjacencyList.Count)
 			{
 				for (var vertex = 0 ; vertex < visited.Length; vertex++)
-					if (!visited[vertex] && adjacencyMatrix.ContainsKey(vertex))
+					if (!visited[vertex] && adjacencyList.ContainsKey(vertex))
 						DFS_Forward(vertex);
 			}
 
 			Array.Clear(visited, 0, visited.Length);
 
-			FillAdjacencyMatrixTranspose();
+			FillAdjacencyListTranspose();
 
 			while (s.Count > 0)
 			{
@@ -82,29 +82,29 @@ namespace ProblemSets.ComputerScience
 
 		private void FillAdjacencyMatrix()
 		{
-			adjacencyMatrix = new Dictionary<int, List<int>>();
+			adjacencyList = new Dictionary<int, List<int>>();
 
 			foreach (var edge in edges)
 			{
-				if (!adjacencyMatrix.ContainsKey(edge[0])) 
-					adjacencyMatrix.Add(edge[0], new List<int>());
+				if (!adjacencyList.ContainsKey(edge[0])) 
+					adjacencyList.Add(edge[0], new List<int>());
 
-				if (!adjacencyMatrix.ContainsKey(edge[1])) 
-					adjacencyMatrix.Add(edge[1], new List<int>());
+				if (!adjacencyList.ContainsKey(edge[1])) 
+					adjacencyList.Add(edge[1], new List<int>());
 			}
 
 
 			foreach (var edge in edges)
-				adjacencyMatrix[edge[0]].Add(edge[1]);
+				adjacencyList[edge[0]].Add(edge[1]);
 		}
 
-		private void FillAdjacencyMatrixTranspose()
+		private void FillAdjacencyListTranspose()
 		{
-			foreach (var kvp in adjacencyMatrix)
+			foreach (var kvp in adjacencyList)
 				kvp.Value.Clear();
 
 			foreach (var edge in edges)
-				adjacencyMatrix[edge[1]].Add(edge[0]);
+				adjacencyList[edge[1]].Add(edge[0]);
 		}
 
 		private void DFS_Forward(int vertex)
@@ -120,7 +120,7 @@ namespace ProblemSets.ComputerScience
 
 				var goDeep = false;
 
-				foreach (var child in adjacencyMatrix[v])
+				foreach (var child in adjacencyList[v])
 				{
 					if (!visited[child])
 					{
@@ -153,7 +153,7 @@ namespace ProblemSets.ComputerScience
 				var v = stack.Pop();
 				result++;
 
-				foreach (var child in adjacencyMatrix[v])
+				foreach (var child in adjacencyList[v])
 				{
 					if (!visited[child])
 					{
