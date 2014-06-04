@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using ProblemSets.Services;
 
@@ -6,6 +7,21 @@ namespace ProblemSets.ComputerScience.DataTypes
 {
 	public class BinaryHeap : IEnumerable<int>
 	{
+		private readonly Comparison<int> comparisonDelegate;
+
+		/// <summary>
+		/// Construct <see cref="BinaryHeap"/> as min-heap, with default int comparison
+		/// </summary>
+		public BinaryHeap()
+			: this(DefaultComparison)
+		{
+		}
+
+		public BinaryHeap(Comparison<int> comparisonDelegate)
+		{
+			this.comparisonDelegate = comparisonDelegate;
+		}
+
 		private readonly List<int> array = new List<int>();
 
 		public int Min { get { return array[0]; } }
@@ -22,7 +38,7 @@ namespace ProblemSets.ComputerScience.DataTypes
 				var pi = (i - 1) / 2;
 				var parent = array[pi];
 
-				if (parent <= k || pi == i)
+				if (comparisonDelegate(parent, k) <= 0 || pi == i)
 					break;
 
 				array.Swap(i, pi);
@@ -50,21 +66,21 @@ namespace ProblemSets.ComputerScience.DataTypes
 
 				if (ci == array.Count - 1)
 				{
-					if (left < k)
+					if (comparisonDelegate(left, k) < 0)
 						array.Swap(i, ci);
 					return;
 				}
 
 				var right = array[ci + 1];
 
+				var lr = comparisonDelegate(left, right);
+
 				var swapme =
-					(left < right && left < k)
+					(lr <= 0 && comparisonDelegate(left, k) < 0)
 						? ci
-						: (right < left && right < k)
+						: (lr > 0 && comparisonDelegate(right, k) < 0)
 							? (ci + 1)
-							: (left == right && left < k)
-								? ci
-								: -1;
+							: -1;
 
 				if (swapme == -1)
 					return;
@@ -82,6 +98,11 @@ namespace ProblemSets.ComputerScience.DataTypes
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		private static int DefaultComparison(int x, int y)
+		{
+			return x.CompareTo(y);
 		}
 	}
 }

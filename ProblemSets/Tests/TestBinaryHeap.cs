@@ -34,6 +34,21 @@ namespace Tests
 		}
 
 		[TestMethod]
+		public void BinaryHeapCanBeMaxHeap()
+		{
+			var heap = new BinaryHeap((x, y) => y.CompareTo(x));
+
+			heap.Insert(1);
+			heap.Insert(2);
+			heap.Insert(3);
+			heap.Insert(4);
+			heap.Insert(5);
+			heap.DeleteMin();
+
+			Assert.AreEqual(4, heap.Min);
+		}
+
+		[TestMethod]
 		public void BinaryHeapRandomTest()
 		{
 			var random = new Random();
