@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssertHelper.cs" />
+    <Compile Include="TestBinaryHeap.cs" />
     <Compile Include="TestFindArrayInversionsCount.cs" />
     <Compile Include="TestFindMaximumSumSumArray.cs" />
     <Compile Include="TestKargerMinCut.cs" />

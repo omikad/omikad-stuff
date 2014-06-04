@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProblemSets.Services;
@@ -24,6 +25,13 @@ namespace Tests
 						", ".Join(expArray),
 						", ".Join(actArray));
 			}
+		}
+
+		public static void Equal<T>(T expected, T actual, Func<string> getMessage)
+		{
+			var msg = expected.Equals(actual) ? "" : getMessage();
+
+			Assert.AreEqual(expected, actual, msg);
 		}
 	}
 }

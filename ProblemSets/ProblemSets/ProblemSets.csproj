@@ -54,6 +54,7 @@
     <Compile Include="ComputerScience\BuildRadixTree.cs" />
     <Compile Include="ComputerScience\CartesianTree.cs" />
     <Compile Include="ComputerScience\Combinations.cs" />
+    <Compile Include="ComputerScience\DataTypes\BinaryHeap.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
     <Compile Include="ComputerScience\DataTypes\Node.cs" />
     <Compile Include="ComputerScience\DataTypes\NodeString.cs" />

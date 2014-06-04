@@ -90,13 +90,13 @@ namespace ProblemSets.Services
 			Console.WriteLine();
 		}
 
-		public static void Swap<T>(this T[] arr, int i, int j)
+		public static void Swap<T>(this IList<T> arr, int i, int j)
 		{
 			var tmp = arr[i];
 			arr[i] = arr[j];
 			arr[j] = tmp;
 		}
-
+		
 		public static int[] CreateRandomArr(int size, Random rnd)
 		{
 			var arr = Enumerable.Range(0, size).ToArray();
