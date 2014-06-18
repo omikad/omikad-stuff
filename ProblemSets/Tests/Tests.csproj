@@ -57,6 +57,7 @@
     <Compile Include="TestDijkstraShortestPath.cs" />
     <Compile Include="TestFindArrayInversionsCount.cs" />
     <Compile Include="TestFindMaximumSumSumArray.cs" />
+    <Compile Include="TestHashTable.cs" />
     <Compile Include="TestKargerMinCut.cs" />
     <Compile Include="TestKosarajuStronglyConnectedComponents.cs" />
     <Compile Include="TestMillerRabinPrimality.cs" />

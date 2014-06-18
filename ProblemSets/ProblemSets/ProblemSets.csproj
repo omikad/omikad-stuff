@@ -56,6 +56,8 @@
     <Compile Include="ComputerScience\Combinations.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryHeap.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
+    <Compile Include="ComputerScience\DataTypes\HashTable_Chaining.cs" />
+    <Compile Include="ComputerScience\DataTypes\HashTable_OpenAddressing.cs" />
     <Compile Include="ComputerScience\DataTypes\Node.cs" />
     <Compile Include="ComputerScience\DataTypes\NodeString.cs" />
     <Compile Include="ComputerScience\DataTypes\PointInt.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="ComputerScience\KosarajuStronglyConnectedComponents.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\LongestIncreasingSubsequence.cs" />
+    <Compile Include="ComputerScience\MedianMaintenance.cs" />
     <Compile Include="ComputerScience\MooreVotingMajorityAlgorithm.cs" />
     <Compile Include="ComputerScience\NearestNeighborSearch.cs" />
     <Compile Include="ComputerScience\NearestNeighborSearchTester.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="ComputerScience\RabinKarpRollingHash.cs" />
     <Compile Include="ComputerScience\StackByQueues.cs" />
     <Compile Include="ComputerScience\TopologicalSort.cs" />
+    <Compile Include="ComputerScience\TwoSumAlgorithm.cs" />
     <Compile Include="Problems\AddTwoNumbers.cs" />
     <Compile Include="Problems\CountNumberOf2s.cs" />
     <Compile Include="Problems\CreateMaxRectangleCrossword.cs" />

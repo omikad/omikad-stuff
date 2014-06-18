@@ -2,11 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.CompilerServices;
 
 namespace ProblemSets.Services
 {
 	public static class MyMath
 	{
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static uint HashKnuthMultiplicative(long n, uint len)
+		{
+			unchecked
+			{
+				return (uint)(n * 2654435761) % len;
+			}
+		}
+
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
+		public static uint HashAvalanche(long n, uint len)
+		{
+			unchecked
+			{
+				var k = n;
+				k *= 357913941;
+				k ^= k << 24;
+				k += ~357913941;
+				k ^= k >> 31;
+				k ^= k << 31;
+				return (uint)k % len;
+			}
+		}
+
 		public static bool[] CreatePrimesSieve(ulong maxprime)
 		{
 			var sieve = new bool[maxprime];
