@@ -56,6 +56,8 @@
     <Compile Include="ComputerScience\Combinations.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryHeap.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
+    <Compile Include="ComputerScience\DataTypes\Edge.cs" />
+    <Compile Include="ComputerScience\DataTypes\GenericBinaryHeap.cs" />
     <Compile Include="ComputerScience\DataTypes\HashTable_Chaining.cs" />
     <Compile Include="ComputerScience\DataTypes\HashTable_OpenAddressing.cs" />
     <Compile Include="ComputerScience\DataTypes\Node.cs" />
@@ -72,6 +74,8 @@
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\LongestIncreasingSubsequence.cs" />
     <Compile Include="ComputerScience\MedianMaintenance.cs" />
+    <Compile Include="ComputerScience\MinimizeWeightedSum.cs" />
+    <Compile Include="ComputerScience\MinimumSpanningTree_Prim.cs" />
     <Compile Include="ComputerScience\MooreVotingMajorityAlgorithm.cs" />
     <Compile Include="ComputerScience\NearestNeighborSearch.cs" />
     <Compile Include="ComputerScience\NearestNeighborSearchTester.cs" />
@@ -117,6 +121,7 @@
     <Compile Include="Services\ArrayHelper.cs" />
     <Compile Include="Services\FractionBigInt.cs" />
     <Compile Include="Services\MillerRabinPrimality.cs" />
+    <Compile Include="Services\ParseHelper.cs" />
     <Compile Include="Services\StringHelper.cs" />
     <Compile Include="Problems\FindLongestPalindrome.cs" />
     <Compile Include="Problems\FindRootFromPairs.cs" />

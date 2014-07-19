@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ProblemSets.Services
 {
@@ -20,6 +21,12 @@ namespace ProblemSets.Services
 					break;
 
 			return s1.Substring(0, equalLen);
+		}
+
+		private static readonly string[] newLineArray = new[] { Environment.NewLine };
+		public static string[] SplitToLines(this string s)
+		{
+			return s.Split(newLineArray, StringSplitOptions.RemoveEmptyEntries);
 		}
 	}
 }

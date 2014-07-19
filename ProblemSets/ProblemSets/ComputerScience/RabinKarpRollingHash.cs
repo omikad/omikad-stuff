@@ -22,12 +22,12 @@ namespace ProblemSets.ComputerScience
 
 			unchecked
 			{
+				if (a * aInverse != 1)
+					throw new InvalidOperationException("Something wrong with the mod inverse");
+
 				biggestPow = 1;
 				for (var i = 0; i < length - 1; i++)
 					biggestPow *= a;
-
-				if (a * aInverse != 1)
-					throw new InvalidOperationException("Something wrong with the mod inverse");
 			}
 
 			nextPow = biggestPow;

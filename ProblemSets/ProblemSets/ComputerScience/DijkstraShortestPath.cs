@@ -7,17 +7,6 @@ namespace ProblemSets.ComputerScience
 {
 	public class DijkstraShortestPath
 	{
-		public struct Edge
-		{
-			public int To;
-			public int Weight;
-
-			public override string ToString()
-			{
-				return string.Format("{{ to = {0}, weight = {1} }}", To, Weight);
-			}
-		}
-
 		public int[] CalcShortestPaths(string[] graph, int v)
 		{
 			var inputDict = graph
@@ -25,11 +14,11 @@ namespace ProblemSets.ComputerScience
 				.ToDictionary(
 					a => int.Parse(a[0]),
 					a => a.Skip(1).Select(s => s.Split(','))
-						.Select(aa => new Edge {To = int.Parse(aa[0]), Weight = int.Parse(aa[1])})
+						.Select(aa => new EdgeEndPoint {To = int.Parse(aa[0]), Weight = int.Parse(aa[1])})
 						.ToArray());
 
-			var input = new Edge[inputDict.Max(kvp => kvp.Key) + 1][];
-			input[0] = new Edge[0];
+			var input = new EdgeEndPoint[inputDict.Max(kvp => kvp.Key) + 1][];
+			input[0] = new EdgeEndPoint[0];
 			foreach (var edges in inputDict)
 				input[edges.Key] = edges.Value;
 
@@ -38,7 +27,7 @@ namespace ProblemSets.ComputerScience
 			return paths;
 		}
 
-		public int[] CalcShortestPathsByHeap(Edge[][] adjacencyList, int v)
+		public int[] CalcShortestPathsByHeap(EdgeEndPoint[][] adjacencyList, int v)
 		{
 			var paths = adjacencyList.Select(kvp => 1000000).ToArray();
 
@@ -79,7 +68,7 @@ namespace ProblemSets.ComputerScience
 			return paths;
 		}
 
-		private int[] CalcShortestPaths_Trivial(Edge[][] adjacencyList, int v)
+		private int[] CalcShortestPaths_Trivial(EdgeEndPoint[][] adjacencyList, int v)
 		{
 			// O(m*n)
 

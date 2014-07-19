@@ -196,7 +196,29 @@ namespace ProblemSets.Services
 
 		public static ulong ModularInverse(ulong a, ulong b)
 		{
-			return (ExtendedEuclidGcd(a, b) % b);
+			var dividend = (long)(a % b);
+			var divisor = (long)b;
+
+			var last_x = 1L;
+			var curr_x = 0L;
+
+			while (divisor > 0)
+			{
+				var quotient = dividend / divisor;
+				var remainder = dividend % divisor;
+
+				if (remainder <= 0)
+					break;
+
+				var next_x = last_x - curr_x * quotient;
+				last_x = curr_x;
+				curr_x = next_x;
+
+				dividend = divisor;
+				divisor = remainder;
+			}
+
+			return (ulong) (curr_x < 0 ? curr_x + (long) b : curr_x);
 		}
 
 		public static BigInteger ModularInverse(BigInteger a, BigInteger b)

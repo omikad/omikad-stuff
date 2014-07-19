@@ -61,7 +61,9 @@
     <Compile Include="TestKargerMinCut.cs" />
     <Compile Include="TestKosarajuStronglyConnectedComponents.cs" />
     <Compile Include="TestMillerRabinPrimality.cs" />
+    <Compile Include="TestMinimizeWeightedSum.cs" />
     <Compile Include="TestNearestNeighborSearch.cs" />
+    <Compile Include="TestPrimMinimumSpanningTree.cs" />
     <Compile Include="TestRabinKarpRollingHash.cs" />
     <Compile Include="TestStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

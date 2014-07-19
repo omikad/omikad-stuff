@@ -15,7 +15,7 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<MedianMaintenance>();
+				var runme = container.GetExportedValue<MinimumSpanningTree_Prim>();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
