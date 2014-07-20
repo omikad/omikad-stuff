@@ -28,5 +28,11 @@ namespace ProblemSets.Services
 		{
 			return s.Split(newLineArray, StringSplitOptions.RemoveEmptyEntries);
 		}
+
+		private static readonly char[] spacesArray = new[] { ' ', '\t' };
+		public static string[] SplitBySpaces(this string s)
+		{
+			return s.Split(spacesArray, StringSplitOptions.RemoveEmptyEntries);
+		}
 	}
 }

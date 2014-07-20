@@ -65,6 +65,7 @@
     <Compile Include="ComputerScience\DataTypes\PointInt.cs" />
     <Compile Include="ComputerScience\DataTypes\Radix.cs" />
     <Compile Include="ComputerScience\DataTypes\Trie.cs" />
+    <Compile Include="ComputerScience\DataTypes\UnionFind.cs" />
     <Compile Include="ComputerScience\DijkstraShortestPath.cs" />
     <Compile Include="ComputerScience\FindArrayInversionsCount.cs" />
     <Compile Include="ComputerScience\FindMedianOfArray.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="ComputerScience\KosarajuStronglyConnectedComponents.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\LongestIncreasingSubsequence.cs" />
+    <Compile Include="ComputerScience\MaxSpacingKClustering.cs" />
     <Compile Include="ComputerScience\MedianMaintenance.cs" />
     <Compile Include="ComputerScience\MinimizeWeightedSum.cs" />
     <Compile Include="ComputerScience\MinimumSpanningTree_Prim.cs" />

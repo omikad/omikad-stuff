@@ -14,8 +14,9 @@ namespace ProblemSets
 		{
 			try
 			{
-				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-				var runme = container.GetExportedValue<MinimumSpanningTree_Prim>();
+//				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
+//				var runme = container.GetExportedValue	<MinimumSpanningTree_Prim>();
+				var runme = new MaxSpacingKClustering();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

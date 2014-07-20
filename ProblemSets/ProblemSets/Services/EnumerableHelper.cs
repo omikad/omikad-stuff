@@ -187,5 +187,10 @@ namespace ProblemSets.Services
 		{
 			return new Combinations<T>(list, combLen, GenerateOption.WithoutRepetition);
 		}
+
+		public static IEnumerable<T> ConcatIf<T>(this IEnumerable<T> seq, bool predicate, Func<IEnumerable<T>> concatWith)
+		{
+			return !predicate ? seq : seq.Concat(concatWith());
+		}
 	}
 }
