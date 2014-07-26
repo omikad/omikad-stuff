@@ -71,6 +71,7 @@
     <Compile Include="ComputerScience\FindMedianOfArray.cs" />
     <Compile Include="ComputerScience\FloodFill.cs" />
     <Compile Include="ComputerScience\KargerMinCut.cs" />
+    <Compile Include="ComputerScience\KnapsackProblem.cs" />
     <Compile Include="ComputerScience\KosarajuStronglyConnectedComponents.cs" />
     <Compile Include="ComputerScience\LongestCommonSubstring.cs" />
     <Compile Include="ComputerScience\LongestIncreasingSubsequence.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="ComputerScience\MooreVotingMajorityAlgorithm.cs" />
     <Compile Include="ComputerScience\NearestNeighborSearch.cs" />
     <Compile Include="ComputerScience\NearestNeighborSearchTester.cs" />
+    <Compile Include="ComputerScience\OptimalBinarySearchTree.cs" />
     <Compile Include="ComputerScience\QueueByTwoStacks.cs" />
     <Compile Include="ComputerScience\QuickSort.cs" />
     <Compile Include="ComputerScience\RabinKarpRollingHash.cs" />

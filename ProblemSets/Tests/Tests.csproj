@@ -59,6 +59,7 @@
     <Compile Include="TestFindMaximumSumSumArray.cs" />
     <Compile Include="TestHashTable.cs" />
     <Compile Include="TestKargerMinCut.cs" />
+    <Compile Include="TestKnapsackProblem.cs" />
     <Compile Include="TestKosarajuStronglyConnectedComponents.cs" />
     <Compile Include="TestMaxSpacingKClustering.cs" />
     <Compile Include="TestMillerRabinPrimality.cs" />
