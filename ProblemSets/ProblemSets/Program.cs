@@ -16,7 +16,7 @@ namespace ProblemSets
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 //				var runme = container.GetExportedValue<OptimalBinarySearchTree>();
-				var runme = new KnapsackProblem();
+				var runme = new AllPairsShortestPath();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

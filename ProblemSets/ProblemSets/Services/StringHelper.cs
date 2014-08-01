@@ -23,13 +23,13 @@ namespace ProblemSets.Services
 			return s1.Substring(0, equalLen);
 		}
 
-		private static readonly string[] newLineArray = new[] { Environment.NewLine };
+		private static readonly string[] newLineArray = { Environment.NewLine, "\r", "\n" };
 		public static string[] SplitToLines(this string s)
 		{
 			return s.Split(newLineArray, StringSplitOptions.RemoveEmptyEntries);
 		}
 
-		private static readonly char[] spacesArray = new[] { ' ', '\t' };
+		private static readonly char[] spacesArray = { ' ', '\t' };
 		public static string[] SplitBySpaces(this string s)
 		{
 			return s.Split(spacesArray, StringSplitOptions.RemoveEmptyEntries);

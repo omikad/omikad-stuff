@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComputerScience\AllNearestSmallerValues.cs" />
+    <Compile Include="ComputerScience\AllPairsShortestPath.cs" />
     <Compile Include="ComputerScience\BuildRadixTree.cs" />
     <Compile Include="ComputerScience\CartesianTree.cs" />
     <Compile Include="ComputerScience\Combinations.cs" />
@@ -58,6 +59,7 @@
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
     <Compile Include="ComputerScience\DataTypes\Edge.cs" />
     <Compile Include="ComputerScience\DataTypes\GenericBinaryHeap.cs" />
+    <Compile Include="ComputerScience\DataTypes\GraphEdgesList.cs" />
     <Compile Include="ComputerScience\DataTypes\HashTable_Chaining.cs" />
     <Compile Include="ComputerScience\DataTypes\HashTable_OpenAddressing.cs" />
     <Compile Include="ComputerScience\DataTypes\Node.cs" />
