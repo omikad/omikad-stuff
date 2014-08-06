@@ -9,7 +9,6 @@ namespace ProblemSets.ComputerScience.DataTypes
 	{
 		private readonly Comparison<T> comparisonDelegate;
 
-		// Note: for simplicity, don't notify deleted elements
 		private readonly bool needNotifyIndexChange;
 		private readonly Action<T, int> notifyIndexChange;
 
@@ -28,6 +27,8 @@ namespace ProblemSets.ComputerScience.DataTypes
 		private readonly List<T> array = new List<T>();
 
 		public T Min { get { return array[0]; } }
+
+		public T this[int indexInHeap] { get { return array[indexInHeap]; } }
 
 		public int Count { get { return array.Count; } }
 
@@ -71,14 +72,22 @@ namespace ProblemSets.ComputerScience.DataTypes
 
 		public void DeleteMin()
 		{
+			Remove(0);
+		}
+
+		public void Remove(int indexInHeap)
+		{
+			var i = indexInHeap;
+
+			if (needNotifyIndexChange)
+				notifyIndexChange(array[i], -1);
+
 			var k = array[array.Count - 1];
-			array[0] = k;
+			array[i] = k;
 			array.RemoveAt(array.Count - 1);
 
 			if (needNotifyIndexChange)
-				notifyIndexChange(k, 0);
-
-			var i = 0;
+				notifyIndexChange(k, i);
 
 			while (true)
 			{

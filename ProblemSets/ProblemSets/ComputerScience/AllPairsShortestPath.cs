@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using ProblemSets.ComputerScience.DataTypes;
 using ProblemSets.Services;
 
@@ -8,20 +7,10 @@ namespace ProblemSets.ComputerScience
 {
 	public class AllPairsShortestPath
 	{
-		/*
-G1 FloydWarshall:
-G2 FloydWarshall:
-G3 FloydWarshall: -19
-Elapsed: 77509
-		 */
-
 		// Assume graph contains vertices indexed from 1 to N
 
 		public void Go()
 		{
-			Console.WriteLine("G1 FloydWarshall: " + JohnsonAlgorithm(Read(File.ReadAllText("g1.txt"))));
-			Console.WriteLine("G2 FloydWarshall: " + JohnsonAlgorithm(Read(File.ReadAllText("g2.txt"))));
-			Console.WriteLine("G3 FloydWarshall: " + JohnsonAlgorithm(Read(File.ReadAllText("g3.txt"))));
 		}
 
 		public long? JohnsonAlgorithm(GraphEdgesList graph)

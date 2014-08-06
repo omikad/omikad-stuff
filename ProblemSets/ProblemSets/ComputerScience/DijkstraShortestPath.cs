@@ -7,7 +7,11 @@ namespace ProblemSets.ComputerScience
 {
 	public class DijkstraShortestPath
 	{
-		public int[] CalcShortestPaths(string[] graph, int v)
+		public void Go()
+		{
+		}
+
+		public long[] CalcShortestPaths(string[] graph, int v)
 		{
 			var inputDict = graph
 				.Select(line => line.Split(new[] {' ', '\t'}, StringSplitOptions.RemoveEmptyEntries))
@@ -22,20 +26,32 @@ namespace ProblemSets.ComputerScience
 			foreach (var edges in inputDict)
 				input[edges.Key] = edges.Value;
 
-			var paths = CalcShortestPathsByHeap(input, 1);
+			var paths = CalcShortestPathsByHeap(input, v);
 
 			return paths;
 		}
 
-		public int[] CalcShortestPathsByHeap(EdgeEndPoint[][] adjacencyList, int v)
+		private class VertexInfo
 		{
-			var paths = adjacencyList.Select(kvp => 1000000).ToArray();
+			public int IndexInHeap;
+			public long Path;
+			public bool Visited;
+			public EdgeEndPoint[] Adjacents;
+		}
 
-			paths[v] = 0;
-			var front = new BinaryHeap((x, y) => paths[x].CompareTo(paths[y]));
-			front.Insert(v);
+		public long[] CalcShortestPathsByHeap(EdgeEndPoint[][] adjacencyList, int v)
+		{
+			var vertices = adjacencyList
+				.Select(p => new VertexInfo { Path = long.MaxValue, Adjacents = p })
+				.ToArray();
 
-			var visited = new bool[adjacencyList.Length];
+			vertices[v].Path = 0;
+
+			var front = new GenericBinaryHeap<VertexInfo>(
+				(x, y) => x.Path.CompareTo(y.Path),
+				(vi, i) => vi.IndexInHeap = i);
+
+			front.Insert(vertices[v]);
 
 			while (front.Count > 0)
 			{
@@ -43,36 +59,39 @@ namespace ProblemSets.ComputerScience
 
 				front.DeleteMin();
 
-				if (visited[u])
+				if (u.Visited)
 					continue;
 
-				visited[u] = true;
+				u.Visited = true;
 
-				foreach (var edge in adjacencyList[u])
+				foreach (var edge in u.Adjacents)
 				{
-					var to = edge.To;
+					var to = vertices[edge.To];
 
-					if (visited[to])
+					if (to.Visited)
 						continue;
 
-					var w = paths[u] + edge.Weight;
+					var w = u.Path + edge.Weight;
 
-					if (w < paths[to])
-						// TODO: Should remove previous value of the 'to' from heap
-						paths[to] = w;
+					if (w < to.Path)
+					{
+						if (front.Count > 0 && front[to.IndexInHeap] == to)
+							front.Remove(to.IndexInHeap);
+						to.Path = w;
+					}
 
 					front.Insert(to);
 				}
 			}
 
-			return paths;
+			return vertices.Select(vi => vi.Path).ToArray();
 		}
 
-		private int[] CalcShortestPaths_Trivial(EdgeEndPoint[][] adjacencyList, int v)
+		private long[] CalcShortestPaths_Trivial(EdgeEndPoint[][] adjacencyList, int v)
 		{
 			// O(m*n)
 
-			var paths = adjacencyList.Select(kvp => 1000000).ToArray();
+			var paths = adjacencyList.Select(kvp => long.MaxValue).ToArray();
 
 			paths[v] = 0;
 			var front = new HashSet<int> {v};

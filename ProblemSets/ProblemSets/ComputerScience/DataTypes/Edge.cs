@@ -15,7 +15,7 @@
 	public struct EdgeEndPoint
 	{
 		public int To;
-		public int Weight;
+		public long Weight;
 
 		public override string ToString()
 		{

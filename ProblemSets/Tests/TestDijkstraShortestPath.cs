@@ -22,7 +22,7 @@ namespace Tests
 
 			var paths = new DijkstraShortestPath().CalcShortestPaths(graph, 1);
 
-			AssertHelper.Seq(new[] {0, 7, 9, 20, 20, 11}, paths.Skip(1));
+			AssertHelper.Seq(new long[] {0, 7, 9, 20, 20, 11}, paths.Skip(1));
 		}
 
 		[TestMethod]
@@ -38,7 +38,7 @@ namespace Tests
 
 			var paths = new DijkstraShortestPath().CalcShortestPaths(graph, 1);
 
-			AssertHelper.Seq(new[] {0, 3, 3, 5}, paths.Skip(1));
+			AssertHelper.Seq(new long[] { 0, 3, 3, 5 }, paths.Skip(1));
 		}
 
 		[TestMethod]
@@ -54,7 +54,7 @@ namespace Tests
 
 			var paths = new DijkstraShortestPath().CalcShortestPaths(graph, 1);
 
-			AssertHelper.Seq(new[] {0, 3, 4, 5}, paths.Skip(1));
+			AssertHelper.Seq(new long[] { 0, 3, 4, 5 }, paths.Skip(1));
 		}
 
 		[TestMethod]
@@ -70,7 +70,7 @@ namespace Tests
 
 			var paths = new DijkstraShortestPath().CalcShortestPaths(graph, 1);
 
-			AssertHelper.Seq(new[] {0, 8, 12, 13}, paths.Skip(1));
+			AssertHelper.Seq(new long[] { 0, 8, 12, 13 }, paths.Skip(1));
 		}
 
 		[TestMethod]
@@ -86,7 +86,7 @@ namespace Tests
 
 			var paths = new DijkstraShortestPath().CalcShortestPaths(graph, 1);
 
-			AssertHelper.Seq(new[] {0, 8, 16, 13}, paths.Skip(1));
+			AssertHelper.Seq(new long[] { 0, 8, 16, 13 }, paths.Skip(1));
 		}
 	}
 }
