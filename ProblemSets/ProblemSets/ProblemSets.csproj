@@ -90,6 +90,7 @@
     <Compile Include="ComputerScience\RabinKarpRollingHash.cs" />
     <Compile Include="ComputerScience\StackByQueues.cs" />
     <Compile Include="ComputerScience\TopologicalSort.cs" />
+    <Compile Include="ComputerScience\TravelingSalesmanProblem.cs" />
     <Compile Include="ComputerScience\TwoSumAlgorithm.cs" />
     <Compile Include="Problems\AddTwoNumbers.cs" />
     <Compile Include="Problems\CountNumberOf2s.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ProblemSets.Services
 {
@@ -17,6 +18,14 @@ namespace ProblemSets.Services
 			long result;
 			if (!long.TryParse(s, out result))
 				throw new FormatException("Can not parse integer from string '" + s + "'");
+			return result;
+		}
+
+		public static double ToDouble(this string s)
+		{
+			double result;
+			if (!double.TryParse(s.Replace(',', '.'), NumberStyles.Float, CultureInfo.InvariantCulture, out result))
+				throw new FormatException("Can not parse double floating number from string '" + s + "'");
 			return result;
 		}
 	}

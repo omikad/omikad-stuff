@@ -43,6 +43,19 @@ namespace ProblemSets.Services
 			return result;
 		}
 
+		public static void FillArray<T>(this T[,] arr, T item)
+		{
+			for (var i = 0; i < arr.GetLength(0); i++)
+				for (var j = 0; j < arr.GetLength(1); j++)
+					arr[i, j] = item;
+		}
+
+		public static void Fill<T>(this T[] arr, T item)
+		{
+			for (var i = 0; i < arr.Length; i++)
+					arr[i] = item;
+		}
+
 		public static void FillRow<T>(this T[,] arr, int rowIndex, IEnumerable<T> items)
 		{
 			var i = 0;

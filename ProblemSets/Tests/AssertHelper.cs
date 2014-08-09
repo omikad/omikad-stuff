@@ -33,5 +33,10 @@ namespace Tests
 
 			Assert.AreEqual(expected, actual, msg);
 		}
+
+		public static void DoubleIsNear(double expected, double actual, double epsilon = 0.00000000001)
+		{
+			Assert.IsTrue(Math.Abs(expected - actual) < epsilon, "Actual is " + actual);
+		}
 	}
 }
