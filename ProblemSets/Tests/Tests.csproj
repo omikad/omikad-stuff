@@ -71,6 +71,7 @@
     <Compile Include="TestStringHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestTravelingSalesmanProblem.cs" />
+    <Compile Include="TestTwoSat.cs" />
     <Compile Include="TestUnionFind.cs" />
   </ItemGroup>
   <ItemGroup>

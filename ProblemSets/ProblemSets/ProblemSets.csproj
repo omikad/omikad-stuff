@@ -91,6 +91,7 @@
     <Compile Include="ComputerScience\StackByQueues.cs" />
     <Compile Include="ComputerScience\TopologicalSort.cs" />
     <Compile Include="ComputerScience\TravelingSalesmanProblem.cs" />
+    <Compile Include="ComputerScience\TwoSat.cs" />
     <Compile Include="ComputerScience\TwoSumAlgorithm.cs" />
     <Compile Include="Problems\AddTwoNumbers.cs" />
     <Compile Include="Problems\CountNumberOf2s.cs" />
@@ -129,6 +130,7 @@
     <Compile Include="Services\FractionBigInt.cs" />
     <Compile Include="Services\MillerRabinPrimality.cs" />
     <Compile Include="Services\ParseHelper.cs" />
+    <Compile Include="Services\RandomHelper.cs" />
     <Compile Include="Services\StringHelper.cs" />
     <Compile Include="Problems\FindLongestPalindrome.cs" />
     <Compile Include="Problems\FindRootFromPairs.cs" />
