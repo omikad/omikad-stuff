@@ -50,6 +50,8 @@ namespace ProblemSets.ComputerScience
 			Console.WriteLine();
 		}
 
+		// TODO fix and tests
+
 		private static IEnumerable<string> BinaryTree_Preorder(NodeString root)
 		{
 			var hasChild = root.Children.Count == 2;
