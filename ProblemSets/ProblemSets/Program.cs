@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Reflection;
 using ProblemSets.ComputerScience;
 using ProblemSets.Problems;
+using ProblemSets.Problems.Co;
 using ProblemSets.Problems.ProjEuler;
 
 namespace ProblemSets
@@ -15,8 +16,8 @@ namespace ProblemSets
 			try
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
-//				var runme = container.GetExportedValue<OptimalBinarySearchTree>();
-				var runme = new TwoSat();
+//				var runme = container.MinimalIntegerNotInArray<OptimalBinarySearchTree>();
+				var runme = new IntersectingDiscs();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
