@@ -106,6 +106,8 @@
     <Compile Include="Problems\FindWayThroughMaze.cs" />
     <Compile Include="Problems\FindWordIn2dArray.cs" />
     <Compile Include="Problems\GetNumberWithPrimes357.cs" />
+    <Compile Include="Problems\Hr\FindTheDigits.cs" />
+    <Compile Include="Problems\Hr\Sudoku.cs" />
     <Compile Include="Problems\ProjEuler\Problem111.cs" />
     <Compile Include="Problems\ProjEuler\Problem149.cs" />
     <Compile Include="Problems\ProjEuler\Problem146.cs" />

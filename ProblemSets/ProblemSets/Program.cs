@@ -5,6 +5,7 @@ using System.Reflection;
 using ProblemSets.ComputerScience;
 using ProblemSets.Problems;
 using ProblemSets.Problems.Co;
+using ProblemSets.Problems.Hr;
 using ProblemSets.Problems.ProjEuler;
 
 namespace ProblemSets
@@ -17,7 +18,7 @@ namespace ProblemSets
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 //				var runme = container.MinimalIntegerNotInArray<OptimalBinarySearchTree>();
-				var runme = new IntersectingDiscs();
+				var runme = new Sudoku();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();
