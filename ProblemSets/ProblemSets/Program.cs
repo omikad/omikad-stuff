@@ -19,7 +19,7 @@ namespace ProblemSets
 			{
 				var container = new CompositionContainer(new AssemblyCatalog(Assembly.GetExecutingAssembly()));
 //				var runme = container.MinimalIntegerNotInArray<OptimalBinarySearchTree>();
-				var runme = new Sudoku();
+				var runme = new SliceGraph();
 
 				var timer = Stopwatch.StartNew();
 				runme.Go();

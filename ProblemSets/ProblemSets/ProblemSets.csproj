@@ -125,6 +125,7 @@
     <Compile Include="Problems\ProjEuler\Problem467.cs" />
     <Compile Include="Problems\ProjEuler\Problem65.cs" />
     <Compile Include="Problems\QuickSortCountComparsions.cs" />
+    <Compile Include="Problems\SliceGraph.cs" />
     <Compile Include="Problems\SortArrayInFunOrder.cs" />
     <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="ComputerScience\SubstringContains.cs" />
