@@ -20,13 +20,10 @@ namespace ProblemSets.Problems
 
 		private static IEnumerable<Tuple<int, int?>> GetNeighboors(Dictionary<int, int[]> graph, int root)
 		{
-			var stack = new Stack<List<int>>();
-			stack.Push(new List<int> {root});
+			var items = new List<int> {root};
 
-			while (stack.Count > 0)
+			while (items.Count > 0)
 			{
-				var items = stack.Pop();
-
 				for (var i = 0; i < items.Count; i++)
 				{
 					var item = items[i];
@@ -40,8 +37,7 @@ namespace ProblemSets.Problems
 					if (graph.ContainsKey(item))
 						nextLevel.AddRange(graph[item]);
 
-				if (nextLevel.Count > 0)
-					stack.Push(nextLevel);
+				items = nextLevel;
 			}
 		} 
 	}
