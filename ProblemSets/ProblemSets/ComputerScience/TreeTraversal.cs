@@ -130,5 +130,20 @@ namespace ProblemSets.ComputerScience
 					queue.Enqueue(child);
 			}
 		}
+
+		public static IEnumerable<T> DFS<T>(T root, Func<T, IEnumerable<T>> getChildren)
+		{
+			var stack = new Stack<T>();
+			stack.Push(root);
+
+			while (stack.Count > 0)
+			{
+				var node = stack.Pop();
+				yield return node;
+
+				foreach (var child in getChildren(node))
+					stack.Push(child);
+			}
+		} 
 	}
 }

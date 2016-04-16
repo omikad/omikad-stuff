@@ -192,5 +192,53 @@ namespace ProblemSets.Services
 		{
 			return !predicate ? seq : seq.Concat(concatWith());
 		}
+
+		public static IEnumerable<int> IndicesWhere<T>(this IEnumerable<T> seq, Func<T, bool> condition)
+		{
+			var i = 0;
+			foreach (var item in seq)
+			{
+				if (condition(item))
+					yield return i;
+				i++;
+			}
+		} 
+
+		public static IEnumerable<int> IndicesWhere<T>(this IEnumerable<T> seq, Func<T, int, bool> condition)
+		{
+			var i = 0;
+			foreach (var item in seq)
+			{
+				if (condition(item, i))
+					yield return i;
+				i++;
+			}
+		}
+
+		public static bool AllSame<T>(this IEnumerable<T> seq) where T : IEquatable<T>
+		{
+			var elem = default(T);
+			var hasAny = false;
+
+			foreach (var item in seq)
+			{
+				if (!hasAny)
+				{
+					hasAny = true;
+					elem = item;
+				}
+				else
+				{
+					var areEqual = elem.Equals(item);
+					if (!areEqual)
+						return false;
+				}
+			}
+
+			if (!hasAny)
+				throw new InvalidOperationException("Sequence is empty");
+
+			return true;
+		}
 	}
 }

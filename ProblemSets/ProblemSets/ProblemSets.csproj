@@ -57,6 +57,7 @@
     <Compile Include="ComputerScience\Combinations.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryHeap.cs" />
     <Compile Include="ComputerScience\DataTypes\BinaryNode.cs" />
+    <Compile Include="ComputerScience\DataTypes\BitArrayX.cs" />
     <Compile Include="ComputerScience\DataTypes\Edge.cs" />
     <Compile Include="ComputerScience\DataTypes\GenericBinaryHeap.cs" />
     <Compile Include="ComputerScience\DataTypes\GraphEdgesList.cs" />
@@ -93,6 +94,10 @@
     <Compile Include="ComputerScience\TravelingSalesmanProblem.cs" />
     <Compile Include="ComputerScience\TwoSat.cs" />
     <Compile Include="ComputerScience\TwoSumAlgorithm.cs" />
+    <Compile Include="MachineLearning\FactorsCollection.cs" />
+    <Compile Include="MachineLearning\RandomForests\ID3Learner.cs" />
+    <Compile Include="MachineLearning\RandomForests\DecisionNode.cs" />
+    <Compile Include="MachineLearning\RandomForests\ID3LearnerInt.cs" />
     <Compile Include="Problems\AddTwoNumbers.cs" />
     <Compile Include="Problems\CountNumberOf2s.cs" />
     <Compile Include="Problems\CreateMaxRectangleCrossword.cs" />
