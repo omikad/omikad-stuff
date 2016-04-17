@@ -9,6 +9,39 @@ namespace Tests
 	public class TestID3Learner
 	{
 		[TestMethod]
+		public void CanGrowTreeForMovement()
+		{
+			var input = new[]
+			{
+				new[] {"left wall", "right wall", "move right"},
+				new[] {"left wall", "right empty", "move right"},
+				new[] {"left empty", "right wall", "move right"},
+				new[] {"left empty", "right empty", "move right"},
+
+				new[] {"left wall", "right wall", "move left"},
+				new[] {"left wall", "right empty", "move left"},
+				new[] {"left empty", "right wall", "move left"},
+				new[] {"left empty", "right empty", "move left"},
+
+				new[] {"left wall", "right wall", "no move"},
+				new[] {"left wall", "right empty", "no move"},
+				new[] {"left empty", "right wall", "no move"},
+				new[] {"left empty", "right empty", "no move"},
+			};
+
+			var output = new[]
+			{
+				"stop", "move", "stop", "move",
+				"stop", "stop", "move", "move",
+				"stop", "stop", "stop", "stop",
+			};
+
+			var learner = new ID3Learner<string>(input, output);
+
+			Console.WriteLine(learner);
+		}
+
+		[TestMethod]
 		public void CanGrowTrivialTreePresent()
 		{
 			var input = new[]
@@ -53,11 +86,11 @@ namespace Tests
 		{
 			var input = new[]
 			{
-				new[] {"a", "b", "c"},
-				new[] {"a", "b", "d"},
-				new[] {"a", "d", "e"},
-				new[] {"b", "d", "e"},
-				new[] {"c", "d", "e"},
+				new[] {"b", "a", "c"},
+				new[] {"b", "a", "d"},
+				new[] {"d", "a", "e"},
+				new[] {"d", "b", "e"},
+				new[] {"d", "c", "e"},
 			};
 
 			var output = new[] {"has a", "has a", "has a", "no a", "no a" };
@@ -76,6 +109,29 @@ namespace Tests
 			var aAbsent = learner.Root.Absent;
 			Assert.IsTrue(aAbsent.IsLeaf);
 			Assert.AreEqual("no a", learner.OutputFactors[aAbsent.Factor]);
+		}
+
+		[TestMethod]
+		public void CanGrowTreeNoLogic()
+		{
+			var input = new[]
+			{
+				new[] {"a", "a"},
+				new[] {"a", "b"},
+				new[] {"b", "a"},
+				new[] {"b", "b"},
+
+				new[] {"a", "a"},
+				new[] {"a", "b"},
+				new[] {"b", "a"},
+				new[] {"b", "b"},
+			};
+
+			var output = new[] { "x", "x", "x", "x",  "y", "y", "y", "y" };
+
+			var learner = new ID3Learner<string>(input, output);
+
+			Console.WriteLine(learner);
 		}
 
 		[TestMethod]

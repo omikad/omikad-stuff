@@ -240,5 +240,26 @@ namespace ProblemSets.Services
 
 			return true;
 		}
+
+		public static int IndexOfMax(this int[] arr)
+		{
+			if (arr.Length == 0)
+				throw new InvalidOperationException("Array is empty");
+
+			var mi = 0;
+			var max = arr[mi];
+
+			for (var i = 1; i < arr.Length; i++)
+			{
+				var v = arr[i];
+				if (v > max)
+				{
+					mi = i;
+					max = v;
+				}
+			}
+
+			return mi;
+		}
 	}
 }

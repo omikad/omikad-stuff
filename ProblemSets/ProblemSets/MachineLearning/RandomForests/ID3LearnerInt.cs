@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ProblemSets.ComputerScience.DataTypes;
+using ProblemSets.Services;
 
 namespace ProblemSets.MachineLearning.RandomForests
 {
@@ -11,6 +12,7 @@ namespace ProblemSets.MachineLearning.RandomForests
 		private readonly int[] output;
 		private readonly int inputFactorsCount;
 		private readonly int outputFactorsCount;
+		private readonly BitArrayX usedAttributes;
 		private readonly BitArrayX[] factorPresentMasks;
 		private readonly BitArrayX[] factorAbsentMasks;
 		private readonly BitArrayX[] outputFactorMasks;
@@ -25,6 +27,8 @@ namespace ProblemSets.MachineLearning.RandomForests
 			this.output = output;
 			this.inputFactorsCount = inputFactorsCount;
 			this.outputFactorsCount = outputFactorsCount;
+
+			usedAttributes = new BitArrayX(inputFactorsCount);
 
 			factorPresentMasks = new BitArrayX[inputFactorsCount];
 			factorAbsentMasks = new BitArrayX[inputFactorsCount];
@@ -99,6 +103,8 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 			for (var inputFactor = 0; inputFactor < inputFactorsCount; inputFactor++)
 			{
+				if (usedAttributes[inputFactor]) continue;
+
 				foreach (var isPresent in isPresentDecisions)
 				{
 					var factorMask = new BitArrayX(mask).And((isPresent ? factorPresentMasks : factorAbsentMasks)[inputFactor]);
@@ -117,6 +123,22 @@ namespace ProblemSets.MachineLearning.RandomForests
 					}
 				}
 			}
+
+			if (bestFactor == -1)
+			{
+				var counts = new int[outputFactorsCount];
+				for (var i = 0; i < output.Length; i++)
+					if (mask[i])
+						counts[output[i]]++;
+
+				node.IsLeaf = true;
+				node.Factor = counts.IndexOfMax();
+				return;
+			}
+
+			usedAttributes[bestFactor] = true;
+
+			node.Factor = bestFactor;
 
 			var factorNode = new DecisionNode
 			{
