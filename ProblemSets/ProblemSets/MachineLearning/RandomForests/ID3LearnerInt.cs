@@ -7,10 +7,10 @@ using ProblemSets.Services;
 namespace ProblemSets.MachineLearning.RandomForests
 {
 	/*
-		In ID3 algorithm, to split node, one can use entropy H, or information gain IG. In case of H: if there is
-		an attribute x, which we see in input data only once. Then, for such attribute entropy will be minimal, equal 0. 
+		In ID3 algorithm, to split node one can use entropy H or information gain IG. In case of H: if there is
+		an attribute x, which we see in input data only once, then for such attribute entropy will be minimal, equals to 0. 
 		So, ID3 will eagerily split node using x. But, such rare attribute is probably useless, since all attributes 
-		with bigger impact should be presented in input data more often. That's why, it is better to use IG.
+		with big impact should be presented in input data more often. That's why, it is better to use IG.
 	*/
 
 	public class ID3LearnerInt
@@ -121,7 +121,6 @@ namespace ProblemSets.MachineLearning.RandomForests
 				var informationGain = node.SplitMask.Entropy -
 				                      (factorPresentEntropy * factorPresentCount / size) -
 				                      (factorAbsentEntropy * factorAbsentCount / size);
-
 
 				if (informationGain > bestInformationGain)
 				{

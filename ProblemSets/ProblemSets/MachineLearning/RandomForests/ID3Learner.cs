@@ -39,7 +39,7 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 		public T Predict(T[] input)
 		{
-			var inputFactors = input.Select(i => InputFactors[i]).ToArray();
+			var inputFactors = InputFactors.ToIntFactors(input);
 
 			var node = Root;
 			while (true)
