@@ -43,6 +43,14 @@ namespace ProblemSets.Services
 			return result;
 		}
 
+		public static T[] CreateArray<T>(int length, Func<T> createItem)
+		{
+			var result = new T[length];
+			for (var i = 0; i < result.Length; i++)
+				result[i] = createItem();
+			return result;
+		}
+
 		public static void FillArray<T>(this T[,] arr, T item)
 		{
 			for (var i = 0; i < arr.GetLength(0); i++)

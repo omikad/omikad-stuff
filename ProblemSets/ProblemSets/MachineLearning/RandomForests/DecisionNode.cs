@@ -4,7 +4,7 @@ namespace ProblemSets.MachineLearning.RandomForests
 {
 	public class DecisionNode
 	{
-		public SplitMask SplitMask { get; set; }
+		public SubsetMask SubsetMask { get; set; }
 		public BitArrayX UsedFactors { get; set; }
 
 		public DecisionNode Parent { get; set; }

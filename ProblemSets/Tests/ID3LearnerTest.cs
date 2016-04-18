@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ProblemSets.ComputerScience.DataTypes;
 using ProblemSets.MachineLearning.RandomForests;
 
 namespace Tests
@@ -157,6 +158,21 @@ namespace Tests
 			var learner = new ID3Learner<string>(input, output);
 
 			Console.WriteLine(learner);
+		}
+
+		[TestMethod]
+		public void EntropyIsCorrect()
+		{
+			var subsetEntropyZero = new SubsetMask(new BitArrayX(1, true), 1, new[] { 0 }, 1);
+			AssertHelper.DoubleIsNear(0, subsetEntropyZero.Entropy);
+			Assert.AreEqual(0, subsetEntropyZero.EntropyZeroFactor);
+
+			var subsetEntropyOne = new SubsetMask(new BitArrayX(4, true), 4, new[] { 0, 0, 1, 1 }, 2);
+			AssertHelper.DoubleIsNear(1, subsetEntropyOne.Entropy);
+			Assert.AreEqual(-1, subsetEntropyOne.EntropyZeroFactor);
+
+			var subsetEntropyThree = new SubsetMask(new BitArrayX(8, true), 8, new[] { 0, 1, 2, 3, 4, 5, 6, 7 }, 8);
+			AssertHelper.DoubleIsNear(3, subsetEntropyThree.Entropy);
 		}
 	}
 }

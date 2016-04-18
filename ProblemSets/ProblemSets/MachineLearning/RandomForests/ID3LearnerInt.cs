@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using ProblemSets.ComputerScience.DataTypes;
 using ProblemSets.Services;
 
@@ -20,7 +18,6 @@ namespace ProblemSets.MachineLearning.RandomForests
 		private readonly int inputFactorsCount;
 		private readonly int outputFactorsCount;
 		private readonly BitArrayX[] factorPresentMasks;
-		private readonly BitArrayX[] outputFactorMasks;
 
 		public DecisionNode Root { get; private set; }
 
@@ -31,36 +28,19 @@ namespace ProblemSets.MachineLearning.RandomForests
 			this.inputFactorsCount = inputFactorsCount;
 			this.outputFactorsCount = outputFactorsCount;
 
-			factorPresentMasks = new BitArrayX[inputFactorsCount];
-			for (var inputFactor = 0; inputFactor < inputFactorsCount; inputFactor++)
-			{
-				var presentMask = new BitArrayX(input.Length);
-				for (var i = 0; i < input.Length; i++)
-					presentMask[i] = input[i].Contains(inputFactor);
-				factorPresentMasks[inputFactor] = presentMask;
-			}
-
-			outputFactorMasks = new BitArrayX[outputFactorsCount];
-			for (var outputFactor = 0; outputFactor < outputFactorsCount; outputFactor++)
-			{
-				var outputMask = new BitArrayX(output.Length);
-				for (var i = 0; i < output.Length; i++)
-					if (output[i] == outputFactor)
-						outputMask[i] = true;
-				outputFactorMasks[outputFactor] = outputMask;
-			}
+			factorPresentMasks = ArrayHelper.CreateArray(inputFactorsCount, () => new BitArrayX(input.Length));
+			for (var i = 0; i < input.Length; i++)
+				foreach (var factor in input[i])
+					factorPresentMasks[factor][i] = true;
 		}
 
 		public void Learn()
 		{
-			var wholeOutputMask = new BitArrayX(input.Length, true);
+			var rootMask = new BitArrayX(input.Length, true);
 
 			Root = new DecisionNode
 			{
-				SplitMask = new SplitMask(
-					wholeOutputMask, 
-					Entropy(wholeOutputMask),
-					input.Length),
+				SubsetMask = new SubsetMask(rootMask, input.Length, output, outputFactorsCount),
 				UsedFactors = new BitArrayX(inputFactorsCount)
 			};
 
@@ -82,52 +62,44 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 		private void SplitNode(DecisionNode node)
 		{
-			var mask = node.SplitMask.Mask;
-			var size = node.SplitMask.Size;
+			var mask = node.SubsetMask.Mask;
+			var size = node.SubsetMask.Size;
 
-			for (var outputFactor = 0; outputFactor < outputFactorsCount; outputFactor++)
+			if (node.SubsetMask.EntropyZeroFactor >= 0)
 			{
-				var outputMask = new BitArrayX(mask).And(outputFactorMasks[outputFactor]);
-
-				if (BitArrayX.Equals(mask, outputMask))
-				{
-					node.IsLeaf = true;
-					node.Factor = outputFactor;
-					return;
-				}
-
-				if (!outputMask.AllZero)
-					break;
+				node.IsLeaf = true;
+				node.Factor = node.SubsetMask.EntropyZeroFactor;
+				return;
 			}
 
 			var bestInformationGain = double.MinValue;
 			var bestFactor = -1;
-			var bestPresentSplitMask = default(SplitMask);
-			var bestAbsentSplitMask = default(SplitMask);
+			var bestPresentSplitMask = default(SubsetMask);
+			var bestAbsentSplitMask = default(SubsetMask);
 
 			for (var inputFactor = 0; inputFactor < inputFactorsCount; inputFactor++)
 			{
 				if (node.UsedFactors[inputFactor]) continue;
 
 				var factorPresentMask = new BitArrayX(mask).And(factorPresentMasks[inputFactor]);
-				var factorAbsentMask = new BitArrayX(mask).AndNot(factorPresentMask);	
-
-				var factorPresentEntropy = Entropy(factorPresentMask);
-				var factorAbsentEntropy = Entropy(factorAbsentMask);
+				var factorAbsentMask = new BitArrayX(mask).AndNot(factorPresentMask);
 
 				var factorPresentCount = factorPresentMask.CountBitSet();
 				var factorAbsentCount = size - factorPresentCount;
 
-				var informationGain = node.SplitMask.Entropy -
-				                      (factorPresentEntropy * factorPresentCount / size) -
-				                      (factorAbsentEntropy * factorAbsentCount / size);
+				var factorPresentSubset = new SubsetMask(factorPresentMask, factorPresentCount, output, outputFactorsCount);
+				var factorAbsentSubset = new SubsetMask(factorAbsentMask, factorAbsentCount, output, outputFactorsCount);
+
+				var informationGain = node.SubsetMask.Entropy -
+				                      (factorPresentSubset.Entropy * factorPresentCount / size) -
+				                      (factorAbsentSubset.Entropy * factorAbsentCount / size);
 
 				if (informationGain > bestInformationGain)
 				{
 					bestInformationGain = informationGain;
 					bestFactor = inputFactor;
-					bestPresentSplitMask = new SplitMask(factorPresentMask, factorPresentEntropy, factorPresentCount);
-					bestAbsentSplitMask = new SplitMask(factorAbsentMask, factorAbsentEntropy, factorAbsentCount);
+					bestPresentSplitMask = factorPresentSubset;
+					bestAbsentSplitMask = factorAbsentSubset;
 				}
 			}
 
@@ -149,7 +121,7 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 			node.Present = new DecisionNode
 			{
-				SplitMask = bestPresentSplitMask,
+				SubsetMask = bestPresentSplitMask,
 				Factor = bestFactor,
 				Parent = node,
 				UsedFactors = childUsedFactors,
@@ -157,32 +129,11 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 			node.Absent = new DecisionNode
 			{
-				SplitMask = bestAbsentSplitMask,
+				SubsetMask = bestAbsentSplitMask,
 				Factor = bestFactor,
 				Parent = node,
 				UsedFactors = childUsedFactors,
 			};
-		}
-
-		private double Entropy(BitArrayX mask)
-		{
-			var result = 0d;
-
-			for (var factor = 0; factor < outputFactorsCount; factor++)
-			{
-				var count = 0d;
-				for (var i = 0; i < output.Length; i++)
-					if (mask[i] && output[i] == factor)
-						count++;
-
-				if (count > 0)
-				{
-					var px = count / output.Length;
-					result -= px * Math.Log(px, 2);
-				}
-			}
-
-			return result;
 		}
 	}
 }
