@@ -6,20 +6,23 @@ using ProblemSets.Services;
 
 namespace ProblemSets.MachineLearning.RandomForests
 {
+	/*
+		In ID3 algorithm, to split node, one can use entropy H, or information gain IG. In case of H: if there is
+		an attribute x, which we see in input data only once. Then, for such attribute entropy will be minimal, equal 0. 
+		So, ID3 will eagerily split node using x. But, such rare attribute is probably useless, since all attributes 
+		with bigger impact should be presented in input data more often. That's why, it is better to use IG.
+	*/
+
 	public class ID3LearnerInt
 	{
 		private readonly int[][] input;
 		private readonly int[] output;
 		private readonly int inputFactorsCount;
 		private readonly int outputFactorsCount;
-		private readonly BitArrayX usedAttributes;
 		private readonly BitArrayX[] factorPresentMasks;
-		private readonly BitArrayX[] factorAbsentMasks;
 		private readonly BitArrayX[] outputFactorMasks;
 
 		public DecisionNode Root { get; private set; }
-
-		private static readonly bool[] isPresentDecisions = {true, false};
 
 		public ID3LearnerInt(int[][] input, int[] output, int inputFactorsCount, int outputFactorsCount)
 		{
@@ -28,19 +31,13 @@ namespace ProblemSets.MachineLearning.RandomForests
 			this.inputFactorsCount = inputFactorsCount;
 			this.outputFactorsCount = outputFactorsCount;
 
-			usedAttributes = new BitArrayX(inputFactorsCount);
-
 			factorPresentMasks = new BitArrayX[inputFactorsCount];
-			factorAbsentMasks = new BitArrayX[inputFactorsCount];
 			for (var inputFactor = 0; inputFactor < inputFactorsCount; inputFactor++)
 			{
 				var presentMask = new BitArrayX(input.Length);
 				for (var i = 0; i < input.Length; i++)
 					presentMask[i] = input[i].Contains(inputFactor);
-				var absentMask = new BitArrayX(presentMask).Not();
-
 				factorPresentMasks[inputFactor] = presentMask;
-				factorAbsentMasks[inputFactor] = absentMask;
 			}
 
 			outputFactorMasks = new BitArrayX[outputFactorsCount];
@@ -56,9 +53,15 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 		public void Learn()
 		{
+			var wholeOutputMask = new BitArrayX(input.Length, true);
+
 			Root = new DecisionNode
 			{
-				Mask = new BitArrayX(input.Length, true),
+				SplitMask = new SplitMask(
+					wholeOutputMask, 
+					Entropy(wholeOutputMask),
+					input.Length),
+				UsedFactors = new BitArrayX(inputFactorsCount)
 			};
 
 			var stack = new Stack<DecisionNode>();
@@ -79,12 +82,8 @@ namespace ProblemSets.MachineLearning.RandomForests
 
 		private void SplitNode(DecisionNode node)
 		{
-			var mask = node.Mask;
-
-			var bestEntropy = double.MaxValue;
-			var bestFactor = -1;
-			var bestFactorPresent = true;
-			BitArrayX bestFactorMask = null;
+			var mask = node.SplitMask.Mask;
+			var size = node.SplitMask.Size;
 
 			for (var outputFactor = 0; outputFactor < outputFactorsCount; outputFactor++)
 			{
@@ -101,26 +100,35 @@ namespace ProblemSets.MachineLearning.RandomForests
 					break;
 			}
 
+			var bestInformationGain = double.MinValue;
+			var bestFactor = -1;
+			var bestPresentSplitMask = default(SplitMask);
+			var bestAbsentSplitMask = default(SplitMask);
+
 			for (var inputFactor = 0; inputFactor < inputFactorsCount; inputFactor++)
 			{
-				if (usedAttributes[inputFactor]) continue;
+				if (node.UsedFactors[inputFactor]) continue;
 
-				foreach (var isPresent in isPresentDecisions)
+				var factorPresentMask = new BitArrayX(mask).And(factorPresentMasks[inputFactor]);
+				var factorAbsentMask = new BitArrayX(mask).AndNot(factorPresentMask);	
+
+				var factorPresentEntropy = Entropy(factorPresentMask);
+				var factorAbsentEntropy = Entropy(factorAbsentMask);
+
+				var factorPresentCount = factorPresentMask.CountBitSet();
+				var factorAbsentCount = size - factorPresentCount;
+
+				var informationGain = node.SplitMask.Entropy -
+				                      (factorPresentEntropy * factorPresentCount / size) -
+				                      (factorAbsentEntropy * factorAbsentCount / size);
+
+
+				if (informationGain > bestInformationGain)
 				{
-					var factorMask = new BitArrayX(mask).And((isPresent ? factorPresentMasks : factorAbsentMasks)[inputFactor]);
-
-					if (factorMask.AllZero)
-						continue;
-
-					var entropy = Entropy(output, outputFactorsCount, factorMask);
-
-					if (entropy < bestEntropy)
-					{
-						bestEntropy = entropy;
-						bestFactor = inputFactor;
-						bestFactorPresent = isPresent;
-						bestFactorMask = factorMask;
-					}
+					bestInformationGain = informationGain;
+					bestFactor = inputFactor;
+					bestPresentSplitMask = new SplitMask(factorPresentMask, factorPresentEntropy, factorPresentCount);
+					bestAbsentSplitMask = new SplitMask(factorAbsentMask, factorAbsentEntropy, factorAbsentCount);
 				}
 			}
 
@@ -136,42 +144,41 @@ namespace ProblemSets.MachineLearning.RandomForests
 				return;
 			}
 
-			usedAttributes[bestFactor] = true;
+			var childUsedFactors = new BitArrayX(node.UsedFactors) {[bestFactor] = true};
 
 			node.Factor = bestFactor;
 
-			var factorNode = new DecisionNode
+			node.Present = new DecisionNode
 			{
-				Mask = bestFactorMask,
+				SplitMask = bestPresentSplitMask,
 				Factor = bestFactor,
 				Parent = node,
+				UsedFactors = childUsedFactors,
 			};
 
-			var oppositeFactorNode = new DecisionNode
+			node.Absent = new DecisionNode
 			{
-				Mask = new BitArrayX(mask).And((bestFactorPresent ? factorAbsentMasks : factorPresentMasks)[bestFactor]),
+				SplitMask = bestAbsentSplitMask,
 				Factor = bestFactor,
 				Parent = node,
+				UsedFactors = childUsedFactors,
 			};
-
-			node.Present = bestFactorPresent ? factorNode : oppositeFactorNode;
-			node.Absent = bestFactorPresent ? oppositeFactorNode : factorNode;
 		}
 
-		public static double Entropy(int[] values, int factorsCount, BitArrayX mask)
+		private double Entropy(BitArrayX mask)
 		{
 			var result = 0d;
 
-			for (var factor = 0; factor < factorsCount; factor++)
+			for (var factor = 0; factor < outputFactorsCount; factor++)
 			{
 				var count = 0d;
-				for (var i = 0; i < values.Length; i++)
-					if (mask[i] && values[i] == factor)
+				for (var i = 0; i < output.Length; i++)
+					if (mask[i] && output[i] == factor)
 						count++;
 
 				if (count > 0)
 				{
-					var px = count / values.Length;
+					var px = count / output.Length;
 					result -= px * Math.Log(px, 2);
 				}
 			}

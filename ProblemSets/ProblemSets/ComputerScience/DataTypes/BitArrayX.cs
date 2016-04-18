@@ -1,4 +1,6 @@
 ﻿using System;
+using JetBrains.Annotations;
+using ProblemSets.Services;
 
 namespace ProblemSets.ComputerScience.DataTypes
 {
@@ -98,14 +100,43 @@ namespace ProblemSets.ComputerScience.DataTypes
 			}
 		}
 
+		public int CountBitSet()
+		{
+			var sum = 0;
+			foreach (var i in arr)
+				sum += i.CountBitSet();
+			return sum;
+		}
+
 		public BitArrayX And(BitArrayX value)
 		{
-			if (Length != value.Length)
-				throw new ArgumentException("Lengths are differ");
+			EnsureLength(value);
 
 			var ints = GetArrayLength(Length, 32);
 			for (var i = 0; i < ints; i++)
 				arr[i] &= value.arr[i];
+
+			return this;
+		}
+
+		public BitArrayX AndNot(BitArrayX value)
+		{
+			EnsureLength(value);
+
+			var ints = GetArrayLength(Length, 32);
+			for (var i = 0; i < ints; i++)
+				arr[i] &= ~(value.arr[i]);
+
+			return this;
+		}
+
+		public BitArrayX Xor(BitArrayX value)
+		{
+			EnsureLength(value);
+
+			var ints = GetArrayLength(Length, 32);
+			for (var i = 0; i < ints; i++)
+				arr[i] ^= value.arr[i];
 
 			return this;
 		}
@@ -133,6 +164,13 @@ namespace ProblemSets.ComputerScience.DataTypes
 					return false;
 
 			return true;
+		}
+
+		[AssertionMethod]
+		private void EnsureLength(BitArrayX value)
+		{
+			if (Length != value.Length)
+				throw new ArgumentException("Lengths are differ");
 		}
 	}
 }

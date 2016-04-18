@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ProblemSets.ComputerScience.DataTypes;
 using ProblemSets.MachineLearning.RandomForests;
 
 namespace Tests
@@ -82,15 +81,41 @@ namespace Tests
 		}
 
 		[TestMethod]
+		public void CanGrowComplexTree()
+		{
+			var input = new[]
+			{
+				new[] {"b", "a", "c", "f"},
+				new[] {"b", "a", "d"},
+				new[] {"d", "a", "e"},
+				new[] {"d", "b"},
+				new[] {"d", "c"},
+				new[] {"d", "a", "c", "f"},
+			};
+
+			var output = new[] { "has ab", "has ab", "has ad", "no a", "no a", "has ad" };
+
+			var learner = new ID3Learner<string>(input, output);
+
+			Console.WriteLine(learner);
+
+			Assert.AreEqual("has ab", learner.Predict(new [] { "a", "b" }));
+			Assert.AreEqual("has ab", learner.Predict(new [] { "a", "b", "c", "f" }));
+			Assert.AreEqual("has ad", learner.Predict(new [] { "a", "d", "f" }));
+			Assert.AreEqual("no a", learner.Predict(new [] { "b", "d", "f" }));
+		}
+
+
+		[TestMethod]
 		public void CanGrowTree()
 		{
 			var input = new[]
 			{
-				new[] {"b", "a", "c"},
+				new[] {"b", "a", "c", "f"},
 				new[] {"b", "a", "d"},
 				new[] {"d", "a", "e"},
-				new[] {"d", "b", "e"},
-				new[] {"d", "c", "e"},
+				new[] {"d", "b"},
+				new[] {"d", "c"},
 			};
 
 			var output = new[] {"has a", "has a", "has a", "no a", "no a" };
@@ -132,14 +157,6 @@ namespace Tests
 			var learner = new ID3Learner<string>(input, output);
 
 			Console.WriteLine(learner);
-		}
-
-		[TestMethod]
-		public void EntropyIsCorrect()
-		{
-			AssertHelper.DoubleIsNear(0, ID3LearnerInt.Entropy(new[] {0}, 1, new BitArrayX(1, true)));
-			AssertHelper.DoubleIsNear(1, ID3LearnerInt.Entropy(new[] {0, 0, 1, 1}, 2, new BitArrayX(4, true)));
-			AssertHelper.DoubleIsNear(3, ID3LearnerInt.Entropy(new[] {0, 1, 2, 3, 4, 5, 6, 7}, 8, new BitArrayX(8, true)));
 		}
 	}
 }

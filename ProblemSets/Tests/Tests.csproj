@@ -53,6 +53,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="AssertHelper.cs" />
+    <Compile Include="TestBitHelper.cs" />
     <Compile Include="TestAllPairsShortestPath.cs" />
     <Compile Include="TestBinaryHeap.cs" />
     <Compile Include="TestBitArrayX.cs" />

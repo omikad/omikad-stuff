@@ -36,6 +36,10 @@
     <Reference Include="Combinatorics">
       <HintPath>packages\Combinatorics.1.0.3.2\lib\net40\Combinatorics.dll</HintPath>
     </Reference>
+    <Reference Include="JetBrains.Annotations, Version=10.1.4.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>packages\JetBrains.Annotations.10.1.4\lib\net20\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -98,6 +102,7 @@
     <Compile Include="MachineLearning\RandomForests\ID3Learner.cs" />
     <Compile Include="MachineLearning\RandomForests\DecisionNode.cs" />
     <Compile Include="MachineLearning\RandomForests\ID3LearnerInt.cs" />
+    <Compile Include="MachineLearning\RandomForests\SplitMask.cs" />
     <Compile Include="Problems\AddTwoNumbers.cs" />
     <Compile Include="Problems\CountNumberOf2s.cs" />
     <Compile Include="Problems\CreateMaxRectangleCrossword.cs" />
@@ -135,6 +140,7 @@
     <Compile Include="Problems\SortTwoQueues.cs" />
     <Compile Include="ComputerScience\SubstringContains.cs" />
     <Compile Include="Problems\Co\SplitArrayToMinimalAbsoluteDiff.cs" />
+    <Compile Include="Services\BitHelper.cs" />
     <Compile Include="Services\EnumerableHelper.cs" />
     <Compile Include="Problems\BlockGameOnLumia.cs" />
     <Compile Include="Services\ArrayHelper.cs" />

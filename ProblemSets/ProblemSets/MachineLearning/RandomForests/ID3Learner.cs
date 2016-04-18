@@ -37,6 +37,21 @@ namespace ProblemSets.MachineLearning.RandomForests
 			}
 		}
 
+		public T Predict(T[] input)
+		{
+			var inputFactors = input.Select(i => InputFactors[i]).ToArray();
+
+			var node = Root;
+			while (true)
+			{
+				if (node.IsLeaf) return OutputFactors[node.Factor];
+
+				var isPresent = inputFactors.Contains(node.Factor);
+
+				node = isPresent ? node.Present : node.Absent;
+			}
+		}
+
 		public override string ToString()
 		{
 			if (learner.Root == null) return "Empty tree";
